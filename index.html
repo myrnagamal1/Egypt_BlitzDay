@@ -382,7 +382,7 @@ body{
 }
 .lb-thead{
   display:grid;
-  grid-template-columns:2fr 1.5fr 1.5fr 1.5fr 1fr;
+  grid-template-columns:2fr 1.5fr 1.5fr 1fr;
   background:rgba(0,20,74,0.8);
   padding:14px 20px;gap:8px;
 }
@@ -393,7 +393,7 @@ body{
 .lb-thead span:not(:first-child){text-align:center;}
 .lb-row{
   display:grid;
-  grid-template-columns:2fr 1.5fr 1.5fr 1.5fr 1fr;
+  grid-template-columns:2fr 1.5fr 1.5fr 1fr;
   padding:16px 20px;gap:8px;
   border-top:1px solid rgba(255,255,255,0.05);
   align-items:center;
@@ -902,42 +902,78 @@ footer{
     <div class="lb-table-wrap">
       <div class="lb-thead">
         <span>Partner</span>
-        <span>Contacted</span>
-        <span>Conversations</span>
+        <span>Room</span>
         <span>Leads Qualified</span>
         <span>Target</span>
       </div>
       <div class="lb-row">
         <div class="lb-partner">Solex</div>
-        <div class="lb-val">—</div>
-        <div class="lb-val">—</div>
-        <div class="lb-val">—</div>
+        <div class="lb-val">💡 Design Thinking</div>
+        <div class="lb-val" id="lb-solex-l">—</div>
         <div class="lb-target">5</div>
       </div>
       <div class="lb-row">
         <div class="lb-partner">Edraky</div>
-        <div class="lb-val">—</div>
-        <div class="lb-val">—</div>
-        <div class="lb-val">—</div>
+        <div class="lb-val">🤝 Inclusion</div>
+        <div class="lb-val" id="lb-edraky-l">—</div>
         <div class="lb-target">5</div>
       </div>
       <div class="lb-row">
         <div class="lb-partner">B-Connect</div>
-        <div class="lb-val">—</div>
-        <div class="lb-val">—</div>
-        <div class="lb-val">—</div>
+        <div class="lb-val">🔒 Trust</div>
+        <div class="lb-val" id="lb-bconnect-l">—</div>
         <div class="lb-target">5</div>
       </div>
       <div class="lb-row">
         <div class="lb-partner">Spirit</div>
-        <div class="lb-val">—</div>
-        <div class="lb-val">—</div>
-        <div class="lb-val">—</div>
+        <div class="lb-val">🌐 Cooperation</div>
+        <div class="lb-val" id="lb-spirit-l">—</div>
         <div class="lb-target">5</div>
       </div>
     </div>
 
     <div class="lb-note">🔒 Account names are never shared across partners. Leaderboard shows activity metrics only.</div>
+
+    <!-- Admin update button -->
+    <div style="text-align:center;margin-top:24px;">
+      <button onclick="toggleAdmin()" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3);padding:8px 20px;border-radius:8px;font-size:11px;cursor:pointer;">Update Leaderboard</button>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" style="display:none;margin-top:24px;background:rgba(0,20,74,0.9);border:1px solid rgba(27,144,255,0.3);border-radius:16px;padding:28px;">
+      <div id="admin-login">
+        <p style="font-size:12px;color:var(--blue-light);margin-bottom:12px;font-weight:700;">ADMIN PASSWORD</p>
+        <div style="display:flex;gap:10px;">
+          <input id="admin-pass" type="password" placeholder="Enter password"
+            style="flex:1;padding:10px 14px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:#fff;font-size:14px;outline:none;">
+          <button onclick="checkPass()" style="padding:10px 20px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-weight:800;cursor:pointer;">Go</button>
+        </div>
+      </div>
+      <div id="admin-form" style="display:none;">
+        <p style="font-size:12px;color:var(--gold);margin-bottom:20px;font-weight:800;">UPDATE LEADS QUALIFIED</p>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:12px;">
+          <div style="font-size:11px;color:var(--blue-light);font-weight:700;">PARTNER</div>
+          <div style="font-size:11px;color:var(--blue-light);font-weight:700;text-align:center;">LEADS QUALIFIED</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:10px;align-items:center;">
+          <div style="font-size:13px;font-weight:700;color:#fff;">💡 Solex</div>
+          <input type="number" min="0" max="50" placeholder="0" id="inp-solex-l" style="padding:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:16px;text-align:center;outline:none;font-weight:800;">
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:10px;align-items:center;">
+          <div style="font-size:13px;font-weight:700;color:#fff;">🤝 Edraky</div>
+          <input type="number" min="0" max="50" placeholder="0" id="inp-edraky-l" style="padding:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:16px;text-align:center;outline:none;font-weight:800;">
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:10px;align-items:center;">
+          <div style="font-size:13px;font-weight:700;color:#fff;">🔒 B-Connect</div>
+          <input type="number" min="0" max="50" placeholder="0" id="inp-bconnect-l" style="padding:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:16px;text-align:center;outline:none;font-weight:800;">
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:10px;align-items:center;">
+          <div style="font-size:13px;font-weight:700;color:#fff;">🌐 Spirit</div>
+          <input type="number" min="0" max="50" placeholder="0" id="inp-spirit-l" style="padding:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:16px;text-align:center;outline:none;font-weight:800;">
+        </div>
+        <button onclick="updateLeaderboard()" style="width:100%;padding:12px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-weight:800;font-size:14px;cursor:pointer;margin-top:8px;">Update Leaderboard →</button>
+      </div>
+    </div>
   </div>
   <footer>SAP Egypt · Partner Sales Development · Confidential · July 2025</footer>
 </div>
@@ -1063,11 +1099,50 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-function resetForm() {
-  document.getElementById('lead-form').reset();
-  document.getElementById('form-card').style.display = 'block';
-  document.getElementById('submit-success').style.display = 'none';
+// ── LEADERBOARD ADMIN ─────────────────────────────────────────────────────────
+function toggleAdmin() {
+  const panel = document.getElementById('admin-panel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
 }
+
+function checkPass() {
+  const pass = document.getElementById('admin-pass').value;
+  if (pass === '12345') {
+    document.getElementById('admin-login').style.display = 'none';
+    document.getElementById('admin-form').style.display = 'block';
+    loadSavedData();
+  } else {
+    alert('Wrong password');
+  }
+}
+
+function loadSavedData() {
+  ['solex','edraky','bconnect','spirit'].forEach(function(p) {
+    var saved = localStorage.getItem('lb-'+p+'-l');
+    if (saved) document.getElementById('inp-'+p+'-l').value = saved;
+  });
+}
+
+function updateLeaderboard() {
+  ['solex','edraky','bconnect','spirit'].forEach(function(p) {
+    var val = document.getElementById('inp-'+p+'-l').value || '—';
+    document.getElementById('lb-'+p+'-l').textContent = val;
+    localStorage.setItem('lb-'+p+'-l', val);
+  });
+  document.getElementById('admin-panel').style.display = 'none';
+  document.getElementById('admin-pass').value = '';
+  document.getElementById('admin-login').style.display = 'block';
+  document.getElementById('admin-form').style.display = 'none';
+  alert('Leaderboard updated!');
+}
+
+(function() {
+  ['solex','edraky','bconnect','spirit'].forEach(function(p) {
+    var saved = localStorage.getItem('lb-'+p+'-l');
+    if (saved) document.getElementById('lb-'+p+'-l').textContent = saved;
+  });
+})();
+
 </script>
 <script async src="https://tally.so/widgets/embed.js"></script>
 </body>
