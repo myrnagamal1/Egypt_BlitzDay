@@ -909,25 +909,25 @@ footer{
       <div class="lb-row">
         <div class="lb-partner">Solex</div>
         <div class="lb-val">💡 Design Thinking</div>
-        <div class="lb-val" id="lb-solex-l">—</div>
+        <div class="lb-val" id="lb-solex-l" style="font-size:1.4rem;font-weight:900;color:var(--gold);">1</div>
         <div class="lb-target">5</div>
       </div>
       <div class="lb-row">
         <div class="lb-partner">Edraky</div>
         <div class="lb-val">🤝 Inclusion</div>
-        <div class="lb-val" id="lb-edraky-l">—</div>
+        <div class="lb-val" id="lb-edraky-l" style="font-size:1.4rem;font-weight:900;color:var(--gray);">—</div>
         <div class="lb-target">5</div>
       </div>
       <div class="lb-row">
         <div class="lb-partner">B-Connect</div>
         <div class="lb-val">🔒 Trust</div>
-        <div class="lb-val" id="lb-bconnect-l">—</div>
+        <div class="lb-val" id="lb-bconnect-l" style="font-size:1.4rem;font-weight:900;color:var(--gold);">3</div>
         <div class="lb-target">5</div>
       </div>
       <div class="lb-row">
         <div class="lb-partner">Spirit</div>
         <div class="lb-val">🌐 Cooperation</div>
-        <div class="lb-val" id="lb-spirit-l">—</div>
+        <div class="lb-val" id="lb-spirit-l" style="font-size:1.4rem;font-weight:900;color:var(--gold);">1</div>
         <div class="lb-target">5</div>
       </div>
     </div>
@@ -1100,13 +1100,33 @@ updateCountdown();
 setInterval(updateCountdown, 1000);
 
 // ── LEADERBOARD ADMIN ─────────────────────────────────────────────────────────
+var DB = 'https://sap-blitz-2025-default-rtdb.firebaseio.com';
+
+function loadLeaderboard() {
+  fetch(DB + '/leads.json')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (!d) return;
+      ['solex','edraky','bconnect','spirit'].forEach(function(p){
+        if (d[p] !== undefined) document.getElementById('lb-'+p+'-l').textContent = d[p] || '—';
+      });
+    }).catch(function(){ loadFromLocal(); });
+}
+
+function loadFromLocal() {
+  ['solex','edraky','bconnect','spirit'].forEach(function(p) {
+    var saved = localStorage.getItem('lb-'+p+'-l');
+    if (saved) document.getElementById('lb-'+p+'-l').textContent = saved;
+  });
+}
+
 function toggleAdmin() {
-  const panel = document.getElementById('admin-panel');
+  var panel = document.getElementById('admin-panel');
   panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
 }
 
 function checkPass() {
-  const pass = document.getElementById('admin-pass').value;
+  var pass = document.getElementById('admin-pass').value;
   if (pass === '12345') {
     document.getElementById('admin-login').style.display = 'none';
     document.getElementById('admin-form').style.display = 'block';
@@ -1124,11 +1144,21 @@ function loadSavedData() {
 }
 
 function updateLeaderboard() {
+  var data = {};
   ['solex','edraky','bconnect','spirit'].forEach(function(p) {
-    var val = document.getElementById('inp-'+p+'-l').value || '—';
+    var val = document.getElementById('inp-'+p+'-l').value || '0';
+    data[p] = val;
     document.getElementById('lb-'+p+'-l').textContent = val;
     localStorage.setItem('lb-'+p+'-l', val);
   });
+
+  // Try to save to Firebase
+  fetch(DB + '/leads.json', {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  }).catch(function(){});
+
   document.getElementById('admin-panel').style.display = 'none';
   document.getElementById('admin-pass').value = '';
   document.getElementById('admin-login').style.display = 'block';
@@ -1136,12 +1166,8 @@ function updateLeaderboard() {
   alert('Leaderboard updated!');
 }
 
-(function() {
-  ['solex','edraky','bconnect','spirit'].forEach(function(p) {
-    var saved = localStorage.getItem('lb-'+p+'-l');
-    if (saved) document.getElementById('lb-'+p+'-l').textContent = saved;
-  });
-})();
+loadLeaderboard();
+setInterval(loadLeaderboard, 30000);
 
 </script>
 <script async src="https://tally.so/widgets/embed.js"></script>
