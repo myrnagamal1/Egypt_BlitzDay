@@ -607,6 +607,7 @@
     <li><a href="#submit">Submit Lead</a></li>
     <li><a href="#leaderboard">Leaderboard</a></li>
     <li><a href="#partners">Partners</a></li>
+    <li><a href="#dashboard" style="color:var(--gold);">Dashboard</a></li>
   </ul>
 </nav>
 
@@ -990,7 +991,7 @@
 
 <!-- ══ LEADERBOARD JS ══════════════════════════════════════ -->
 <script>
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyzWrOmYGqSD21jC81pjhfm3ESAlYdJGJIcShgLmILihoO4o8-MYnbaxlEgg6XbVv6SBw/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx44YGVf2h5sbELdZnvtA5APoc3zu9Scom7W7-f6MrGCNsH4b9RI5zSbrOnPfU-DPbEYw/exec';
 const REFRESH_INTERVAL = 60000; // 60 seconds
 
 function loadLeaderboard(manual = false) {
@@ -1060,6 +1061,267 @@ function renderLeaderboard(data) {
 // Initial load + auto-refresh
 loadLeaderboard();
 setInterval(loadLeaderboard, REFRESH_INTERVAL);
+</script>
+
+<!-- ══ DASHBOARD SECTION ══════════════════════════════════════ -->
+<section id="dashboard" style="background:linear-gradient(180deg,#0d1f2f 0%,#091929 100%);padding:80px 20px 100px;">
+<div style="max-width:1100px;margin:0 auto;">
+
+<!-- Password gate -->
+<div id="dash-gate" style="max-width:400px;margin:0 auto;text-align:center;padding:60px 32px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;">
+  <div style="font-size:48px;margin-bottom:16px;">🔐</div>
+  <h2 style="color:#fff;font-size:1.5rem;font-weight:700;margin:0 0 8px;">Manager Dashboard</h2>
+  <p style="color:rgba(255,255,255,0.5);font-size:0.9rem;margin:0 0 28px;">SDEs &amp; Managers only — enter access code</p>
+  <input id="dash-pw-input" type="password" placeholder="Enter password"
+    style="width:100%;box-sizing:border-box;padding:12px 16px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:#fff;font-size:1rem;margin-bottom:12px;outline:none;"
+    onkeydown="if(event.key==='Enter')dashLogin()">
+  <button onclick="dashLogin()"
+    style="width:100%;padding:12px;border-radius:8px;background:var(--teal);color:#fff;font-size:1rem;font-weight:600;border:none;cursor:pointer;">
+    Unlock Dashboard
+  </button>
+  <div id="dash-pw-err" style="color:#f87171;font-size:0.85rem;margin-top:10px;display:none;">Incorrect password.</div>
+</div>
+
+<!-- Dashboard content (hidden until unlocked) -->
+<div id="dash-content" style="display:none;">
+
+  <!-- Header -->
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:40px;">
+    <div>
+      <h2 style="color:#fff;font-size:2rem;font-weight:800;margin:0 0 4px;">Manager Dashboard</h2>
+      <p style="color:rgba(255,255,255,0.45);font-size:0.9rem;margin:0;" id="dash-updated">Loading…</p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <button onclick="loadDashboard(true)" id="dash-refresh-btn"
+        style="padding:9px 18px;border-radius:8px;background:rgba(0,158,167,0.2);color:var(--teal);border:1px solid var(--teal);font-size:0.85rem;font-weight:600;cursor:pointer;">
+        ↻ Refresh
+      </button>
+      <button onclick="dashLogout()"
+        style="padding:9px 18px;border-radius:8px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.12);font-size:0.85rem;cursor:pointer;">
+        Lock
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats cards -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:40px;" id="dash-stats">
+    <div class="dash-stat-card" style="background:rgba(0,158,167,0.12);border:1px solid rgba(0,158,167,0.3);border-radius:14px;padding:22px 20px;">
+      <div style="color:rgba(255,255,255,0.5);font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Total Leads</div>
+      <div id="dash-total" style="color:#fff;font-size:2.2rem;font-weight:800;">—</div>
+    </div>
+    <div class="dash-stat-card" style="background:rgba(255,200,0,0.08);border:1px solid rgba(255,200,0,0.25);border-radius:14px;padding:22px 20px;">
+      <div style="color:rgba(255,255,255,0.5);font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Partners Active</div>
+      <div id="dash-partners" style="color:var(--gold);font-size:2.2rem;font-weight:800;">—</div>
+    </div>
+    <div class="dash-stat-card" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:22px 20px;">
+      <div style="color:rgba(255,255,255,0.5);font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Top Partner</div>
+      <div id="dash-top-partner" style="color:#fff;font-size:1.3rem;font-weight:700;line-height:1.2;margin-top:4px;">—</div>
+    </div>
+    <div class="dash-stat-card" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:22px 20px;">
+      <div style="color:rgba(255,255,255,0.5);font-size:0.78rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">AI Opps Flagged</div>
+      <div id="dash-ai-count" style="color:#a78bfa;font-size:2.2rem;font-weight:800;">—</div>
+    </div>
+  </div>
+
+  <!-- Per-partner breakdown -->
+  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;margin-bottom:32px;">
+    <h3 style="color:#fff;font-size:1.1rem;font-weight:700;margin:0 0 20px;">Partner Breakdown</h3>
+    <div id="dash-partner-bars"></div>
+  </div>
+
+  <!-- Full leads table -->
+  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;overflow:hidden;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+      <h3 style="color:#fff;font-size:1.1rem;font-weight:700;margin:0;">Submitted Leads</h3>
+      <input id="dash-search" type="text" placeholder="Search leads…"
+        oninput="filterLeadsTable()"
+        style="padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.07);color:#fff;font-size:0.85rem;width:220px;outline:none;">
+    </div>
+    <div style="overflow-x:auto;">
+      <table id="dash-table" style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+        <thead id="dash-thead"></thead>
+        <tbody id="dash-tbody"></tbody>
+      </table>
+    </div>
+    <div id="dash-empty" style="text-align:center;padding:48px 20px;color:rgba(255,255,255,0.35);display:none;">No leads submitted yet.</div>
+  </div>
+
+</div><!-- /dash-content -->
+</div>
+</section>
+
+<style>
+#dash-pw-input:focus { border-color:var(--teal)!important; }
+#dash-search:focus { border-color:var(--teal)!important; }
+#dash-table th {
+  background:rgba(0,158,167,0.15);
+  color:rgba(255,255,255,0.7);
+  font-size:0.73rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  padding:10px 12px;
+  text-align:left;
+  white-space:nowrap;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+#dash-table td {
+  padding:10px 12px;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  color:rgba(255,255,255,0.8);
+  vertical-align:top;
+  max-width:200px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+#dash-table tr:hover td { background:rgba(255,255,255,0.04); }
+.dash-partner-row { display:flex;align-items:center;gap:14px;margin-bottom:14px; }
+.dash-partner-label { color:#fff;font-size:0.88rem;font-weight:600;width:110px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+.dash-partner-track { flex:1;height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden; }
+.dash-partner-fill { height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:4px;transition:width 0.6s ease; }
+.dash-partner-count { color:var(--gold);font-weight:700;font-size:0.88rem;width:30px;text-align:right;flex-shrink:0; }
+</style>
+
+<script>
+const DASH_PASS = 'SAP26';
+const DASH_URL = 'https://script.google.com/macros/s/AKfycbx44YGVf2h5sbELdZnvtA5APoc3zu9Scom7W7-f6MrGCNsH4b9RI5zSbrOnPfU-DPbEYw/exec';
+let dashAllRows = [];
+let dashInterval = null;
+
+function dashLogin() {
+  const val = document.getElementById('dash-pw-input').value;
+  if (val === DASH_PASS) {
+    sessionStorage.setItem('dashUnlocked', '1');
+    document.getElementById('dash-gate').style.display = 'none';
+    document.getElementById('dash-content').style.display = 'block';
+    document.getElementById('dash-pw-err').style.display = 'none';
+    loadDashboard();
+    dashInterval = setInterval(loadDashboard, 60000);
+  } else {
+    document.getElementById('dash-pw-err').style.display = 'block';
+  }
+}
+
+function dashLogout() {
+  sessionStorage.removeItem('dashUnlocked');
+  clearInterval(dashInterval);
+  document.getElementById('dash-gate').style.display = 'block';
+  document.getElementById('dash-content').style.display = 'none';
+  document.getElementById('dash-pw-input').value = '';
+}
+
+// Auto-unlock if already authenticated in this session
+if (sessionStorage.getItem('dashUnlocked') === '1') {
+  document.getElementById('dash-gate').style.display = 'none';
+  document.getElementById('dash-content').style.display = 'block';
+  loadDashboard();
+  dashInterval = setInterval(loadDashboard, 60000);
+}
+
+function loadDashboard(manual = false) {
+  fetch(DASH_URL)
+    .then(r => r.json())
+    .then(data => {
+      const lb = data.leaderboard || [];
+      const rows = data.rows || [];
+      dashAllRows = rows;
+
+      // Stats
+      const total = lb.reduce((s, d) => s + d.leads, 0);
+      document.getElementById('dash-total').textContent = total;
+      document.getElementById('dash-partners').textContent = lb.length;
+      document.getElementById('dash-top-partner').textContent = lb.length > 0 ? lb[0].partner : '—';
+
+      // AI count — key has trailing space
+      const aiCount = rows.filter(r => {
+        const v = String(r['AI units to be included in the opp?'] || '').trim().toLowerCase();
+        return v === 'yes';
+      }).length;
+      document.getElementById('dash-ai-count').textContent = aiCount;
+
+      // Updated timestamp
+      const d = new Date(data.updated);
+      document.getElementById('dash-updated').textContent =
+        'Last updated: ' + d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) +
+        (manual ? ' (manual refresh)' : ' · auto-refresh every 60s');
+
+      // Partner bars
+      const maxLeads = lb.length > 0 ? Math.max(...lb.map(d => d.leads), 1) : 1;
+      document.getElementById('dash-partner-bars').innerHTML = lb.length === 0
+        ? '<p style="color:rgba(255,255,255,0.35);font-size:0.85rem;margin:0;">No leads yet.</p>'
+        : lb.map(item => `
+          <div class="dash-partner-row">
+            <div class="dash-partner-label" title="${item.partner}">${item.partner}</div>
+            <div class="dash-partner-track">
+              <div class="dash-partner-fill" style="width:${Math.round((item.leads/maxLeads)*100)}%"></div>
+            </div>
+            <div class="dash-partner-count">${item.leads}</div>
+          </div>`).join('');
+
+      // Leads table
+      renderLeadsTable(rows);
+    })
+    .catch(() => {
+      document.getElementById('dash-updated').textContent = 'Could not load data — retrying…';
+    });
+}
+
+function renderLeadsTable(rows) {
+  const thead = document.getElementById('dash-thead');
+  const tbody = document.getElementById('dash-tbody');
+  const empty = document.getElementById('dash-empty');
+
+  const COLS = [
+    { key: 'Timestamp',                         label: 'Time' },
+    { key: 'Partner Name \n',                   label: 'Partner' },
+    { key: 'Account Name ',                     label: 'Account' },
+    { key: 'Customer Name',                     label: 'Contact' },
+    { key: 'Customer Title',                    label: 'Title' },
+    { key: 'Customer Phone number',             label: 'Phone' },
+    { key: 'Customer Email',                    label: 'Email' },
+    { key: 'Industry',                          label: 'Industry' },
+    { key: 'Solution needed',                   label: 'Solution' },
+    { key: 'AI units to be included in the opp?', label: 'AI?' },
+    { key: 'Agreed Next step',                  label: 'Next Step' },
+    { key: 'Call Summary',                      label: 'Summary' },
+  ];
+
+  if (rows.length === 0) {
+    thead.innerHTML = '';
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  thead.innerHTML = '<tr>' + COLS.map(c => `<th>${c.label}</th>`).join('') + '</tr>';
+
+  tbody.innerHTML = rows.map(row => {
+    return '<tr>' + COLS.map(c => {
+      let val = row[c.key];
+      if (val === null || val === undefined) val = '';
+      if (c.key === 'Timestamp') {
+        try {
+          const d = new Date(val);
+          val = d.toLocaleString('en-GB', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+        } catch(e) {}
+      } else {
+        val = String(val).trim();
+      }
+      const escaped = val.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      return `<td title="${escaped}">${escaped || '—'}</td>`;
+    }).join('') + '</tr>';
+  }).join('');
+}
+
+function filterLeadsTable() {
+  const q = document.getElementById('dash-search').value.toLowerCase();
+  if (!q) { renderLeadsTable(dashAllRows); return; }
+  const filtered = dashAllRows.filter(row =>
+    Object.values(row).some(v => String(v).toLowerCase().includes(q))
+  );
+  renderLeadsTable(filtered);
+}
 </script>
 
 </body>
