@@ -1,1183 +1,985 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SAP Egypt — Net New Accounts Blitz Day</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SAP Egypt Partner Blitz 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@700;800;900&display=swap');
 
-:root {
-  --navy:       #00144A;
-  --navy-mid:   #001F6E;
-  --blue:       #1B90FF;
-  --blue-light: #89D1FF;
-  --blue-sky:   #D1EFFF;
-  --gold:       #F0AB00;
-  --gold-dark:  #C87800;
-  --white:      #FFFFFF;
-  --ink:        #0A0A1A;
-  --gray:       #505060;
-  --gray-light: #E8ECF2;
-  --green:      #00C87A;
-  --red:        #FF4444;
-  --surface:    #F4F7FF;
-}
+  :root {
+    --gold:    #FFC300;
+    --gold2:   #FFD700;
+    --teal:    #009EA7;
+    --teal2:   #00C8D4;
+    --sand:    #F5E6C8;
+    --night:   #070B1A;
+    --night2:  #0D1428;
+    --night3:  #111827;
+    --deep:    #060910;
+    --white:   #FFFFFF;
+    --muted:   rgba(255,255,255,0.55);
+  }
 
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+  * { margin:0; padding:0; box-sizing:border-box; }
 
-body{
-  font-family:'Barlow',sans-serif;
-  background:#0a0a1a;
-  color:#FFFFFF;
-  min-height:100vh;
-  overflow-x:hidden;
-}
+  html { scroll-behavior: smooth; }
 
-/* ── TOPNAV ── */
-#topnav{
-  position:fixed;top:0;left:0;right:0;
-  height:64px;
-  background:rgba(0,20,74,0.96);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(27,144,255,0.2);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 32px;
-  z-index:100;
-}
-.nav-brand{
-  display:flex;align-items:center;gap:10px;
-  font-size:13px;font-weight:800;letter-spacing:1.5px;
-  color:var(--white);text-transform:uppercase;
-}
-.nav-brand .dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--gold);
-}
-.nav-links{display:flex;gap:4px;}
-.nav-link{
-  padding:7px 14px;border-radius:8px;
-  font-size:13px;font-weight:600;
-  color:rgba(255,255,255,0.65);
-  cursor:pointer;border:none;background:transparent;
-  transition:all .18s;
-  text-decoration:none;
-}
-.nav-link:hover{color:var(--white);background:rgba(255,255,255,0.07);}
-.nav-link.active{color:var(--gold);background:rgba(240,171,0,0.12);}
-.nav-cta{
-  padding:8px 18px;border-radius:8px;
-  background:var(--gold);color:var(--navy);
-  font-size:12px;font-weight:800;letter-spacing:.5px;
-  cursor:pointer;border:none;transition:all .18s;
-  text-transform:uppercase;
-}
-.nav-cta:hover{background:#FFD740;transform:translateY(-1px);}
+  body {
+    font-family: 'Sora', 'DM Sans', sans-serif;
+    background: var(--night);
+    color: var(--white);
+    overflow-x: hidden;
+  }
 
-/* ── PAGE SYSTEM ── */
-.page{display:none;padding-top:60px;min-height:100vh;}
-.page.active{display:block;}
+  /* ── HERO ─────────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+    padding: 0 20px;
+  }
 
-/* ══════════════════════════════════════
-   HOME PAGE
-══════════════════════════════════════ */
+  /* Sky gradient */
+  .hero-sky {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      180deg,
+      #020408 0%,
+      #070B1A 30%,
+      #0D1A2E 60%,
+      #1A2A1A 80%,
+      #2C3A18 90%,
+      #3D4A1A 100%
+    );
+    z-index: 0;
+  }
 
-/* Hero */
-.hero{
-  min-height:100vh;
-  background:linear-gradient(135deg,#00144A 0%,#001A60 40%,#002590 100%);
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;
-  padding:80px 24px 60px;
-  position:relative;overflow:hidden;
-}
-.hero::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 60% 50% at 20% 50%,rgba(27,144,255,0.12) 0%,transparent 70%),
-    radial-gradient(ellipse 40% 60% at 80% 30%,rgba(240,171,0,0.08) 0%,transparent 70%);
-  pointer-events:none;
-}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(240,171,0,0.15);
-  border:1px solid rgba(240,171,0,0.3);
-  border-radius:20px;
-  padding:6px 16px;
-  font-size:11px;font-weight:800;letter-spacing:2px;
-  color:var(--gold);text-transform:uppercase;
-  margin-bottom:28px;
-}
-.hero-eyebrow span{width:6px;height:6px;border-radius:50%;background:var(--gold);}
-.hero h1{
-  font-size:clamp(2.8rem,6vw,5.5rem);
-  font-weight:900;line-height:1.0;
-  letter-spacing:-0.03em;
-  color:var(--white);
-  text-wrap:balance;
-  margin-bottom:16px;
-}
-.hero h1 em{
-  font-style:normal;
-  color:var(--gold);
-}
-.hero-sub{
-  font-size:clamp(1rem,2vw,1.35rem);
-  color:var(--blue-light);
-  font-weight:500;
-  margin-bottom:10px;
-}
-.hero-date{
-  font-size:clamp(0.85rem,1.5vw,1rem);
-  color:rgba(200,220,255,0.6);
-  margin-bottom:44px;
-  letter-spacing:.5px;
-}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:60px;}
-.btn-primary{
-  padding:14px 28px;border-radius:10px;
-  background:var(--gold);color:var(--navy);
-  font-size:14px;font-weight:800;
-  border:none;cursor:pointer;
-  transition:all .2s;letter-spacing:.3px;
-}
-.btn-primary:hover{background:#FFD740;transform:translateY(-2px);}
-.btn-ghost{
-  padding:14px 28px;border-radius:10px;
-  background:transparent;color:var(--white);
-  font-size:14px;font-weight:700;
-  border:1px solid rgba(255,255,255,0.25);
-  cursor:pointer;transition:all .2s;
-}
-.btn-ghost:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.4);}
+  /* Stars */
+  .stars {
+    position: absolute; inset: 0; z-index: 1;
+    background-image:
+      radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.9) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 8%,  rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 40% 5%, rgba(255,255,220,1) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 12%, rgba(255,255,255,0.8) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 7%,  rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 85% 4%, rgba(255,255,200,0.9) 0%, transparent 100%),
+      radial-gradient(1px 1px at 95% 18%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 15% 30%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 33% 22%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 25%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 78% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 35%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5%  40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 48% 38%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(2px 2px at 20% 10%, rgba(255,240,180,0.8) 0%, transparent 100%),
+      radial-gradient(2px 2px at 75% 14%, rgba(180,220,255,0.7) 0%, transparent 100%);
+  }
 
-/* Partner logos strip */
-.partners-strip{
-  display:flex;align-items:center;gap:32px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:14px;
-  padding:18px 32px;
-  flex-wrap:wrap;justify-content:center;
-}
-.partners-strip .strip-label{
-  font-size:10px;font-weight:700;letter-spacing:2px;
-  color:rgba(255,255,255,0.35);text-transform:uppercase;
-}
-.partner-name{
-  font-size:14px;font-weight:800;
-  color:rgba(255,255,255,0.7);letter-spacing:.5px;
-}
+  /* Moon */
+  .moon {
+    position: absolute;
+    top: 6%;
+    right: 12%;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #FFFDE0, #FFE97A 40%, #FFB800 80%);
+    box-shadow: 0 0 40px 15px rgba(255,200,0,0.25), 0 0 80px 30px rgba(255,180,0,0.1);
+    z-index: 2;
+  }
 
-/* Stats bar */
-.stats-bar{
-  background:rgba(27,144,255,0.08);
-  border-top:1px solid rgba(27,144,255,0.15);
-  border-bottom:1px solid rgba(27,144,255,0.15);
-  padding:32px 0;
-}
-.stats-bar-inner{
-  max-width:900px;margin:0 auto;
-  display:flex;justify-content:space-around;
-  flex-wrap:wrap;gap:24px;padding:0 24px;
-}
-.stat-item{text-align:center;}
-.stat-item .val{
-  font-size:2.8rem;font-weight:900;
-  color:var(--gold);letter-spacing:-0.02em;line-height:1;
-}
-.stat-item .lbl{
-  font-size:11px;font-weight:600;letter-spacing:1.5px;
-  color:var(--blue-light);text-transform:uppercase;margin-top:4px;
-}
+  /* Pyramids SVG */
+  .pyramids {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    z-index: 3;
+    line-height: 0;
+  }
 
-/* Sections */
-.section{padding:80px 24px;max-width:1040px;margin:0 auto;}
-.section-tag{
-  font-size:11px;font-weight:800;letter-spacing:2.5px;
-  color:var(--blue);text-transform:uppercase;margin-bottom:12px;
-}
-.section-title{
-  font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;
-  color:var(--white);letter-spacing:-0.02em;
-  text-wrap:balance;margin-bottom:12px;
-}
-.section-sub{
-  font-size:1.05rem;color:rgba(200,220,255,0.65);
-  max-width:580px;line-height:1.6;margin-bottom:48px;
-}
+  /* Desert sand ground */
+  .sand-ground {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(180deg, #3D4A1A 0%, #5C5020 40%, #7A6830 100%);
+    z-index: 2;
+  }
 
-/* Why join cards */
-.why-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:16px;
-}
-.why-card{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:14px;padding:28px 24px;
-  transition:all .2s;
-}
-.why-card:hover{
-  background:rgba(27,144,255,0.08);
-  border-color:rgba(27,144,255,0.25);
-  transform:translateY(-3px);
-}
-.why-icon{font-size:2rem;margin-bottom:14px;}
-.why-title{font-size:1rem;font-weight:800;color:var(--white);margin-bottom:8px;}
-.why-desc{font-size:0.82rem;color:rgba(200,220,255,0.6);line-height:1.6;}
+  /* Hero content */
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    margin-top: -80px;
+  }
 
-/* Agenda timeline */
-.agenda-timeline{display:flex;flex-direction:column;gap:0;}
-.agenda-row{
-  display:flex;gap:0;align-items:stretch;
-  padding:0;
-}
-.agenda-row:last-child .agenda-line{display:none;}
-.agenda-time-col{
-  display:flex;flex-direction:column;align-items:center;
-  min-width:90px;padding-top:4px;
-}
-.agenda-time-val{
-  font-size:12px;font-weight:700;color:var(--gold);
-  white-space:nowrap;
-}
-.agenda-dot{
-  width:12px;height:12px;border-radius:50%;
-  background:var(--blue);
-  border:2px solid var(--navy);
-  outline:2px solid var(--blue);
-  margin:6px 0;flex-shrink:0;
-}
-.agenda-dot.gold{background:var(--gold);outline-color:var(--gold);}
-.agenda-dot.red{background:var(--red);outline-color:var(--red);}
-.agenda-dot.green{background:var(--green);outline-color:var(--green);}
-.agenda-line{width:2px;background:rgba(27,144,255,0.2);flex:1;min-height:20px;}
-.agenda-content{
-  flex:1;padding:4px 0 28px 20px;
-}
-.agenda-title{font-size:0.95rem;font-weight:700;color:var(--white);}
-.agenda-desc{font-size:0.78rem;color:rgba(200,220,255,0.55);margin-top:3px;}
+  .sap-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0,158,167,0.15);
+    border: 1px solid rgba(0,158,167,0.4);
+    border-radius: 50px;
+    padding: 8px 22px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--teal2);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    backdrop-filter: blur(10px);
+  }
 
-/* CTA band */
-.cta-band{
-  background:linear-gradient(135deg,rgba(27,144,255,0.15) 0%,rgba(240,171,0,0.1) 100%);
-  border:1px solid rgba(27,144,255,0.2);
-  border-radius:20px;
-  padding:48px 40px;
-  text-align:center;
-  margin:0 24px 80px;
-  max-width:960px;
-  margin-left:auto;margin-right:auto;
-}
-.cta-band h2{
-  font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;
-  color:var(--white);margin-bottom:12px;letter-spacing:-0.02em;
-}
-.cta-band p{font-size:0.95rem;color:var(--blue-light);margin-bottom:28px;}
+  .hero h1 {
+    font-size: clamp(42px, 7vw, 86px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
+    text-wrap: balance;
+  }
 
-/* ══════════════════════════════════════
-   RULES PAGE
-══════════════════════════════════════ */
-.rules-hero{
-  background:linear-gradient(160deg,#00144A 0%,#001A60 100%);
-  padding:60px 24px 48px;text-align:center;
-}
-.rules-hero h1{
-  font-size:clamp(2rem,4vw,3.2rem);font-weight:900;
-  color:var(--white);letter-spacing:-0.02em;
-  margin-bottom:10px;
-}
-.rules-hero p{font-size:1rem;color:var(--blue-light);}
+  .hero h1 .line1 { color: var(--white); }
+  .hero h1 .line2 { color: var(--gold); }
+  .hero h1 .line3 { color: var(--teal2); }
 
-.rules-body{max-width:800px;margin:0 auto;padding:60px 24px;}
+  .hero-sub {
+    font-size: clamp(15px, 2vw, 19px);
+    color: var(--sand);
+    margin: 20px 0 36px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
 
-.rule-block{
-  display:flex;gap:20px;align-items:flex-start;
-  padding:28px;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.07);
-  border-radius:14px;
-  margin-bottom:14px;
-  transition:all .2s;
-}
-.rule-block:hover{background:rgba(27,144,255,0.07);border-color:rgba(27,144,255,0.2);}
-.rule-num-badge{
-  width:40px;height:40px;min-width:40px;
-  background:var(--blue);border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1rem;font-weight:900;color:var(--white);
-}
-.rule-text-title{font-size:1rem;font-weight:800;color:var(--white);margin-bottom:6px;}
-.rule-text-desc{font-size:0.82rem;color:rgba(200,220,255,0.6);line-height:1.6;}
+  .hero-dates {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 44px;
+  }
 
-.qualification-box{
-  background:rgba(240,171,0,0.08);
-  border:1px solid rgba(240,171,0,0.25);
-  border-radius:16px;padding:32px;margin-bottom:48px;
-}
-.qualification-box h3{
-  font-size:1.1rem;font-weight:800;color:var(--gold);margin-bottom:20px;
-}
-.bant-row{
-  display:flex;gap:16px;align-items:flex-start;
-  padding:14px 0;
-  border-top:1px solid rgba(255,255,255,0.06);
-}
-.bant-letter{
-  width:36px;height:36px;min-width:36px;
-  background:var(--gold);border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1rem;font-weight:900;color:var(--navy);
-}
-.bant-label{font-size:0.9rem;font-weight:700;color:var(--white);}
-.bant-detail{font-size:0.75rem;color:rgba(200,220,255,0.55);margin-top:2px;}
+  .date-pill {
+    background: rgba(255,195,0,0.12);
+    border: 1.5px solid rgba(255,195,0,0.5);
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(8px);
+  }
 
-.warning-block{
-  background:rgba(255,68,68,0.08);
-  border:1px solid rgba(255,68,68,0.25);
-  border-radius:12px;padding:20px 24px;
-  font-size:0.85rem;color:var(--white);
-  display:flex;gap:12px;align-items:center;
-}
-.warning-block .wi{font-size:1.4rem;}
+  .date-pill span { font-weight: 400; color: var(--sand); margin-right: 8px; }
 
-/* ══════════════════════════════════════
-   LEADERBOARD PAGE
-══════════════════════════════════════ */
-.lb-hero{
-  background:linear-gradient(160deg,#00144A 0%,#001A60 100%);
-  padding:60px 24px 48px;text-align:center;
-}
-.lb-hero h1{
-  font-size:clamp(2rem,4vw,3.2rem);font-weight:900;
-  color:var(--white);letter-spacing:-0.02em;margin-bottom:10px;
-}
-.lb-hero p{font-size:1rem;color:var(--blue-light);}
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #FFC300, #FFD700);
+    color: #1A1200;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 16px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 8px 32px rgba(255,195,0,0.35);
+    letter-spacing: 0.3px;
+  }
+  .hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(255,195,0,0.5);
+  }
 
-.lb-body{max-width:860px;margin:0 auto;padding:60px 24px;}
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .scroll-hint .arrow {
+    width: 20px; height: 20px;
+    border-right: 2px solid rgba(255,255,255,0.3);
+    border-bottom: 2px solid rgba(255,255,255,0.3);
+    transform: rotate(45deg);
+    animation: nudge 2s cubic-bezier(0.22,1,0.36,1) infinite;
+  }
+  @keyframes nudge {
+    0%,100% { transform: rotate(45deg) translateY(0); }
+    55%      { transform: rotate(45deg) translateY(6px); }
+  }
 
-.lb-status-bar{
-  display:flex;gap:12px;align-items:center;justify-content:center;
-  margin-bottom:32px;flex-wrap:wrap;
-}
-.lb-status-chip{
-  display:flex;align-items:center;gap:6px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:20px;padding:6px 14px;
-  font-size:11px;font-weight:700;letter-spacing:.5px;
-}
-.lb-status-chip.live .dot{background:var(--green);}
-.lb-status-chip .dot{width:7px;height:7px;border-radius:50%;background:var(--gray);}
+  /* ── STATS BAR ────────────────────────────────────────── */
+  .stats-bar {
+    background: linear-gradient(135deg, #0D1428, #111827);
+    border-top: 1px solid rgba(255,195,0,0.2);
+    border-bottom: 1px solid rgba(0,158,167,0.2);
+    padding: 40px 20px;
+  }
+  .stats-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+  .stat-item {
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 48px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #FFC300, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
 
-.lb-table-wrap{
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.07);
-  border-radius:16px;overflow:hidden;
-  margin-bottom:24px;
-}
-.lb-thead{
-  display:grid;
-  grid-template-columns:2fr 1.5fr 1.5fr 1fr;
-  background:rgba(0,20,74,0.8);
-  padding:14px 20px;gap:8px;
-}
-.lb-thead span{
-  font-size:10px;font-weight:800;letter-spacing:1.5px;
-  color:rgba(200,220,255,0.5);text-transform:uppercase;
-}
-.lb-thead span:not(:first-child){text-align:center;}
-.lb-row{
-  display:grid;
-  grid-template-columns:2fr 1.5fr 1.5fr 1fr;
-  padding:16px 20px;gap:8px;
-  border-top:1px solid rgba(255,255,255,0.05);
-  align-items:center;
-  transition:background .15s;
-}
-.lb-row:hover{background:rgba(27,144,255,0.06);}
-.lb-partner{font-size:0.9rem;font-weight:700;color:var(--white);}
-.lb-val{
-  font-size:0.9rem;font-weight:600;
-  color:rgba(200,220,255,0.4);
-  text-align:center;
-}
-.lb-target{
-  font-size:0.9rem;font-weight:800;
-  color:var(--green);text-align:center;
-}
-.lb-note{
-  background:rgba(27,144,255,0.06);
-  border:1px solid rgba(27,144,255,0.12);
-  border-radius:10px;padding:14px 18px;
-  font-size:0.78rem;color:rgba(200,220,255,0.55);
-  text-align:center;
-}
+  /* ── SECTION BASE ─────────────────────────────────────── */
+  section {
+    padding: 80px 20px;
+  }
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal2);
+    background: rgba(0,200,212,0.1);
+    border: 1px solid rgba(0,200,212,0.25);
+    border-radius: 20px;
+    padding: 5px 16px;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+  }
+  .section-title .gold { color: var(--gold); }
+  .section-desc {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
 
-/* Countdown */
-.countdown-wrap{
-  text-align:center;margin-bottom:48px;
-  padding:32px;
-  background:rgba(240,171,0,0.06);
-  border:1px solid rgba(240,171,0,0.15);
-  border-radius:16px;
-}
-.countdown-label{
-  font-size:11px;font-weight:800;letter-spacing:2px;
-  color:var(--gold);text-transform:uppercase;margin-bottom:16px;
-}
-.countdown-digits{
-  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
-}
-.cd-unit{text-align:center;}
-.cd-num{
-  font-size:2.8rem;font-weight:900;color:var(--white);
-  letter-spacing:-0.03em;line-height:1;
-}
-.cd-lbl{font-size:10px;color:rgba(255,255,255,0.4);margin-top:4px;letter-spacing:1px;}
-.cd-sep{font-size:2rem;font-weight:900;color:rgba(240,171,0,0.4);align-self:flex-start;padding-top:4px;}
+  /* ── AGENDA ───────────────────────────────────────────── */
+  .agenda-section { background: var(--night2); }
 
-/* ══════════════════════════════════════
-   PARTNERS PAGE
-══════════════════════════════════════ */
-.partners-hero{
-  background:linear-gradient(160deg,#00144A 0%,#001A60 100%);
-  padding:60px 24px 48px;text-align:center;
-}
-.partners-hero h1{
-  font-size:clamp(2rem,4vw,3.2rem);font-weight:900;
-  color:var(--white);letter-spacing:-0.02em;margin-bottom:10px;
-}
-.partners-hero p{font-size:1rem;color:var(--blue-light);}
+  .agenda-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  @media(max-width:720px) { .agenda-grid { grid-template-columns: 1fr; } }
 
-.partners-body{max-width:960px;margin:0 auto;padding:60px 24px;}
+  .agenda-day {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .agenda-day-header {
+    padding: 20px 28px;
+    background: linear-gradient(135deg, rgba(255,195,0,0.12), rgba(0,158,167,0.1));
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .day-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #FFC300, #FFD700);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .day-num { font-size: 18px; font-weight: 800; }
+  .day-date { font-size: 13px; color: var(--muted); margin-top: 2px; }
 
-.partner-cards-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-  gap:16px;margin-bottom:48px;
-}
-.p-card{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:16px;padding:32px 20px;
-  text-align:center;
-  transition:all .2s;
-}
-.p-card:hover{
-  background:rgba(27,144,255,0.08);
-  border-color:rgba(27,144,255,0.25);
-  transform:translateY(-4px);
-}
-.p-card img{height:36px;object-fit:contain;margin-bottom:16px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.3));}
-.p-card .pn{font-size:1.1rem;font-weight:800;color:var(--white);margin-bottom:10px;}
-.p-card .goal-num{
-  font-size:3rem;font-weight:900;color:var(--blue);
-  line-height:1;margin-bottom:4px;
-}
-.p-card .goal-lbl{font-size:0.7rem;color:rgba(200,220,255,0.5);letter-spacing:1px;}
-.p-card .badge{
-  display:inline-block;
-  background:rgba(27,144,255,0.15);
-  color:var(--blue-light);
-  font-size:0.6rem;font-weight:700;
-  padding:4px 10px;border-radius:20px;
-  margin-top:12px;letter-spacing:.5px;
-}
+  .agenda-items { padding: 20px 28px; display: flex; flex-direction: column; gap: 12px; }
+  .agenda-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.04);
+    box-shadow: inset 0 0 0 1px rgba(0,200,212,0.15);
+    transition: background 0.2s;
+  }
+  .agenda-item.special { box-shadow: inset 0 0 0 1px rgba(255,195,0,0.25); background: rgba(255,195,0,0.06); }
+  .agenda-item:hover { background: rgba(255,255,255,0.07); }
+  .agenda-time {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--teal2);
+    white-space: nowrap;
+    min-width: 110px;
+  }
+  .agenda-item.special .agenda-time { color: var(--gold); }
+  .agenda-label { font-size: 14px; font-weight: 500; }
+  .agenda-item.special .agenda-label { color: var(--gold); font-weight: 700; }
 
-.excl-box{
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:16px;padding:32px;
-}
-.excl-box h3{
-  font-size:1rem;font-weight:800;color:var(--white);
-  margin-bottom:20px;display:flex;align-items:center;gap:8px;
-}
-.excl-rule{
-  display:flex;gap:12px;align-items:flex-start;
-  padding:12px 0;border-top:1px solid rgba(255,255,255,0.05);
-  font-size:0.82rem;color:rgba(200,220,255,0.6);line-height:1.5;
-}
-.excl-rule .bullet{
-  width:20px;height:20px;min-width:20px;
-  background:rgba(27,144,255,0.2);
-  border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:0.65rem;font-weight:800;color:var(--blue);
-  margin-top:1px;
-}
+  /* ── FORM SECTION ─────────────────────────────────────── */
+  .form-section { background: var(--night); }
 
-/* ══════════════════════════════════════
-   SUBMIT PAGE
-══════════════════════════════════════ */
-.submit-hero{
-  background:linear-gradient(160deg,#00144A 0%,#001A60 100%);
-  padding:60px 24px 48px;text-align:center;
-}
-.submit-hero h1{
-  font-size:clamp(2rem,4vw,3.2rem);font-weight:900;
-  color:var(--white);letter-spacing:-0.02em;margin-bottom:10px;
-}
-.submit-hero p{font-size:1rem;color:var(--blue-light);}
+  .form-wrapper {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+  }
+  .form-wrapper iframe {
+    width: 100%;
+    height: 900px;
+    border: none;
+    display: block;
+    background: white;
+  }
 
-.submit-body{max-width:680px;margin:0 auto;padding:60px 24px;}
+  /* ── LEADERBOARD ──────────────────────────────────────── */
+  .lb-section {
+    background: linear-gradient(180deg, var(--night2) 0%, var(--night) 100%);
+    position: relative;
+    overflow: hidden;
+  }
 
-.form-card{
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:20px;padding:40px 36px;
-}
-.form-group{margin-bottom:20px;}
-.form-label{
-  display:block;font-size:11px;font-weight:700;
-  letter-spacing:1px;color:rgba(200,220,255,0.6);
-  text-transform:uppercase;margin-bottom:8px;
-}
-.form-input,.form-select,.form-textarea{
-  width:100%;padding:12px 16px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:10px;
-  color:var(--white);font-size:14px;
-  font-family:'Barlow',sans-serif;
-  outline:none;transition:all .18s;
-}
-.form-input:focus,.form-select:focus,.form-textarea:focus{
-  border-color:var(--blue);
-  background:rgba(27,144,255,0.06);
-  box-shadow:0 0 0 3px rgba(27,144,255,0.12);
-}
-.form-select option{background:#001A60;color:var(--white);}
-.form-textarea{resize:vertical;min-height:100px;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.form-submit{
-  width:100%;padding:14px;
-  background:var(--gold);color:var(--navy);
-  font-size:14px;font-weight:800;
-  border:none;border-radius:10px;
-  cursor:pointer;transition:all .2s;
-  margin-top:8px;letter-spacing:.3px;
-}
-.form-submit:hover{background:#FFD740;transform:translateY(-1px);}
-.form-note{
-  font-size:0.72rem;color:rgba(200,220,255,0.4);
-  text-align:center;margin-top:14px;line-height:1.5;
-}
+  /* Decorative pyramid silhouette behind leaderboard */
+  .lb-pyramid-bg {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    z-index: 0;
+    opacity: 0.04;
+    pointer-events: none;
+  }
 
-.submit-success{
-  display:none;text-align:center;padding:48px 24px;
-}
-.submit-success .check{font-size:3.5rem;margin-bottom:16px;}
-.submit-success h3{font-size:1.4rem;font-weight:800;color:var(--white);margin-bottom:8px;}
-.submit-success p{font-size:0.88rem;color:var(--blue-light);}
+  .lb-inner { position: relative; z-index: 1; }
 
-/* ── FOOTER ── */
-footer{
-  background:rgba(0,20,74,0.8);
-  border-top:1px solid rgba(27,144,255,0.12);
-  padding:24px;text-align:center;
-  font-size:11px;color:rgba(200,220,255,0.3);
-  letter-spacing:.5px;
-}
+  .lb-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
 
-/* ── REDUCED MOTION ── */
-@media(prefers-reduced-motion:reduce){
-  *{transition:none !important;animation:none !important;}
-}
+  .refresh-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,158,167,0.15);
+    border: 1.5px solid rgba(0,200,212,0.35);
+    color: var(--teal2);
+    font-family: 'Sora', 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 22px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .refresh-btn:hover { background: rgba(0,158,167,0.28); }
+  .refresh-btn .spin { display: inline-block; }
+  .refresh-btn.loading .spin { animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── RESPONSIVE ── */
-@media(max-width:640px){
-  #topnav{padding:0 16px;}
-  .nav-links{display:none;}
-  .form-row{grid-template-columns:1fr;}
-  .lb-thead,.lb-row{grid-template-columns:1.5fr 1fr 1fr 1fr;}
-  .lb-thead span:nth-child(3),.lb-row .lb-val:nth-child(3){display:none;}
-}
+  .lb-updated {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .lb-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+  }
+
+  .lb-table thead th {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 20px 8px;
+    text-align: left;
+  }
+  .lb-table thead th:last-child { text-align: center; }
+
+  .lb-row {
+    background: rgba(255,255,255,0.04);
+    border-radius: 14px;
+    transition: all 0.3s;
+  }
+  .lb-row:hover { background: rgba(255,255,255,0.08); transform: translateX(4px); }
+
+  .lb-row td {
+    padding: 18px 20px;
+    vertical-align: middle;
+  }
+  .lb-row td:first-child { border-radius: 14px 0 0 14px; }
+  .lb-row td:last-child  { border-radius: 0 14px 14px 0; text-align: center; }
+
+  /* Rank medals */
+  .rank-badge {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+  }
+  .rank-1 { background: linear-gradient(135deg, #FFD700, #FFA500); color: #5A3A00; }
+  .rank-2 { background: linear-gradient(135deg, #E8E8E8, #B0B0B0); color: #3A3A3A; }
+  .rank-3 { background: linear-gradient(135deg, #CD7F32, #A05020); color: #FFF; }
+  .rank-n { background: rgba(255,255,255,0.08); color: var(--muted); font-size: 14px; }
+
+  .lb-row.rank-1-row { background: rgba(255,195,0,0.08); border: 1px solid rgba(255,195,0,0.2); }
+  .lb-row.rank-2-row { background: rgba(200,200,200,0.06); }
+  .lb-row.rank-3-row { background: rgba(180,100,30,0.06); }
+
+  .partner-name { font-size: 16px; font-weight: 700; }
+  .partner-country { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .leads-count {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .leads-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .progress-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 6px;
+    min-width: 120px;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--teal), var(--teal2));
+    width: 100%;
+    transform-origin: left center;
+    transition: transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  }
+  .rank-1-row .progress-fill { background: linear-gradient(90deg, #FFA500, #FFD700); }
+
+  .lb-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .lb-empty .icon { font-size: 48px; margin-bottom: 16px; }
+
+  /* ── PARTNERS ─────────────────────────────────────────── */
+  .partners-section { background: var(--night2); }
+
+  .partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+  }
+  .partner-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 20px 16px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    transition: all 0.25s;
+    cursor: default;
+  }
+  .partner-card:hover {
+    background: rgba(0,158,167,0.12);
+    border-color: rgba(0,200,212,0.35);
+    transform: translateY(-3px);
+    color: var(--teal2);
+  }
+  .partner-card .p-icon { font-size: 24px; margin-bottom: 8px; }
+
+  /* ── FOOTER ───────────────────────────────────────────── */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 36px 20px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  footer strong { color: var(--gold); }
+
+  /* ── NAV ──────────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(7,11,26,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+  }
+  .nav-logo .sap-box {
+    background: #009EA7;
+    color: white;
+    font-size: 13px;
+    font-weight: 900;
+    padding: 4px 8px;
+    border-radius: 5px;
+    letter-spacing: 1px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  @media(max-width:600px) { .nav-links { display: none; } nav { padding: 14px 20px; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
 </style>
 </head>
 <body>
 
-<!-- TOPNAV -->
-<nav id="topnav">
-  <div class="nav-brand">
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAgAElEQVR4nO3de3yU1b3v8e/IJQmSCwn3JBDudwMqqNRuGRQBqYp4qbpPq9SNrdpWu089umt37WW33d3W3aq17S57t1bPPlZtFXuOtQKCbZGrWiJyFQRJQgBJ8mSCJNw654+ZhAC5zCQz86w16/N+vZZATDJrnnlmft9nrfU8TyAcDgsAALjlHL87AAAAUo8AAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiou98d6KzA0prJkn7kdz8AAE7wJC0MX5nv+d2RRLE2ACisPEkz/O4GACDteZKC4dnpU/wliwNAQGG/uwAASH+epODfZhds9LsjiWZtAFCYAAAASCpPCgT/Nif9ir9kcQAIUP8BAMnjSQqenJuexV+yOAAwAgAASJJI8b+qX9oWf8niABDwuwMAgLQTdqT4SxYHAEYAAAAJ5gWk4Il5/dO++EtWBwC/OwAASCOepOCJT7lR/CWLA0CAEQAAQGJ4koLHrx7gTPGXuBQwAMBtThZ/iREAAIC7vLAUPH7NQOeKv2RxAGARIACgCyJH/tcOcrL4S1YHAL87AACwlCcpeGy+u8VfsjgAcB0AAEAneJKCRx0v/pLFAYApAABAnCLF/7rBzhd/iQAAAHBDpPgvKKT4R1kbAJgCAADEyJMUbKT4n8baAMAIAAAgBpHif30Rxf8M1gYAbgcMAOiAF5aCjTdQ/FtjbQBgBAAA0I7Ikf+NxRT/NnApYABAuvEkBRso/u2ydgSASwEDAFrhSQoeuWkIxb8D1gYArgQIADiDpwDFP1bWBgBGAAAALXiSgh9/eijFP0asAQAA2C5S/G+m+MfD2hEAzgIAAKip+N9SQvGPk7UBgOsAAIDzvHCA4t9Z1gYAVgECgNOiR/7DKP6dZG8AoP4DgKs8ScHDf0/x7wprA0CABAAALvIkBev/fjjFv4usDQDUfwBwTqT4/w+KfyJYHABIAADgkEjx/8wIin+CWBsAOAsAAJzhSQqGPkvxTyRrAwBzAADghGjxH0nxTzBrAwAjAACQ9rywFAzdRvFPBmsDQDqsAbh0YFbz3z85sFdMP/Ph4ePae/i4JKnu2N+0qeZoUvoGAD6LHPnfPorinyT2BgBLDOndQ5PyM3RefoYm5fdUbs9upxX+RFm1v6H5T+/YSW2qOapNNUdVd+xvCX8sAEgyT1KwjuKfVNYGAFOnAIb07q55Q3rr0kFZmpSfoSG9e6TkcZtCxZnhommUYFPNUW2qPtr893R16cAsXToottGUVPjZ5lpjQlgyt03d0ZMp2a8Y9Up/4abiv5Din2zWBgCTpgAuHdRL84acq3lDe6es4Mcqt+c5kQ/+FsGg7tjftGr/EW2qPqpV+xu0quqIjz1MrLsm5GnekN5+d6NZ3dGT+tnmWr+7ISkSAB6cnO93NxKqaZSr7thJbao+2hwQ9h4+rr31x/3uHuLnBQIKegtHU/xTwN4A4PNZAEN699BdE/oYWfQ7ktvzHM0b0vu0QvnKh4e1av8Rrao6Yu0R1pDePYwq/pJ066gc/Wxzjd/dSFuT8jOa/97aa79q/xHtrT/ePPKVTmE3DXmSgt7CMRT/FLE2APg1BXDrqFzdMirHqGHmRJg3tLfmDY18gO49fFyvfHhYb1Yd0SsfHva5Z7H7lGHFX4oUqKHn9mheuOmngN8d8MGlA3tJA0//2qqqI3ozOvJFIDCGJylYewfFP5UCYYOG0uPR57+2z5C0MlWPd+uoXD1wfoF1R/tdVXfsb3rlw3r94cPDxoeBsk8PN/L1+dnmWn1t7UG/u6EHpxTogfP7+t0No9i0f6cxir9PrB0BSNUagFtH5+qB8/saWVhSIbfnObp1VK5uHZUbGRnYc1g/31xj3PzqpIJMY1+jeUN762trDvjdDbSi5f7dFAZ+/l6tNlU3+t01V0SK/z+Mpfj7wNoAkOwpgIkFmfreJf3Tbqi/K4b07qG7JvbRXRP7aFXVET27o07P7qjzu1uSpLsm9PG7C20a0ruH5g3N1h/21PvdFbSjZRjYVH1UP3+vxpj9O0154QDF30/n+N2BzgsnrT1wQV/9eUEJxb8dlw7qpScvG6Tdt43SAxf0VW7Pc5TM16SjdlWJefP/LUXWV/i3faSw3+tmrTKpIENPXjZIG28eoVtG58j31y79mieFKf4+szcAJGGfnJSfoT8tGMY8aRxye3bTA+f31e7bRuvJywZHhuFT/Flyy6hc5fbslqJn3DlXlfRWbo9z/P3MjfwHcRiS3UNPXjZYG28eGTkg8L1upkXzFFawZtE4ir/PLJ4CSOyH2S1j8vTd6QOMLyQmu2V0rm4ZnavPvFae0uHueSXZKXuszsrt2U3zSrL17HbP766gE4Zk99DvPzVUf9hTr6+t3q9yw9bAWMQLBxSsuXM8xd8A9o4AJNBPZgzWT2YMpvgnQN2xk3pzX+pOrRqS3UNXWRAAJPneTxdPA0y0q0qy9acbhvv+WlrKkyj+JrF2BCARZwHkZnTTT4KFvJkT6KE396vu6ImUPZ5Nr91VJdka0ru7f2dQMAOQELk9u+mZ2cV6drunL66s9Ls7tvAkBau/MIHibxBrRwACXWx5Pbvp99eUWFVATPfeoUb9ZrvX5dcmnvaFSQUpenaJcVVJTkq3T8uGxLplTJ7+dOMI5fXs5ttraknzAhR/I1kbABQOd7rl9jxHL19TookFmX4/i7Ty0JtVXXpd4m0TCzJVnG3muf9t+cJ5BSndRqc1hgASbmJBpl6+piS6+NWn19Xs5ims4CGKv5EsDgCdb08ECzWxL8U/kX6zzdOblR936XWJt9l29C9Jxdk9IsEzhdvptIaEm9g3UytvHKEh2T39e13NbJ6k4KG7KP6msjYAdHY46iczi3TVsBw/upy26o6e1L9tOJDyocW5w+ycvrllbB/fhmORHLkZ3fT0nCFMB5xqXkAKHrprIsXfYNYGgM4MR908Jk83j83zu+dp5xfvVqs8dKxTr0ln281j8pSbYedZGzePyUvptmpuSKqJfTO1ZP4wf15bs5qncDj40d0Uf9NZHADia8XZPfUvlw7yqbPpq7z+mP5j46G4X4+uNptHcXIzumnusJyUbzOFU/P8XDaxb6aeuLzIn9fWjOZJCn50zySKvwWsPQ0wEOen2ROXF1l7xGiyR9YfUOjoiZQOLxfn9NTc4fYGACkyDfDHD1J9nXkSQCrcPLaPXv0gpFdT/vr6zgsrQPG3iLUBIJ7Psjsn99UnCs9NXl8ctbryY/1mS23KH3euxUf/TeYOz1Fuz26qO3rS764gCR6/vEgXVhx26fWNHPl/ieJvE3unAGKUm3GO7p82wO9upKVH1u335XE/X5oe92qwfRQDbcvN6KbvfHKw391IFU9S8OCXzqP4W8baEYBY7wVwZ2k/hv6T4LmtNVpdcTjlK8sn9MtScU7PFD9qctxZ2lfPbalJ3QMyA5BSN4/r0/w+SWNeOKDgwS+VUvwtlNYjALkZ3XTn5PQ4WjRJ3dGTemTdAV8e+/Np9HpOTHGY4TTA1Lv/orQefYwe+VP8bWVvAIjhdJQ7J/fl6D8JFm/8SOV1R2N6DRLd5gzP9fvpJ9TN4/qkbvsxBJBy0wt7a3rhub68V1Jxqt+BL1P8bWZtAIjlYhSfHpfvW//SVXnomH7xzke+XFzk5nH5aRfoPj0uP2Xbj/rvj/svGuj3RXkSux9Fj/wP3DuZ4m85a9cAqIM1AHNH5KXNXLFJvvGnCoVSeLe/luaOSK+jfylySuP0wt5aXVHvd1eQJNOLeqs4u0fkYln28wIKBPffR/FPBxYHgPb/9xxLisXqisPa/FGD6o6e1OryjovAxH5ZysmMvGzTi3qf9meyra44rFd3+nNuc3FOT2te03h9enx+TK897HXnlP765zcq/O5GV3kKiOKfRuwNAB0w+Wjxuc3V+uOuOr26K/5i2taK4tyMbprQL0vTi3prYr8sTS/OVk6Ch8u/4eMHmMmvZ1fNHZGre1PxQDGeOZNs5aFjem5zdVw/0xR8i3N6WjmyN2dEru0BwJMU3H/fFIp/GrE2ALR3GuCEflkJL36JsPidg/rhmiqFohcHSeSq7FDjCa0pr9eaFkeSE6JBYM7IvC6PEjy3uVqbDx7xbSX5ovP7+/TIyZeT0U03j8+PuyjGy5SzAMpDx/Tomqou/Y7pxdnNgXfOSPPv71Gc01MT+2Zq80cNfnelMzxJwap/PJ/in2asDQDtmV5s1l3iykPHtPDlXSl/82/+qEGbP2rQ4ncOKiejm+aOzNOcEblxf2CGjp709eg/nc79b8ucEblJDwDpZHV5vVaX15+2by86v78m9Mvyu2ttmjsyz8YAQPFPY/YGgHZGAFI1Jx6LzQePaMHzO5qP+v0Sajyh5947pOfeO6Ti3AzNGZGrRRcMiKmwLn7noEKN/iz8k9L76L/JnJGRRavldUf97kryNZ+WmBgt9+05I/P07WCxkYHxkqLexkzDxMhTIEDxT2NpeRrghP69fOzZ6e7744eqP3rS91N3WraKuqP6z3cO6qLFm3TD8zv0x51em/0vDx3To6v3+drfuRYM8SbC3BG5yT19y5Dak8zn+NpOT7Oe3qLnDRxNmV6c7ft7P47mBTjyT3vWBoD2bklpSvp/PjpvbsAtOttsq/fW63NLdumixZu0+O0DZ41UPLyi3Nf+3TShwMj1HMlw04SC5G5PUxKAlNTnGWo8qfte3aP7/rgnhU8oNtOLevv+no+heQoruO9/XkDxT3P2BoA29lxTir8k/fH9Wvn9To61ldcd1cMryzXtF+/q0dX7FDp6UmvK6/XHnf4+BxsWeCXKhP69onPYydqeJkn+vvP8e4ciAdYgkdFJ/9/v7TRPCgf3fZXi7wKL1wC0/mWTAkCo8aR5n7sdCDWe1KNv7tOjb+5TcW6Gr/0vzs1wKgBI0k0TC/TwiiN+dyP5UrRfLX77gC4pztacUWbsRxP69TL5M8GTFNx3/4UUf0dYOwIQULjVZtK7KzejW5v9tKFV1DX6+vhzRqbvuf9tmTMyL3nb1Jy3Rkr3o6+8+oHvi3CbFOf29P193UbzAgpT/B1jbQCQBaOcs0flGTCiZ2/7hwvS+k5qrYqMevRJzjY1SQr3o1DjSf3nW/7cvfJME/r38v191UrzFFaw8v6pFH/H2BsA2mLQB91NE/vqEsOuSWCLCf17RaYgHDQ7acPVhrw5fOjG85s+Sv2DtsLABa2epGDl/6L4u8jaABAIh1tvfnfsDL9cMEoT+2W13V9aq83Fo/8mN03sq9ye5yR8m5ok1ftTRd3RyBk5BjDo88BTOEzxd5i1AcCWoc6cjG564dZxpg79GdvmjO7T2U2eFuaMSvNpAB/2qdd21KbmuXUgJ6O77+8vNQ37PzCN4u8wewNAm0z6lItoCgE3Terrd1escNOkvr4Plfq9aOzGtN5X/HmPmjICYMBnlCcpWPEgxd91FgcA0w9xTpeT0U3/Pm+4/uv6USrO7Sm/47/JbfYof4/+K+qO6vl3/Z0zvmRIThL2E5Okfr/y83LWZ/Pt/eVJYYo/JFkcAALh1ptZb/KzzR7VR68tnKR/vLSozefgcivOydBsn4f/1+wNae3ekK99kKQbJ/VL6LY1iR/71pYDH/v9tCVFFrj69P7yFFaw4sGLKP6QZHEAaL6hyBlty34z3uTtycnspn+8tFBr7p4cGept47m42Pw++pek17bX6rXtNZELOfnopgTvG0YtBPRh3wo1mHFwkJvRzY/n7ykcDlb8E8Ufp9gbANpRYckd1YpyM/TvnxqhNfdM0R1TBykn094LMybKP0wb6OvjhxpP6rUdNZLU/KdfinIzNGHAub72IZ04/P7yJAXLv3YxxR+nsTYAtHcnq3LPjgDQpCg3Q9+cNVRr7p6ib84qUXFuRrvPL13bhAHnqsjnc/9f21HT3J+1H/o/DXDH1IEJ277GCPu0fxl0l9BUPWdR/NEOawNAe8NdJszfdkZOZjfdMXWgVt8zRc///XjdOKlfZDW8AUPzqWh3TPX36F+Slm6vae6P3yMAkjR7dH7itrEhApIv+1fApIWQqXnOXiBM8UfbLA4Abbe1e+r87FlCXDw0R49ePUKr75miR68eGS0ESuvm9+I/SXpte01zf0INJyL/9lFOZrfEvvam8GH/uniIGfeWWLunLhXP11NYwb0PUfzRNnsDQDvWGDB0myg5md1143n9tPjGMXrvq1P16DUjNXtMvt/dSrgbS/v5PkfbWrFfasAowA3n9UvQbzIpAaTe+AHmTAEkmScpuPfrl1D80S5rV8V0NJy3dHuNrkyzQtkUBm48r59CjSf02o4aLd0eababPdr/12rp9pqz9isTRpNmj8lXbkY3hY6asYo9EVI9HJ+T0d2o4Jys5x9uLv7TKf7okL0jAB0Mgfk9dJtskTDQX4tvHKtNX52mR68eqSstnSYoys0wIqwtbTH839QqvKNGnD9+Q2m/Lm9n0xYCprKZsH81qfAakzbsHwhT/BE7ewNAB5Zurzb+okCJkpPZXTeU9tfim8Zq0/3T9Og1I436wOuICX1dur2mzf3lhbKDKe7N2W4s7d/1X2LMDEDqO/KVvytO+WO2pSI5Zyl5koIf/jPFH7Gzdgqgo1XNoYYT+m3ZQX3uosEp6pAZmsLADaX9FWqMbIMXyg4afYGkO6b5/xqt2VPX5j5lwjTA+AHnqii3Z7KKR+ql8KyEz100WEV5ZtxausI7moznHin+3/gExR9xsXYEIJZzYH+5dp9v/TNBTmZ3fe6iwXr1zsl69c7JurG0v3Izuvt+vv9Z5/4b8OG8bFt1m33cuv9jIwrvHRcN5joAcbYJA87VVy4z6ei/MSnn+VP80RnWBoBYzoOt8Br14z/t9bunRhg/8Fz98NpRWnXvBfrGlcMiF9wx4Nx/E0Zotuz/ODov23Y/l26r9rubunJMQde2tzlzACnZt8YPOFe/uW2i72eXtLRl/8eJfI5eIEzxR+fZGwBi9Mu1+5xZCxCLnMzu+tzFg7Xq3gv1w2tHa/xAfy81e+VY/+f/f7vxQMffU9bx9yRbUV6Grhxb0PlfYFD9T7bxA80r/pISORXnSQrueZjij86zNwDEuDI21HBCX13yvm/dNNkNk/vrD5+fot/cNkkXD82NeZsmqt1QOsCID+il285e/X9m21L1sRFBMjIKoM41kyRxv7rvsiH6w+enGLFvnSlBFwHyFFZwz8OXUvzRJdYGgHjmyZZtqzZiCNdUF5fk6je3T9IP549WUV7q7kNgwtH/lv0fqzLGeVkT9qErx+YrJ7Ob3WsAlJz96YbJ/bXqvqm6b8aQlD6XWFV4jTHvax3N+e/5JsUfXWdtAIh3vuz+l3ZE5nnRppYfoMm+B0FRbheHsxNk7R4v5j4v2+p/AMjJ7K7ZYzu3FsCoEJCg/ejikhz985xh+st9FzYHWFOtbTrTpCtz/gpT/JEw5o2RJUmo8YQ+/+wWPbvwPCOHBk1y74whun5yf93/0o6knQJnQvGXpN/9Nfa5fRNGACTp+skD9Ns4+t3MtGmAOFxcErmOf1Fepor6ZOqiktzmr9miiwHSkxTc/c1PUvyRMPZWwk58mG2p+li3/PJdvXL3+YnvT5opysvUswvP0y/XVOqxlXsTPv+98BL/V/9XeI3aUhXfoqylW6t15Th/w8vFJbkqys3oxKmJZiSAi0tytftbn/S7GykVajyhpZ0PAJHi/22KPxLL2imAgMKdalv3H9b9L233u/vW+NwlhXrl7ikaP/DcTm/zM9v4geeqKC/T76emZVur4+77sm2H/O62JOnKcQVx9x3+6cy+FnnNwp4UpvgjKawNAF1ZRfu7dw7o8/9nsxGrum1QlJepZz93nq6fPKCrq5elcCRUmGDZ1uq4+75sixnTAAsvKYx/28M3v/vrgc68V7yAFNz97b+j+CMp7A0AXbRsa7Vu/WUZISBGOZnd9ciCMbp35tAu/65ZPg+hS5Eh2bW7vU793LpO/FyiFeVlavwgf6/hgNhUeI2d2dc8ScEPKP5IIosDQNcPRbdUHdannnxbW6oOp777lro3OFSPLBitzm7z66eYce7/sq2H1Nnn0IW53IS6fsoAxdV3RgF88diKDxXnPuZJ4eAH36H4I7msDQCBcGJaZW2jbv2vMv1qdYXfT8ka108ZqEcWjOnU9vZ7AV2TZVuqO73PRMKD/66fMjCufiP1KrxGvfjO/thfo+hFfj74zmUUfySdtQEgkeobT+hf/rBLX/hv1gXE6vopA3XvzJK4fqaoT6ZmjeubnA7FIdR4oktFvLK2UVsNGDXKyewe1/Y06joAjnh8xYfxfLsXkIIf/AvFH6lhbwBIwsVplm35SJc9slbLtphxhGe6L88cGhmGjnH7zjLk3P91H8R+8Z+2WmfWDyRDPNufOYDUWrfb0+/eror19fEUDgd3UfyRQvYGgCQJNZ7QF/77Pd36nxtVUcuVAzvy9XkjNW5Q75i+9/bpRUnuTWwSMYT/u3f2J6AnXTdrfF8j1lTgbN95ZWes3+pJCu767gyKP1KKANCGdbs9XfbDtXr89T1MC7QjJ7O7Hrl+bIffN25QbxX18f/cf0kJGeHZWnXYmIA4a3yM0wAMAKTM46/viXWaiOIP31gbAALhcEra46/v1ox/W0MQaMe4Qb1178ySdrfjQlOO/rccUn3D8YTsG8sNmSpaOL0opv4iNbZWHdbjr++O5TXxFKb4wz/WBoBUCjWeIAh04PZPFLV7hB/zUWqSLd/yUcJ+17rdtQn7XV1h0uiK60KNJ3TX/94Uy7dGjvy/R/GHf+wNAOHUt1DDCT2+fLdm/IAgcKaczO768sxhrW63688faMw89bLNhxK2PyzbfMiYfeD26cUd9xlJd9czm1RR09jRa+EprODO7wUp/vCVvQHAR6HGSBA4/1t/0QO/3WrEKWEmWHDBwFaPRK8Y38+H3pxta9XhhBfs5ZsTN6LQFbGNsJACkumB326NnGHSPk9ScOf3Kf7wn70BoIuncSWq/e6tKl392Hpd/fh6vfh2lTFHhH65/RNFp22forwMY4b/4zglK+ZmyimjhX0yddGwvA7663cv09cDL2zV797qcP/ypDDFH8awNgAEDGvb9h3WAy9sVfAHq/XAC1sTOtdskwUXDDptu8yaYMbRvxQ5Wk/0677+AzPWAUjS9RcM7LC/SLwHXtiqF9+u6mjbewEpuPP7Myn+MIa1AcBUoYYTevHtKt319CbN+MFqfff/ve/UFEFOZndd0aLo3/6JYh97c8rWqsOqTMJpe6GGE8aEvSsMCluuaCr+HfAkBd//V4o/zEIASKLK2kY9tapc1zy2PhIG/u8Obd1X73e3kq5pyH/coN4qNGR1ejLn6pcZsg4gJ7O7FlwwyO9uOCHUcELXPLae4g+rmbE0uzMsO6+5sqZBT60q11OryiPztcP7aNaEfml51HbF+H5SeItuv9SMo38pWqSTtM+s22XONMCs8X314lv7/O5GWlv3Qa3ufvpdhRo6XO8TKf4/uJziDyPZGwAsVlnbqBffrtKLb1c1D5lfNLyPrpjQTzlZ9r8kOVndNW5wtjGr/ytrG5M68tL0+8cNzk7aY8Tqign9VNQns/WrFNqVmY0TajihJ5Z/oKdWlcfy7RR/GM/aapMutzetbzihl96q0ktvRYYSr5jQTwsuHGT9yMDXrx5lTJhZvvmjpO8vL75VpYeu8T8ASJERmF+3WqTS5E3jg/Uf1OqB57aosrYxlsWUnqTgjn+j+MNsZnxCd0p6fpgt33xQyzcfVE5Wd10xob9uu7TYiCPLeE0b3sfvLjSbNjxPt11arOWbP1JlbUNCf3fT6zRrojmBbcGFg/TrVXv97kZaqKxt1IPPb45nmida/K+g+MN4gbBlc+lNRt+/fIaklX73IxXGDc7WbZ8cogUXssCrqyprG7VuV6227qvXtkaFSLEAABIzSURBVH31cc/fjxucrcL8yBqOaSP6GBvOrv3RurOmPb505XB9adZwn3pkl8raRj2x9IN411N4ClD8YQ+LRwDcsXVfvR58brOeWPqBvnTlcIJAFxT2yYxuv1PbMNRwQttaFMtQ4wmFGk6cdlXDwvwsY85oiMWCCwfpu79P/zNOEm355o/067/s7czCTo78YR0CgEUqaxv04HOb9eu/7NVD14zWtBHmDLPbLCere9pty+suHKzv/n6H392wwtZ99XrprSotf+9gZ2/xHCn+j1D8YRdrA0AgTdcAxGLbvpA+8/O39KVZI/TFKxnSxdlysrpr1oR+Wr75YPPX0mXhbCKs31Wr5e8dPGtdSCeuluhJCm5/ZBbFH9axNgA4XP+bPbF0lypqG/Svn57gd1dgoCsm9tPy9w52/I1prmmKZ/2uWq3bVaP1ibtuQ6T4/5DiDzvZGwAgSXppw77mRYJAS9ddOFjfe3l7LBessV5lbYMqayLD9+t31SrUcLx5oWeSnj/FH9azNwAwAtDsJ6/t0nUXDjbmvHuY4/IJ/fXShqaV7Ga8abbuq9f3lmzv8u9J4JF8vCLF/1GKP+xmccUw48PMBKGG43ppQ6Vu+7uhfncFhlkwdbBe2lDpdzdOU99wQut31fjdjc6KFv8rKf6wnrUBgFubnm6bAzcZQvymjeijovwsVdYk9gJIXWXp+9cLU/yRRuy9G2CY1rLVH0n/eV50znUXDj61r5jCgPdMnM1TmOKP9GJvAEiQwvwsbfjuTOuHz8cWmnlFOvjvuqmD/e7CGUxKIjHxJAW3/TvFH+nF4gCQmFj/xdnDlZ3VXf80f4xe//onNW1kn4T97lS2cQQAtKEwP0vjCnv73Y0z+P+eibF5Upjij7RkbwBIwHu7sE+Wrpta2PwrC/Oz9PTdU/X03VM1bUS+AZ89sT+Pyyf27/o2Rdr6rEkjXAa8Z2Js0SP/2RR/pCV7A0ACfHH2iFa/Pm1kvp6+Z6qevmeqpo3MT3Gv4mf79AWS74qJA/zugm0o/kh7zp4FUJifpeumFbb7PdNG5uvpkflav7NGT762S+t3mnfq0tjCbH32MgIA2ped1d2otQCGnwXgSQpu/RHFH+nN2gAQGaPrvHvaOPpvzbSR+Zo2Ml+VNQ168rWdWr7poOobjnfp8RNhbGGOnr5nmt/dgCUK87P87kILXXv/JlG0+M+h+CPt2RsAuvD5EcvRf1s/971bJumf5p/Q8k0HtGR9pW+jAtNG5usnd5yvbK7+BxuZWf8jxf/HFH+4wcnqcc+ckV36+eys7rpuWqGum1aoypoGrd9Zo9c3HdTrmw4kqIdtK8zP0j1zRnYqwABoE8UfznEuAHT26L+j39f0O9fvrNG2ynqt31mjypoGbasMJeQxLp80QJdP6m/FokTAMhR/OMneANDJIcSuHv13pGm9QMuFeZU1DaqsaVB9w4mYA8HYwhxlZ3Wn4CM9mTMFECn+j1H84R5rA0CgE58giT76j+dxmxZgXT6J8/WBzrx/k8ALS8Gtj82l+MNJTl0H4J65o/zuAuA8Q04BjB75U/zhLmtHAOI9gCjMz9J8Fs4BZvB3AMCTFNzyOMUfbnNmBICjfwCi+APN7B0BiOMQojC/l+ZfxNE/YA5fhgA8KUDxB6KcGAG4Z25yV/4DMB5H/sAZ7A0Acdwpb/5FRb51E8m14f0abavo+rUWki1yGqj/l482gh939QsruOXxqyj+QAvWTgHEupL4nquY+09n//riFm2rCKkwP0tTRxVo6qh8XX7eAGVn9fC7a9rwfo027KzW6+8e0LaKkD4zo0QPXj/e724ZIYVnAniSgpufoPgDZ7I2AMSiMJ+j/3RWWdPQfPRfWdOgynUVWrKuQg9JzYFgbFGOxhbmaGxRdlJDwbaKkLZVhqJ/1mvD+9Vnfc+Kdw8QAFKL4g+0I60DwN0c/ae1Fe+2fe+FpkCgdae+lp3VQ2OLcpST1V1ji3IkSWMKc5QTRzDYsDNS2CurI1d33Fd9RJU1DTH9bFNgaXpsJBXFH+iAvQEg3P4q4sICjv7T3ZK15R3uBy3VHzmmDTsOSZJeL9ufrG61a8W7BwgACsf1unVCpPj/ZB7FH2iHvYsAO3D3VaP97gKSqOXwv01ef9ef4OEQij8Qo7QMABz9p7/W5thtsK0iFPOUAeJG8QfikJYBgKP/9LfCpyH8RLC57waj+ANxsjYABMKttyJW/qe9+objWlF2oM19wPT28toKvzeh7xK8Tb1AmOIPxMvaANCW0JHjfMAmSH3Dcf30Dzv87sZZVpS1vfrfBtsqQtpXzTRAgniSgu89SfEH4mVxAGj9kl/1Dcf10DMbdcP3/2ztPLEJtlWEdMP3/6LC/F5+d+UskYV0qb+cXCIbiwETsh09KUzxBzrJ4gDQvm0VIS388Rot/PEagkCcnlm5Wzd8/88KHTmumaUD/O7OaSLD//YXT/bJLose+X+K4g90ksXXAYjt2zbsqNbCHWs0dXSBPhMcppmlA5PbL4vtq27QQ89s1IYdkeJ0+XkDjbikbksryg74fS/5hFixcb/qG44bt31TpmuvYaT4/5TiD3SFvQEgTht2VGvDjmoVFvTS3fNGa2apGdeLN8VPX9mhZ1bsPu2GNddeYt5iSr8u4JMMK8oO6NqLzdvGhqP4AwniTABoUll9RA89vVHZWT00/5IifSY4XIMLsvzulm9eXluhn76yQ5XVR077emFBL00dVeBTr1qXLsP/TV4v208AiA/FH0gg5wJAk/qG43pmxW49s2K3xhbl6DMzhzs1KrDh/Wr99JUdzcP9ZzKxMNm++v9MK8ocnwaID8UfSDCLA0DiJoK3VdTpoaf/Kkm6vHSgZkZbOn4wv7y2vNUj/jPNNzAAvF5WpbRYANDCirL9uvbiYr+7kVrh5v/EKlr8r6b4AwlkbQAIJKkOrNi4Xys2RoaZZ5YO1NTRBZpZOlCDC8w7HS5W2ypCenlNuV5eU948x9/e/dinji4w7vnWNxzXyo37U3kf+ZTYsKPavQCguN6/nqTgpp9R/IFEszYApMKKsv1aUbZfP3hhswYX9GoOBFNHFxg/OrCtIqSVZfu1YmNV3DfNMbEgNYWydLNi437ps373wlgUfyCJAuHk3pYzaSbd9X9nSFrp1+MPLuilqaMLNLYoR2OKcjV1tL8L5vZVH4mc6fB+5GyHfR0M8bdnbFGOsnuZFXAqqxu69JxMZuL2Tqb6I8djCaUUfyDJCAAJNLiglwoLsjR1dF9lZ3XXmKJcSUpoONhXfUSV1Q3aXlHX/Oe28tBpp+8BlqP4AynAFEAC7as+0nwk3pqmgHD2106fb99WXndWQW/rdwJphuIPpIi9AcDCgYt9h45o36Ezh7Ep7ECUpwDFH0gVewOAjQkAQFs8KUDxB1IobW8GBMAakWH/n1P8gVQiAADwU7T4X0PxB1LM2imAdLsgDOAgL0zxB3zDCAAAP3DkD/iMAAAg1TxJwXcp/oCvrJ0C4CQAwEqR4v8fFH/Ab4wAAEgVij9gEHtHABgCAGziSQGKP2AQiwMAAEv4cuRfumjJfEnXSpocbS3tkfSGpD9JWlK2eL6Xyr4BJrD2ZkDnff7lGTLsZkAAzhIt/temrPiXLlryLUlflpQX4494kh6X9COCAFxCAACQLCkt/qWLlkyW9CudfbS/RNK7Z3ztPEkzdHpI2CNpYdni+W8kp4eAWZgCAJAMqS7+t0v6kU4VdE/SV9TB8H705x6WVBJtK0sXLVlYtnj+U8nrLWAGe0cA7mQEADBUpPj/ImXFf4ZO/yxYosiRfEzD+aWLluQpEh5ub/FlQgDSHgEAQCKluviXSPqrTh35P1W2eP7C6NcXtvOjf5W0sWzx/D0tftd9igQBKfo8yhbP56wFpC2mAAAkSkqLf9SvdKr4LylbPL+p6JdI+kZHP1y6aMkbkq4rWzzfK1s8/8eli5aUKjIS0DQqEEx0hwFTcCEgAImQ8uIfHfqf0eLx2zri36PIKX9NrWUfZ0h6qcW/vxL9fkmaET2VEEhLBAAAXeXHkb8k3dbi74+3M+f/dNni+cEWbYqkYTq90JdIUvR3fKuNxwDSirUBIECj0UxoXsCf4i9JLY/OfxXPD0bn/p9u8aWSFn9fokiokaT50UWCQNqxNgAAMEKwzIfiHx3+byrMpy3m66roKMAbLb505nUFgLRAAADQWQv9KP5RJS3+/ka8Pxy9aNBnW3xpzxnf0vLCQcF4fz9gA4vPArDz9EUgTSws+4Wv58kPa/H3UAff+9nSRUv+rsW/S3TGkH8rIwi7O90zwBIWBwAAPvG7+MerRKcX/JaeUmTl/5n2JKcrgDkIAADiYVvxlyJTBH+O/v0bLb52XTtnDjDsj7RnbwBgBgBINZMuj7tSp4r5eR1875/LFs9/WJJKFy1R9OdmKLK47402fianxd+ZDkBaYhEggFiYVPyl04fo41ml/6MWP/urdk7xm9Hi71wOGGmJAACgI6YV/6bz+PdE/1kSPS0wlp9rukugFFkXcNb8f/SiQE2hwuN+AEhXBAAA7TGu+LfQ8kI+D8f6Q2WL5y/RqaH/b0RPCWyp5e96qlM9AyxAAADQFpOLvxQZzm9axBfvdfsXtvh781UEo2Hg9hb/77FO9w4wHAEAQGtML/6tXbf/V60czbf1s3skfTv6z8mli5Z8K7oeoOWNgb6dyCsMAqYJhMN2LqePzvmt9LsfQBoyvvi3VLpoyUqdWrS3R5HT++Kat48W/5U6Nfe/MXrTICBtMQIAoCWrin/UdTq1Ur9E0srSRUvui/WHo1MHu9Wi+IvrAMABjAAAaGJj8ZfUfAT/kk4/fW+PInP4Z13qN/r98xW53W/Ln9koKdjOBYKAtEEAACBZXPxbKl205FuSvqxTdwps6Y3on5Pb+P/fbrpgEOACpgAApEXxl6RoAR+myAK/PWf87xnR1rL4e4qc6jeM4g/X2DwCMFmR04AAdN6v06X4tyb6OTFDUh9FLhmcp1P3BVhZtnj+G/70DPCftQEAAAB0HlMAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAgwgAAAA4iAAAAICDCAAAADiIAAAAgIMIAAAAOIgAAACAg/4/uSWoDQGd6KQAAAAASUVORK5CYII=" alt="SAP" style="height:44px;object-fit:contain;">
-    <span class="dot"></span>SAP Egypt · Blitz Day
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <span class="sap-box">SAP</span>
+    Egypt Partner Blitz <span style="color:var(--gold);margin-left:6px;">2026</span>
   </div>
-  <div class="nav-links">
-    <button class="nav-link active" data-page="home">Home</button>
-    <button class="nav-link" data-page="rules">Rules</button>
-    <button class="nav-link" data-page="leaderboard">Leaderboard</button>
-    <button class="nav-link" data-page="partners">Partners</button>
-    <button class="nav-link" data-page="submit">Submit Lead</button>
-  </div>
-  <button class="nav-cta" data-page="submit">Submit Lead →</button>
+  <ul class="nav-links">
+    <li><a href="#agenda">Agenda</a></li>
+    <li><a href="#submit">Submit Lead</a></li>
+    <li><a href="#leaderboard">Leaderboard</a></li>
+    <li><a href="#partners">Partners</a></li>
+  </ul>
 </nav>
 
-<!-- Hidden static form for Netlify crawler detection -->
-<form name="blitz-leads" data-netlify="true" netlify-honeypot="bot-field" hidden>
-  <input type="hidden" name="form-name" value="blitz-leads">
-  <input name="partner">
-  <input name="account-name">
-  <input name="contact-name">
-  <input name="contact-title">
-  <input name="contact-email">
-  <input name="contact-phone">
-  <input name="industry">
-  <input name="8c-criterion">
-  <input name="next-step">
-  <textarea name="notes"></textarea>
-</form>
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-sky"></div>
+  <div class="stars"></div>
+  <div class="moon"></div>
 
-<!-- ══════════════════════════════════════
-     HOME PAGE
-══════════════════════════════════════ -->
-<div class="page active" id="page-home">
+  <!-- Pyramids SVG -->
+  <div class="pyramids">
+    <svg viewBox="0 0 1920 320" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg" width="100%">
+      <!-- Stars/sand dust -->
+      <defs>
+        <linearGradient id="pyr1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#8B7355" stop-opacity="0.95"/>
+          <stop offset="100%" stop-color="#5C4A2A" stop-opacity="1"/>
+        </linearGradient>
+        <linearGradient id="pyr2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7A6340" stop-opacity="0.85"/>
+          <stop offset="100%" stop-color="#4A3820" stop-opacity="1"/>
+        </linearGradient>
+        <linearGradient id="pyr3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#6B5535" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="#3A2C18" stop-opacity="1"/>
+        </linearGradient>
+        <linearGradient id="sand" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#6B5A30"/>
+          <stop offset="100%" stop-color="#3D3018"/>
+        </linearGradient>
+        <!-- Highlight on left face -->
+        <linearGradient id="pyr1h" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#C4A96B" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#8B7355" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="pyr2h" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#B09050" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#7A6340" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-eyebrow"><span></span>Monday · July 21, 2025 · SAP Egypt</div>
-    <h1>Net New Accounts<br><em>Blitz Day</em></h1>
-    <div class="hero-sub">One day. Four partners. Twenty qualified leads.</div>
-    <div class="hero-date">10:00 AM – 5:00 PM &nbsp;·&nbsp; Cairo &nbsp;·&nbsp; Cross-Industry Sprint</div>
-    <div class="hero-actions">
-      <button class="btn-primary" data-page="submit">Submit a Lead &rarr;</button>
-      <button class="btn-ghost" data-page="rules">Read the Rules</button>
-    </div>
-    <div class="partners-strip">
-      <span class="strip-label">Competing Partners</span>
-      <span class="partner-name">Solex</span>
-      <span style="color:rgba(255,255,255,0.15)">·</span>
-      <span class="partner-name">Edraky</span>
-      <span style="color:rgba(255,255,255,0.15)">·</span>
-      <span class="partner-name">B-Connect</span>
-      <span style="color:rgba(255,255,255,0.15)">·</span>
-      <span class="partner-name">Spirit</span>
-    </div>
-  </section>
+      <!-- Ground / sand dunes -->
+      <path d="M0 260 Q200 230 400 250 Q600 270 800 245 Q1000 220 1200 240 Q1400 260 1600 245 Q1750 235 1920 250 L1920 320 L0 320 Z" fill="url(#sand)"/>
 
-  <!-- Stats -->
-  <div class="stats-bar">
-    <div class="stats-bar-inner">
-      <div class="stat-item"><div class="val">4</div><div class="lbl">Partners Competing</div></div>
-      <div class="stat-item"><div class="val">200</div><div class="lbl">Target Accounts</div></div>
-      <div class="stat-item"><div class="val">20</div><div class="lbl">Leads Goal</div></div>
-      <div class="stat-item"><div class="val">7h</div><div class="lbl">Sprint Duration</div></div>
-      <div class="stat-item"><div class="val">5</div><div class="lbl">Leads Per Partner</div></div>
-    </div>
+      <!-- Far small pyramid (right) -->
+      <polygon points="1480,210 1580,300 1380,300" fill="url(#pyr3)"/>
+      <!-- Highlight -->
+      <polygon points="1480,210 1480,300 1380,300" fill="url(#pyr2h)" opacity="0.4"/>
+
+      <!-- Medium pyramid (left-center) -->
+      <polygon points="520,140 680,300 360,300" fill="url(#pyr2)"/>
+      <!-- Highlight -->
+      <polygon points="520,140 520,300 360,300" fill="url(#pyr1h)" opacity="0.5"/>
+      <!-- Stone lines -->
+      <line x1="360" y1="300" x2="520" y2="140" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
+      <line x1="410" y1="261" x2="520" y2="140" stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+      <line x1="460" y1="222" x2="520" y2="140" stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+
+      <!-- MAIN big pyramid (center) -->
+      <polygon points="850,40 1120,300 580,300" fill="url(#pyr1)"/>
+      <!-- Highlight left face -->
+      <polygon points="850,40 850,300 580,300" fill="url(#pyr1h)" opacity="0.6"/>
+      <!-- Stone texture lines -->
+      <line x1="580" y1="300" x2="850" y2="40"  stroke="rgba(0,0,0,0.12)" stroke-width="0.8"/>
+      <line x1="650" y1="245" x2="850" y2="40"  stroke="rgba(0,0,0,0.08)" stroke-width="0.6"/>
+      <line x1="720" y1="190" x2="850" y2="40"  stroke="rgba(0,0,0,0.08)" stroke-width="0.6"/>
+      <line x1="790" y1="135" x2="850" y2="40"  stroke="rgba(0,0,0,0.07)" stroke-width="0.5"/>
+      <!-- Capstone gold glow -->
+      <circle cx="850" cy="40" r="6" fill="#FFD700" opacity="0.8"/>
+      <circle cx="850" cy="40" r="14" fill="#FFD700" opacity="0.15"/>
+
+      <!-- Tiny sphinx silhouette -->
+      <path d="M1200 290 L1210 270 L1230 265 L1250 268 L1265 265 Q1270 262 1275 265 L1285 290 Z" fill="#4A3820" opacity="0.8"/>
+      <ellipse cx="1250" cy="262" rx="16" ry="12" fill="#4A3820" opacity="0.8"/>
+      <!-- Sand dunes foreground -->
+      <path d="M0 290 Q300 270 500 280 Q700 290 900 278 Q1100 266 1300 275 Q1500 284 1700 272 Q1810 265 1920 272 L1920 320 L0 320Z" fill="#4A3820" opacity="0.9"/>
+    </svg>
   </div>
 
-  <!-- Why join -->
-  <div class="section">
-    <div class="section-tag">Why Participate</div>
-    <h2 class="section-title">Win the Day. Build the Pipeline.</h2>
-    <p class="section-sub">This isn't a regular prospecting day. It's a structured, competitive sprint designed to generate real pipeline — fast.</p>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-icon">🏆</div>
-        <div class="why-title">Compete & Win</div>
-        <div class="why-desc">Real-time leaderboard. Top partner gets public recognition across the SAP Egypt partner ecosystem.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🎯</div>
-        <div class="why-title">Pre-Qualified Accounts</div>
-        <div class="why-desc">Your 50 accounts are SAP-approved before the day starts. No time wasted on research — just outreach.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">⚡</div>
-        <div class="why-title">Structured Momentum</div>
-        <div class="why-desc">Midday coaching check-ins, energy updates, and a final push session keep the team at peak performance all day.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">📈</div>
-        <div class="why-title">Real Pipeline</div>
-        <div class="why-desc">Every qualified lead feeds directly into SAP Egypt pipeline. Immediate opportunity assignment after the day ends.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🔒</div>
-        <div class="why-title">Account Exclusivity</div>
-        <div class="why-desc">Your account list is confidential. No overlap shared across partners — first submission wins.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🤝</div>
-        <div class="why-title">SAP-Backed</div>
-        <div class="why-desc">Full support from the SAP Egypt SDE team. Templates, coaching, and opportunity routing included.</div>
-      </div>
+  <!-- Content -->
+  <div class="hero-content">
+    <div class="sap-badge">
+      <span>🇪🇬</span> SAP Egypt Partner Ecosystem
+    </div>
+    <h1>
+      <div class="line1">Partner</div>
+      <div class="line2">Pipeline Blitz</div>
+      <div class="line3">Egypt 2026</div>
+    </h1>
+    <p class="hero-sub">Two days of focused pipeline generation across Egypt's top SAP partners</p>
+    <div class="hero-dates">
+      <div class="date-pill"><span>Day 1</span>Sunday, October 5th — Bootcamp</div>
+      <div class="date-pill"><span>Day 2</span>Monday, October 6th — Blitz Day</div>
+    </div>
+    <a href="#submit" class="hero-cta">📝 Submit a Lead &nbsp;→</a>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="arrow"></div>
+    scroll
+  </div>
+</section>
+
+<!-- ══ STATS ══════════════════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">7</div>
+      <div class="stat-label">Partners</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Blitz Days</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">Egypt</div>
+      <div class="stat-label">Market</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="total-leads-stat">0</div>
+      <div class="stat-label">Leads Generated</div>
     </div>
   </div>
-
-  <!-- Agenda -->
-  <div class="section" style="padding-top:0">
-    <div class="section-tag">Schedule</div>
-    <h2 class="section-title">Run of Show <span style="font-size:0.5em;font-weight:500;color:var(--gray);letter-spacing:0;vertical-align:middle;">Every hour of the day is structured for maximum output</span></h2>
-    <div class="agenda-timeline">
-      <div class="agenda-row">
-        <div class="agenda-time-col">
-          <div class="agenda-time-val">10:00 AM</div>
-          <div class="agenda-dot"></div>
-          <div class="agenda-line"></div>
-        </div>
-        <div class="agenda-content">
-          <div class="agenda-title">Virtual Kickoff — All Partners</div>
-          <div class="agenda-desc">Goals, leaderboard briefing, rules confirmed, energy set.</div>
-        </div>
-      </div>
-      <div class="agenda-row">
-        <div class="agenda-time-col">
-          <div class="agenda-time-val">10:15 AM</div>
-          <div class="agenda-dot green"></div>
-          <div class="agenda-line"></div>
-        </div>
-        <div class="agenda-content">
-          <div class="agenda-title">Sprint Begins</div>
-          <div class="agenda-desc">Calls · Emails · LinkedIn — full multichannel outreach on pre-approved accounts.</div>
-        </div>
-      </div>
-      <div class="agenda-row">
-        <div class="agenda-time-col">
-          <div class="agenda-time-val">4:45 PM</div>
-          <div class="agenda-dot red"></div>
-          <div class="agenda-line"></div>
-        </div>
-        <div class="agenda-content">
-          <div class="agenda-title">Lead Submission Deadline</div>
-          <div class="agenda-desc">Hard stop. All qualified leads submitted via this site before 4:45 PM.</div>
-        </div>
-      </div>
-      <div class="agenda-row">
-        <div class="agenda-time-col">
-          <div class="agenda-time-val">5:00 PM</div>
-          <div class="agenda-dot gold"></div>
-          <div class="agenda-line" style="display:none"></div>
-        </div>
-        <div class="agenda-content">
-          <div class="agenda-title">Results & Winner Announcement</div>
-          <div class="agenda-desc">Final leaderboard revealed. Top partner recognized. Pipeline handoff to SAP Egypt.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CTA band -->
-  <div class="cta-band">
-    <h2>Ready to compete?</h2>
-    <p>Submit your qualified leads here as you close them throughout the day. Every lead counts toward the leaderboard.</p>
-    <button class="btn-primary" data-page="submit">Submit a Lead &rarr;</button>
-  </div>
-
-  <footer>SAP Egypt · Partner Sales Development · Confidential · July 2025</footer>
 </div>
 
-<!-- ══════════════════════════════════════
-     RULES PAGE
-══════════════════════════════════════ -->
-<div class="page" id="page-rules">
-  <div class="rules-hero">
-    <h1>The Rules</h1>
-    <p>Understand these before the sprint begins — no exceptions on blitz day.</p>
-  </div>
-  <div class="rules-body">
+<!-- ══ AGENDA ═════════════════════════════════════════════ -->
+<section class="agenda-section" id="agenda">
+  <div class="section-inner">
+    <div class="section-tag">Program</div>    <h2 class="section-title">Event <span class="gold">Agenda</span></h2>
+    <p class="section-desc">Two intensive days of partner enablement, account targeting, and pipeline generation.</p>
 
-    <div style="margin-bottom:40px">
-      <div class="rule-block">
-        <div class="rule-num-badge">1</div>
-        <div>
-          <div class="rule-text-title">Net New Accounts Only</div>
-          <div class="rule-text-desc">Accounts must have zero prior SAP engagement. No existing customers, no active opportunities, no install base. If SAP is already in conversation with the account, it does not count.</div>
+    <div class="agenda-grid">
+      <!-- Day 1 -->
+      <div class="agenda-day">
+        <div class="agenda-day-header">
+          <div class="day-icon">⚡</div>
+          <div>
+            <div class="day-num">Day 1 — Pre-Blitz Bootcamp</div>
+            <div class="day-date">Sunday, October 5th, 2026 · SAP Egypt Office</div>
+          </div>
+        </div>
+        <div class="agenda-items">
+          <div class="agenda-item">
+            <div class="agenda-time">09:00 – 11:00</div>
+            <div class="agenda-label">Partner Onboarding & Blitz Briefing</div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">11:00 – 12:00</div>
+            <div class="agenda-label">Account List Review & Approvals</div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">12:00 – 13:00</div>
+            <div class="agenda-label">SAP Solution Messaging & Pitch Prep</div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">13:00 – 14:00</div>
+            <div class="agenda-label">Lunch Break</div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">14:00 – 15:00</div>
+            <div class="agenda-label">Team Strategy Session</div>
+          </div>
         </div>
       </div>
-      <div class="rule-block">
-        <div class="rule-num-badge">2</div>
-        <div>
-          <div class="rule-text-title">Pre-Approved List Required</div>
-          <div class="rule-text-desc">Only accounts from your SAP-approved list submitted before July 14th count toward the leaderboard. Off-list accounts will be disqualified regardless of lead quality.</div>
-        </div>
-      </div>
-      <div class="rule-block">
-        <div class="rule-num-badge">3</div>
-        <div>
-          <div class="rule-text-title">Account Exclusivity — First Submission Wins</div>
-          <div class="rule-text-desc">Account lists are confidential between each partner and SAP only. In the event of overlap, the partner who submitted first retains the account. Displaced accounts must be replaced before July 18th.</div>
-        </div>
-      </div>
-      <div class="rule-block">
-        <div class="rule-num-badge">4</div>
-        <div>
-          <div class="rule-text-title">Leaderboard Shows Numbers Only</div>
-          <div class="rule-text-desc">Live standings track contacts made, conversations held, and leads qualified. No account names are ever visible to competing partners at any stage.</div>
-        </div>
-      </div>
-      <div class="rule-block">
-        <div class="rule-num-badge">5</div>
-        <div>
-          <div class="rule-text-title">4:45 PM Hard Submission Deadline</div>
-          <div class="rule-text-desc">All leads must be submitted via this site before 4:45 PM on July 21st. Late submissions will not be counted toward the leaderboard.</div>
-        </div>
-      </div>
-    </div>
 
-    <h3 style="font-size:1rem;font-weight:800;color:var(--white);margin-bottom:20px;">What Counts as a Qualified Lead?</h3>
-    <div class="qualification-box">
-      <h3>All three criteria must be met — no exceptions.</h3>
-      <div class="bant-row">
-        <div class="bant-letter">C</div>
-        <div>
-          <div class="bant-label">Executive Contact Reached</div>
-          <div class="bant-detail">C-suite, VP, or Director level — a decision-maker or strong influencer in the buying process.</div>
+      <!-- Day 2 -->
+      <div class="agenda-day">
+        <div class="agenda-day-header">
+          <div class="day-icon">🏆</div>
+          <div>
+            <div class="day-num">Day 2 — Blitz Day</div>
+            <div class="day-date">Monday, October 6th, 2026 · SAP Egypt Office</div>
+          </div>
         </div>
-      </div>
-      <div class="bant-row">
-        <div class="bant-letter">8C</div>
-        <div>
-          <div class="bant-label">At Least One 8C Criterion Confirmed</div>
-          <div class="bant-detail">Compelling Event, Funding, Customer Stakeholder Strategy, Customer Challenges, Business Value Drivers, Solution &amp; Differentiators, Competitors, or Ecosystem — at least one acknowledged on the call.</div>
+        <div class="agenda-items">
+          <div class="agenda-item">
+            <div class="agenda-time">09:00 – 11:00</div>
+            <div class="agenda-label">Blitz Execution — Morning Sprint</div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">11:00 – 13:00</div>
+            <div class="agenda-label">Blitz Execution — Sprint 2</div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">13:00 – 14:00</div>
+            <div class="agenda-label">Lunch Break</div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">14:00 – 15:30</div>
+            <div class="agenda-label">Blitz Execution — Final Sprint</div>
+          </div>
+          <div class="agenda-item special">
+            <div class="agenda-time">15:30 – 17:00</div>
+            <div class="agenda-label">🥇 Announcing the Winners</div>
+          </div>
         </div>
-      </div>
-      <div class="bant-row">
-        <div class="bant-letter">N</div>
-        <div>
-          <div class="bant-label">Follow-up Action Agreed</div>
-          <div class="bant-detail">A concrete next step confirmed: discovery call booked, demo scheduled, or proposal requested.</div>
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-bottom:32px">
-      <h3 style="font-size:1rem;font-weight:800;color:var(--white);margin-bottom:16px;">The 8 Deal Qualification Criteria</h3>
-      <div class="rule-block"><div class="rule-num-badge" style="background:var(--gold);color:var(--navy)">1</div><div><div class="rule-text-title">Compelling Event</div><div class="rule-text-desc">Why is the customer looking for a new solution, and why are they doing that right now?</div></div></div>
-      <div class="rule-block"><div class="rule-num-badge">2</div><div><div class="rule-text-title">Funding</div><div class="rule-text-desc">Has funding been secured? Where does the money come from, and what are the investment constraints?</div></div></div>
-      <div class="rule-block"><div class="rule-num-badge">3</div><div><div class="rule-text-title">Customer Stakeholder Strategy</div><div class="rule-text-desc">Who is impacted and who makes or influences decisions?</div></div></div>
-      <div class="rule-block"><div class="rule-num-badge">4</div><div><div class="rule-text-title">Customer Challenges</div><div class="rule-text-desc">What are they struggling with?</div></div></div>
-      <div class="rule-block"><div class="rule-num-badge">5</div><div><div class="rule-text-title">Customer Business Value Drivers</div><div class="rule-text-desc">How does each of the stakeholders measure success?</div></div></div>
-      <div class="rule-block"><div class="rule-num-badge">6</div><div><div class="rule-text-title">Solution &amp; Differentiators</div><div class="rule-text-desc">Why is SAP the best choice for this particular customer project and why this product from the SAP portfolio?</div></div></div>
-      <div class="rule-block"><div class="rule-num-badge">7</div><div><div class="rule-text-title">Competitors</div><div class="rule-text-desc">Who are we competing against? How strong are we in comparison? Which other projects are we competing with for the budget?</div></div></div>
-      <div class="rule-block"><div class="rule-num-badge">8</div><div><div class="rule-text-title">Ecosystem</div><div class="rule-text-desc">Which partners are already involved? Which partners should be?</div></div></div>
-    </div>
-
-    <div class="warning-block" style="margin-bottom:48px">
-      <div class="wi">⚠️</div>
-      <div>Leads submitted without meeting all three qualification criteria will be reviewed by SAP Egypt and will not count toward the leaderboard if they fail the standard.</div>
-    </div>
-
-    <div style="text-align:center">
-      <button class="btn-primary" data-page="submit">Submit a Qualified Lead &rarr;</button>
-    </div>
-  </div>
-  <footer>SAP Egypt · Partner Sales Development · Confidential · July 2025</footer>
-</div>
-
-<!-- ══════════════════════════════════════
-     LEADERBOARD PAGE
-══════════════════════════════════════ -->
-<div class="page" id="page-leaderboard">
-  <div class="lb-hero">
-    <h1>Leaderboard</h1>
-    <p>Updated at 12:00 PM and 3:00 PM on blitz day — numbers only.</p>
-  </div>
-  <div class="lb-body">
-
-    <div class="countdown-wrap">
-      <div class="countdown-label">Time Until Blitz Day</div>
-      <div class="countdown-digits" id="countdown">
-        <div class="cd-unit"><div class="cd-num" id="cd-days">--</div><div class="cd-lbl">Days</div></div>
-        <div class="cd-sep">:</div>
-        <div class="cd-unit"><div class="cd-num" id="cd-hours">--</div><div class="cd-lbl">Hours</div></div>
-        <div class="cd-sep">:</div>
-        <div class="cd-unit"><div class="cd-num" id="cd-mins">--</div><div class="cd-lbl">Minutes</div></div>
-        <div class="cd-sep">:</div>
-        <div class="cd-unit"><div class="cd-num" id="cd-secs">--</div><div class="cd-lbl">Seconds</div></div>
-      </div>
-    </div>
-
-    <div style="text-align:center;margin-bottom:24px;">
-      <div style="display:inline-block;background:rgba(240,171,0,0.1);border:1px solid rgba(240,171,0,0.3);border-radius:16px;padding:16px 48px;">
-        <div style="font-size:11px;font-weight:800;color:var(--gold);letter-spacing:2px;margin-bottom:6px;">TOTAL LEADS QUALIFIED</div>
-        <div style="font-size:3.5rem;font-weight:900;color:var(--gold);line-height:1;">11</div>
-        <div style="font-size:11px;color:var(--blue-light);margin-top:4px;">out of 20 target</div>
-      </div>
-    </div>
-
-    <div class="lb-status-bar">
-      <div class="lb-status-chip live"><span class="dot"></span> Sprint Live</div>
-      <div class="lb-status-chip"><span class="dot"></span> Last updated: Live</div>
-      <div class="lb-status-chip"><span class="dot"></span> Target: 20 leads total</div>
-    </div>
-
-    <div class="lb-table-wrap">
-      <div class="lb-thead">
-        <span>Partner</span>
-        <span>Room</span>
-        <span>Leads Qualified</span>
-        <span>Target</span>
-      </div>
-      <div class="lb-row">
-        <div class="lb-partner">Solex</div>
-        <div class="lb-val">💡 Design Thinking</div>
-        <div class="lb-val" id="lb-solex-l" style="font-size:1.4rem;font-weight:900;color:var(--gold);">2</div>
-        <div class="lb-target">5</div>
-      </div>
-      <div class="lb-row">
-        <div class="lb-partner">Edraky</div>
-        <div class="lb-val">🤝 Inclusion</div>
-        <div class="lb-val" id="lb-edraky-l" style="font-size:1.4rem;font-weight:900;color:var(--gold);">2</div>
-        <div class="lb-target">5</div>
-      </div>
-      <div class="lb-row">
-        <div class="lb-partner">B-Connect</div>
-        <div class="lb-val">🔒 Trust</div>
-        <div class="lb-val" id="lb-bconnect-l" style="font-size:1.4rem;font-weight:900;color:var(--gold);">4</div>
-        <div class="lb-target">5</div>
-      </div>
-      <div class="lb-row">
-        <div class="lb-partner">Spirit</div>
-        <div class="lb-val">🌐 Cooperation</div>
-        <div class="lb-val" id="lb-spirit-l" style="font-size:1.4rem;font-weight:900;color:var(--gold);">3</div>
-        <div class="lb-target">5</div>
-      </div>
-    </div>
-
-    <div class="lb-note">🔒 Account names are never shared across partners. Leaderboard shows activity metrics only.</div>
-
-    <!-- Admin update button -->
-    <div style="text-align:center;margin-top:24px;">
-      <button onclick="toggleAdmin()" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3);padding:8px 20px;border-radius:8px;font-size:11px;cursor:pointer;">Update Leaderboard</button>
-    </div>
-
-    <!-- Admin Panel -->
-    <div id="admin-panel" style="display:none;margin-top:24px;background:rgba(0,20,74,0.9);border:1px solid rgba(27,144,255,0.3);border-radius:16px;padding:28px;">
-      <div id="admin-login">
-        <p style="font-size:12px;color:var(--blue-light);margin-bottom:12px;font-weight:700;">ADMIN PASSWORD</p>
-        <div style="display:flex;gap:10px;">
-          <input id="admin-pass" type="password" placeholder="Enter password"
-            style="flex:1;padding:10px 14px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:#fff;font-size:14px;outline:none;">
-          <button onclick="checkPass()" style="padding:10px 20px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-weight:800;cursor:pointer;">Go</button>
-        </div>
-      </div>
-      <div id="admin-form" style="display:none;">
-        <p style="font-size:12px;color:var(--gold);margin-bottom:20px;font-weight:800;">UPDATE LEADS QUALIFIED</p>
-        <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:12px;">
-          <div style="font-size:11px;color:var(--blue-light);font-weight:700;">PARTNER</div>
-          <div style="font-size:11px;color:var(--blue-light);font-weight:700;text-align:center;">LEADS QUALIFIED</div>
-        </div>
-        <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:10px;align-items:center;">
-          <div style="font-size:13px;font-weight:700;color:#fff;">💡 Solex</div>
-          <input type="number" min="0" max="50" placeholder="0" id="inp-solex-l" style="padding:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:16px;text-align:center;outline:none;font-weight:800;">
-        </div>
-        <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:10px;align-items:center;">
-          <div style="font-size:13px;font-weight:700;color:#fff;">🤝 Edraky</div>
-          <input type="number" min="0" max="50" placeholder="0" id="inp-edraky-l" style="padding:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:16px;text-align:center;outline:none;font-weight:800;">
-        </div>
-        <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:10px;align-items:center;">
-          <div style="font-size:13px;font-weight:700;color:#fff;">🔒 B-Connect</div>
-          <input type="number" min="0" max="50" placeholder="0" id="inp-bconnect-l" style="padding:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:16px;text-align:center;outline:none;font-weight:800;">
-        </div>
-        <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:10px;align-items:center;">
-          <div style="font-size:13px;font-weight:700;color:#fff;">🌐 Spirit</div>
-          <input type="number" min="0" max="50" placeholder="0" id="inp-spirit-l" style="padding:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:16px;text-align:center;outline:none;font-weight:800;">
-        </div>
-        <button onclick="updateLeaderboard()" style="width:100%;padding:12px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-weight:800;font-size:14px;cursor:pointer;margin-top:8px;">Update Leaderboard →</button>
       </div>
     </div>
   </div>
-  <footer>SAP Egypt · Partner Sales Development · Confidential · July 2025</footer>
-</div>
+</section>
 
-<!-- ══════════════════════════════════════
-     PARTNERS PAGE
-══════════════════════════════════════ -->
-<div class="page" id="page-partners">
-  <div class="partners-hero">
-    <h1>Competing Partners</h1>
-    <p>Four SAP Egypt partners. One day. Twenty net new leads.</p>
-  </div>
-  <div class="partners-body">
-
-    <div class="partner-cards-grid">
-      <div class="p-card">
-        <div class="pn">Solex</div>
-        <div class="goal-num">5</div>
-        <div class="goal-lbl">LEADS TARGET</div>
-        <div class="badge">50 Pre-Approved Accounts</div>
-        <div class="badge" style="background:rgba(27,144,255,0.2);color:#89D1FF;margin-top:6px;">💡 Design Thinking Room</div>
-      </div>
-      <div class="p-card">
-        <div class="pn">Edraky</div>
-        <div class="goal-num">5</div>
-        <div class="goal-lbl">LEADS TARGET</div>
-        <div class="badge">50 Pre-Approved Accounts</div>
-        <div class="badge" style="background:rgba(0,200,122,0.15);color:#00C87A;margin-top:6px;">🤝 Inclusion Room</div>
-      </div>
-      <div class="p-card">
-        <div class="pn">B-Connect</div>
-        <div class="goal-num">5</div>
-        <div class="goal-lbl">LEADS TARGET</div>
-        <div class="badge">50 Pre-Approved Accounts</div>
-        <div class="badge" style="background:rgba(240,171,0,0.15);color:#F0AB00;margin-top:6px;">🔒 Trust Room</div>
-      </div>
-      <div class="p-card">
-        <div class="pn">Spirit</div>
-        <div class="goal-num">5</div>
-        <div class="goal-lbl">LEADS TARGET</div>
-        <div class="badge">50 Pre-Approved Accounts</div>
-        <div class="badge" style="background:rgba(255,68,68,0.15);color:#FF4444;margin-top:6px;">🌐 Cooperation Room</div>
-      </div>
+<!-- ══ FORM ═══════════════════════════════════════════════ -->
+<section class="form-section" id="submit">
+  <div class="section-inner">
+    <h2 class="section-title">Submit a <span class="gold">Lead</span></h2>
+    <p class="section-desc">Fill in the form below for each account you connect with during the Blitz.</p>
+    <div class="form-wrapper">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSdaPpyU_hhid1M6K5iKc3bkY926Y_amEVirQE6Anylf0qq_OA/viewform?embedded=true"
+        title="Egypt Partner Blitz Lead Submission Form"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0">
+        Loading form…
+      </iframe>
     </div>
-
-    <div class="excl-box">
-      <h3>🔒 Account Exclusivity Rules</h3>
-      <div class="excl-rule"><div class="bullet">1</div>Each partner submits their 50 accounts directly and confidentially to SAP Egypt only — no shared visibility.</div>
-      <div class="excl-rule"><div class="bullet">2</div>Account lists are never shared between partners at any stage, including on blitz day.</div>
-      <div class="excl-rule"><div class="bullet">3</div>If the same account appears on multiple lists, first submission wins. Displaced accounts must be replaced by July 18th.</div>
-      <div class="excl-rule"><div class="bullet">4</div>The leaderboard shows activity numbers only — no account names are ever visible to competing partners.</div>
-      <div class="excl-rule"><div class="bullet">5</div>Any lead submitted for an account not on the pre-approved list will be disqualified automatically.</div>
-    </div>
-
   </div>
-  <footer>SAP Egypt · Partner Sales Development · Confidential · July 2025</footer>
-</div>
+</section>
 
-<!-- ══════════════════════════════════════
-     SUBMIT PAGE
-══════════════════════════════════════ -->
-<div class="page" id="page-submit">
-  <div class="submit-hero">
-    <h1>Submit a Lead</h1>
-    <p>All submissions must be in before 4:45 PM on July 21st.</p>
-  </div>
-  <div class="submit-body" style="text-align:center;padding:60px 24px;">
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:48px 40px;max-width:500px;margin:0 auto;">
-      <div style="font-size:3rem;margin-bottom:16px;">📋</div>
-      <h2 style="font-size:1.8rem;font-weight:900;color:#FFFFFF;margin-bottom:12px;">Ready to Submit?</h2>
-      <p style="font-size:0.95rem;color:#89D1FF;margin-bottom:32px;line-height:1.6;">Fill in your lead details. All submissions must be in before 4:45 PM on July 21st.</p>
-      <button data-tally-open="zxoAW0" data-tally-layout="modal" data-tally-width="600" data-tally-emoji-text="🏆" data-tally-emoji-animation="wave"
-        style="padding:16px 36px;border-radius:10px;background:#F0AB00;color:#00144A;font-size:16px;font-weight:800;border:none;cursor:pointer;letter-spacing:0.3px;">
-        Submit a Lead →
+<!-- ══ LEADERBOARD ════════════════════════════════════════ -->
+<section class="lb-section" id="leaderboard">
+  <!-- Decorative pyramid bg -->
+  <svg class="lb-pyramid-bg" viewBox="0 0 1920 400" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="960,50 1300,400 620,400" fill="white"/>
+    <polygon points="400,120 620,400 180,400" fill="white"/>
+    <polygon points="1500,150 1700,400 1300,400" fill="white"/>
+  </svg>
+
+  <div class="section-inner lb-inner">
+    <div class="lb-header-row">
+      <div>
+        <div class="section-tag">Live Rankings</div>
+        <h2 class="section-title">🏆 <span class="gold">Leaderboard</span></h2>
+      </div>
+      <button class="refresh-btn" onclick="loadLeaderboard(true)">
+        <span class="spin">↻</span> Refresh Now
       </button>
-      <p style="font-size:0.72rem;color:rgba(200,220,255,0.4);margin-top:20px;">Your submission is confidential and visible only to the SAP Egypt team.</p>
+    </div>
+
+    <div class="lb-updated" id="lb-updated">Loading…</div>
+
+    <table class="lb-table">
+      <thead>
+        <tr>
+          <th style="width:60px">Rank</th>
+          <th>Partner</th>
+          <th>Progress</th>
+          <th style="width:100px">Leads</th>
+        </tr>
+      </thead>
+      <tbody id="lb-body">
+        <tr><td colspan="4"><div class="lb-empty"><div class="icon">⏳</div>Loading leaderboard…</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══ PARTNERS ═══════════════════════════════════════════ -->
+<section class="partners-section" id="partners">
+  <div class="section-inner">
+    <h2 class="section-title">Our <span class="gold">Partners</span></h2>
+    <p class="section-desc">7 leading SAP partners competing across Egypt's market.</p>
+    <div class="partners-grid">
+      <div class="partner-card"><div class="p-icon">🔵</div>B-Connect</div>
+      <div class="partner-card"><div class="p-icon">🟢</div>ITE</div>
+      <div class="partner-card"><div class="p-icon">🔷</div>Spirit</div>
+      <div class="partner-card"><div class="p-icon">🟠</div>Phoenix</div>
+      <div class="partner-card"><div class="p-icon">🔴</div>Jupiter</div>
+      <div class="partner-card"><div class="p-icon">🟣</div>DBS</div>
+      <div class="partner-card"><div class="p-icon">🟡</div>AppsTech</div>
     </div>
   </div>
-  <footer>SAP Egypt · Partner Sales Development · Confidential · July 2025</footer>
-</div>
+</section>
 
+<!-- ══ FOOTER ═════════════════════════════════════════════ -->
+<footer>
+  <p><strong>SAP Egypt Partner Blitz 2026</strong> &nbsp;·&nbsp; October 5–6, 2026 &nbsp;·&nbsp; SAP Egypt Office</p>
+  <p style="margin-top:8px;">Pipeline Generation &nbsp;·&nbsp; Partner Ecosystem &nbsp;·&nbsp; MEA South</p>
+</footer>
+
+<!-- ══ LEADERBOARD JS ══════════════════════════════════════ -->
 <script>
-// ── ROUTING ──────────────────────────────────────────────────────────────────
-function nav(page) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  const target = document.getElementById('page-' + page);
-  if (target) target.classList.add('active');
-  const btn = document.querySelector('.nav-link[data-page="' + page + '"]');
-  if (btn) btn.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx2jJt8W4FSCGvzvO2g1ryuCjMX6WZZVNmNc_TZ_mpXRzLHMLDPD1L2kpwxTLF1h41d7A/exec';
+const REFRESH_INTERVAL = 60000; // 60 seconds
+
+function loadLeaderboard(manual = false) {
+  const btn = document.querySelector('.refresh-btn');
+  if (btn) btn.classList.add('loading');
+
+  fetch(WEB_APP_URL)
+    .then(r => r.json())
+    .then(data => {
+      renderLeaderboard(data.leaderboard);
+      const d = new Date(data.updated);
+      document.getElementById('lb-updated').textContent =
+        'Last updated: ' + d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) +
+        (manual ? ' (manual refresh)' : ' (auto-refresh every 60s)');
+    })
+    .catch(() => {
+      document.getElementById('lb-updated').textContent = 'Could not load data — retrying…';
+    })
+    .finally(() => {
+      if (btn) btn.classList.remove('loading');
+    });
 }
 
-// Wire all data-page buttons immediately (scripts run after DOM is parsed)
-document.querySelectorAll('[data-page]').forEach(function(el) {
-  el.addEventListener('click', function() {
-    nav(el.getAttribute('data-page'));
-  });
-});
+function renderLeaderboard(data) {
+  const tbody = document.getElementById('lb-body');
+  const maxLeads = data.length > 0 ? Math.max(...data.map(d => d.leads), 1) : 1;
+  const totalLeads = data.reduce((s, d) => s + d.leads, 0);
 
-nav('home');
+  // Update stat
+  document.getElementById('total-leads-stat').textContent = totalLeads;
 
-
-// ── COUNTDOWN ────────────────────────────────────────────────────────────────
-function updateCountdown() {
-  const target = new Date('2025-07-21T10:00:00');
-  const now = new Date();
-  const diff = target - now;
-  if (diff <= 0) {
-    document.getElementById('countdown').innerHTML = '<div style="font-size:1.4rem;font-weight:800;color:var(--green)">🚀 Blitz Day is LIVE!</div>';
+  if (totalLeads === 0) {
+    tbody.innerHTML = `<tr><td colspan="4">
+      <div class="lb-empty">
+        <div class="icon">🔥</div>
+        <div>Blitz hasn't started yet — leaderboard will populate once leads are submitted.</div>
+      </div></td></tr>`;
     return;
   }
-  const d = Math.floor(diff / 86400000);
-  const h = Math.floor((diff % 86400000) / 3600000);
-  const m = Math.floor((diff % 3600000) / 60000);
-  const s = Math.floor((diff % 60000) / 1000);
-  const pad = n => String(n).padStart(2, '0');
-  document.getElementById('cd-days').textContent  = pad(d);
-  document.getElementById('cd-hours').textContent = pad(h);
-  document.getElementById('cd-mins').textContent  = pad(m);
-  document.getElementById('cd-secs').textContent  = pad(s);
-}
-updateCountdown();
-setInterval(updateCountdown, 1000);
 
-// ── LEADERBOARD ADMIN ─────────────────────────────────────────────────────────
-var DB = 'https://sap-blitz-2025-default-rtdb.firebaseio.com';
+  const medals = ['🥇','🥈','🥉'];
+  const rowClasses = ['rank-1-row','rank-2-row','rank-3-row'];
 
-function loadLeaderboard() {
-  fetch(DB + '/leads.json')
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      if (!d) return;
-      ['solex','edraky','bconnect','spirit'].forEach(function(p){
-        if (d[p] !== undefined) document.getElementById('lb-'+p+'-l').textContent = d[p] || '—';
-      });
-    }).catch(function(){ loadFromLocal(); });
-}
+  tbody.innerHTML = data.map((item, i) => {
+    const pct = maxLeads > 0 ? Math.round((item.leads / maxLeads) * 100) : 0;
+    const rankClass = i < 3 ? rowClasses[i] : '';
+    const badgeClass = i < 3 ? `rank-${i+1}` : 'rank-n';
+    const badgeContent = i < 3 ? medals[i] : (i + 1);
 
-function loadFromLocal() {
-  ['solex','edraky','bconnect','spirit'].forEach(function(p) {
-    var saved = localStorage.getItem('lb-'+p+'-l');
-    if (saved) document.getElementById('lb-'+p+'-l').textContent = saved;
-  });
+    return `
+    <tr class="lb-row ${rankClass}">
+      <td><span class="rank-badge ${badgeClass}">${badgeContent}</span></td>
+      <td><div class="partner-name">${item.partner}</div></td>
+      <td>
+        <div class="progress-bar">
+          <div class="progress-fill" style="transform:scaleX(${pct/100})"></div>
+        </div>
+      </td>
+      <td>
+        <div class="leads-count">${item.leads}</div>
+        <div class="leads-label">leads</div>
+      </td>
+    </tr>`;
+  }).join('');
 }
 
-function toggleAdmin() {
-  var panel = document.getElementById('admin-panel');
-  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-}
-
-function checkPass() {
-  var pass = document.getElementById('admin-pass').value;
-  if (pass === '12345') {
-    document.getElementById('admin-login').style.display = 'none';
-    document.getElementById('admin-form').style.display = 'block';
-    loadSavedData();
-  } else {
-    alert('Wrong password');
-  }
-}
-
-function loadSavedData() {
-  ['solex','edraky','bconnect','spirit'].forEach(function(p) {
-    var saved = localStorage.getItem('lb-'+p+'-l');
-    if (saved) document.getElementById('inp-'+p+'-l').value = saved;
-  });
-}
-
-function updateLeaderboard() {
-  var data = {};
-  ['solex','edraky','bconnect','spirit'].forEach(function(p) {
-    var val = document.getElementById('inp-'+p+'-l').value || '0';
-    data[p] = val;
-    document.getElementById('lb-'+p+'-l').textContent = val;
-    localStorage.setItem('lb-'+p+'-l', val);
-  });
-
-  // Try to save to Firebase
-  fetch(DB + '/leads.json', {
-    method: 'PUT',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(data)
-  }).catch(function(){});
-
-  document.getElementById('admin-panel').style.display = 'none';
-  document.getElementById('admin-pass').value = '';
-  document.getElementById('admin-login').style.display = 'block';
-  document.getElementById('admin-form').style.display = 'none';
-  alert('Leaderboard updated!');
-}
-
+// Initial load + auto-refresh
 loadLeaderboard();
-setInterval(loadLeaderboard, 30000);
-
+setInterval(loadLeaderboard, REFRESH_INTERVAL);
 </script>
-<script async src="https://tally.so/widgets/embed.js"></script>
+
 </body>
 </html>
