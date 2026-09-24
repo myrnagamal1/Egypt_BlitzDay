@@ -167,6 +167,17 @@
     transform: translateY(-3px);
     box-shadow: 0 14px 40px rgba(255,195,0,0.5);
   }
+  .hero-cta-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255,255,255,0.35);
+    box-shadow: none;
+  }
+  .hero-cta-secondary:hover {
+    border-color: rgba(255,255,255,0.8);
+    box-shadow: none;
+    background: rgba(255,255,255,0.08);
+  }
 
   /* Scroll indicator */
   .scroll-hint {
@@ -796,7 +807,10 @@
       <div class="date-pill"><span>Day 1</span>Monday, October 5 · Pre-Blitz Bootcamp</div>
       <div class="date-pill"><span>Day 2</span>Tuesday, October 6 · Blitz Day</div>
     </div>
-    <a href="#submit" class="hero-cta">Submit a Lead →</a>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+      <a href="#submit" class="hero-cta">Submit a Lead →</a>
+      <a href="#leaderboard" class="hero-cta hero-cta-secondary">Leaderboard →</a>
+    </div>
   </div>
 
   <div class="scroll-hint">
