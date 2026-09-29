@@ -1109,13 +1109,13 @@
 
         <!-- Contact Title -->
         <div class="lf-group">
-          <label class="lf-label">Contact Title</label>
+          <label class="lf-label">Contact Title <span class="lf-req">*</span></label>
           <input id="lf-title" type="text" class="lf-input" placeholder="e.g. CFO, IT Director">
         </div>
 
         <!-- Phone -->
         <div class="lf-group">
-          <label class="lf-label">Contact Phone</label>
+          <label class="lf-label">Contact Phone <span class="lf-req">*</span></label>
           <input id="lf-phone" type="tel" class="lf-input" placeholder="01X XXXX XXXX" maxlength="11"
             oninput="lfPhoneInput()" onblur="lfPhoneBlur()">
           <div id="lf-phone-warn" class="lf-warn" style="display:none;">
@@ -1135,7 +1135,7 @@
 
         <!-- Industry -->
         <div class="lf-group">
-          <label class="lf-label">Industry</label>
+          <label class="lf-label">Industry <span class="lf-req">*</span></label>
           <select id="lf-industry" class="lf-input">
             <option value="">— Select industry —</option>
             <option>Manufacturing</option>
@@ -1153,26 +1153,25 @@
 
         <!-- Outcome -->
         <div class="lf-group">
-          <label class="lf-label">Solution needed</label>
+          <label class="lf-label">Solution needed <span class="lf-req">*</span></label>
           <select id="lf-outcome" class="lf-input">
-            <option value="">— Select outcome —</option>
-            <option>Meeting Scheduled</option>
-            <option>Interested — Follow Up</option>
-            <option>Not Interested</option>
-            <option>No Answer</option>
-            <option>Wrong Number / Not Reachable</option>
+            <option value="">— Select solution —</option>
+            <option>ERP</option>
+            <option>CX</option>
+            <option>HR</option>
+            <option>Other</option>
           </select>
         </div>
 
         <!-- Agreed Next Step -->
         <div class="lf-group">
-          <label class="lf-label">Agreed Next Step</label>
+          <label class="lf-label">Agreed Next Step <span class="lf-req">*</span></label>
           <input id="lf-nextstep" type="text" class="lf-input" placeholder="e.g. Send proposal by Thursday">
         </div>
 
         <!-- AI Units -->
         <div class="lf-group">
-          <label class="lf-label">AI units to be included in the opp?</label>
+          <label class="lf-label">AI units to be included in the opp? <span class="lf-req">*</span></label>
           <select id="lf-ai" class="lf-input">
             <option value="">— Select —</option>
             <option>Yes</option>
@@ -1716,7 +1715,7 @@ function lfSubmit() {
   const status   = document.getElementById('lf-status');
   const btn      = document.getElementById('lf-btn');
 
-  if (!partner || !rep || !account || !contact || !outcome) {
+  if (!partner || !rep || !account || !contact || !title || !phone || !industry || !outcome || !nextstep || !ai) {
     status.innerHTML = '<span style="color:#ff6b6b;">Please fill in all required fields.</span>';
     return;
   }
