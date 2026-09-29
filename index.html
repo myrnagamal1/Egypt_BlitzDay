@@ -1561,6 +1561,48 @@ setInterval(loadLeaderboard, REFRESH_INTERVAL);
 const DASH_PASS = 'SAP26';
 const DASH_URL = 'https://script.google.com/macros/s/AKfycbx44YGVf2h5sbELdZnvtA5APoc3zu9Scom7W7-f6MrGCNsH4b9RI5zSbrOnPfU-DPbEYw/exec';
 let dashAllRows = [];
+let dashExcluded = new Set(JSON.parse(sessionStorage.getItem('dashExcluded') || '[]'));
+
+function toggleExclude(idx) {
+  if (dashExcluded.has(idx)) dashExcluded.delete(idx);
+  else dashExcluded.add(idx);
+  sessionStorage.setItem('dashExcluded', JSON.stringify([...dashExcluded]));
+  renderDashStats(dashAllRows);
+  renderLeadsTable(dashAllRows);
+}
+
+function renderDashStats(rows) {
+  const included = rows.filter((_, i) => !dashExcluded.has(i));
+  const counts = {};
+  included.forEach(r => {
+    const p = (r['Partner Name'] || '').toString().trim();
+    if (p) counts[p] = (counts[p] || 0) + 1;
+  });
+  const lb = Object.keys(counts).map(p => ({ partner: p, leads: counts[p] }))
+    .sort((a, b) => b.leads - a.leads);
+
+  document.getElementById('dash-total').textContent = included.length;
+  document.getElementById('dash-partners').textContent = lb.length;
+  document.getElementById('dash-top-partner').textContent = lb.length > 0 ? lb[0].partner : '—';
+
+  const aiCount = included.filter(r => {
+    const v = String(r['AI units to be included in the opp?'] || '').trim().toLowerCase();
+    return v === 'yes';
+  }).length;
+  document.getElementById('dash-ai-count').textContent = aiCount;
+
+  const maxLeads = lb.length > 0 ? Math.max(...lb.map(d => d.leads), 1) : 1;
+  document.getElementById('dash-partner-bars').innerHTML = lb.length === 0
+    ? '<p style="color:rgba(255,255,255,0.35);font-size:0.85rem;margin:0;">No leads yet.</p>'
+    : lb.map(item => `
+      <div class="dash-partner-row">
+        <div class="dash-partner-label" title="${item.partner}">${item.partner}</div>
+        <div class="dash-partner-track">
+          <div class="dash-partner-fill" style="width:${Math.round((item.leads/maxLeads)*100)}%"></div>
+        </div>
+        <div class="dash-partner-count">${item.leads}</div>
+      </div>`).join('');
+}
 let dashInterval = null;
 
 
@@ -1739,37 +1781,14 @@ function loadDashboard(manual = false) {
       const rows = data.rows || [];
       dashAllRows = rows;
 
-      // Stats
-      const total = lb.reduce((s, d) => s + d.leads, 0);
-      document.getElementById('dash-total').textContent = total;
-      document.getElementById('dash-partners').textContent = lb.length;
-      document.getElementById('dash-top-partner').textContent = lb.length > 0 ? lb[0].partner : '—';
-
-      // AI count — key has trailing space
-      const aiCount = rows.filter(r => {
-        const v = String(r['AI units to be included in the opp?'] || '').trim().toLowerCase();
-        return v === 'yes';
-      }).length;
-      document.getElementById('dash-ai-count').textContent = aiCount;
+      // Stats + partner bars (respects excluded rows)
+      renderDashStats(rows);
 
       // Updated timestamp
       const d = new Date(data.updated);
       document.getElementById('dash-updated').textContent =
         'Last updated: ' + d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) +
         (manual ? ' (manual refresh)' : ' · auto-refresh every 60s');
-
-      // Partner bars
-      const maxLeads = lb.length > 0 ? Math.max(...lb.map(d => d.leads), 1) : 1;
-      document.getElementById('dash-partner-bars').innerHTML = lb.length === 0
-        ? '<p style="color:rgba(255,255,255,0.35);font-size:0.85rem;margin:0;">No leads yet.</p>'
-        : lb.map(item => `
-          <div class="dash-partner-row">
-            <div class="dash-partner-label" title="${item.partner}">${item.partner}</div>
-            <div class="dash-partner-track">
-              <div class="dash-partner-fill" style="width:${Math.round((item.leads/maxLeads)*100)}%"></div>
-            </div>
-            <div class="dash-partner-count">${item.leads}</div>
-          </div>`).join('');
 
       // Leads table
       renderLeadsTable(rows);
@@ -1785,18 +1804,18 @@ function renderLeadsTable(rows) {
   const empty = document.getElementById('dash-empty');
 
   const COLS = [
-    { key: 'Timestamp',                         label: 'Time' },
-    { key: 'Partner Name',                      label: 'Partner' },
-    { key: 'Account Name ',                     label: 'Account' },
-    { key: 'Customer Name',                     label: 'Contact' },
-    { key: 'Customer Title',                    label: 'Title' },
-    { key: 'Customer Phone number',             label: 'Phone' },
-    { key: 'Customer Email',                    label: 'Email' },
-    { key: 'Industry',                          label: 'Industry' },
-    { key: 'Solution needed',                   label: 'Solution' },
+    { key: 'Timestamp',                           label: 'Time' },
+    { key: 'Partner Name',                        label: 'Partner' },
+    { key: 'Account Name',                        label: 'Account' },
+    { key: 'Customer Name',                       label: 'Contact' },
+    { key: 'Customer Title',                      label: 'Title' },
+    { key: 'Customer Phone number',               label: 'Phone' },
+    { key: 'Customer Email',                      label: 'Email' },
+    { key: 'Industry',                            label: 'Industry' },
+    { key: 'Solution needed',                     label: 'Solution' },
     { key: 'AI units to be included in the opp?', label: 'AI?' },
-    { key: 'Agreed Next step',                  label: 'Next Step' },
-    { key: 'Call Summary',                      label: 'Summary' },
+    { key: 'Agreed Next step',                    label: 'Next Step' },
+    { key: 'Call Summary',                        label: 'Summary' },
   ];
 
   if (rows.length === 0) {
@@ -1807,10 +1826,12 @@ function renderLeadsTable(rows) {
   }
   empty.style.display = 'none';
 
-  thead.innerHTML = '<tr>' + COLS.map(c => `<th>${c.label}</th>`).join('') + '</tr>';
+  thead.innerHTML = '<tr><th title="Exclude from leaderboard">Excl.</th>' + COLS.map(c => `<th>${c.label}</th>`).join('') + '</tr>';
 
-  tbody.innerHTML = rows.map(row => {
-    return '<tr>' + COLS.map(c => {
+  tbody.innerHTML = rows.map((row, idx) => {
+    const excl = dashExcluded.has(idx);
+    const rowStyle = excl ? 'opacity:0.35;text-decoration:line-through;' : '';
+    const cells = COLS.map(c => {
       let val = row[c.key];
       if (val === null || val === undefined) val = '';
       if (c.key === 'Timestamp') {
@@ -1823,7 +1844,9 @@ function renderLeadsTable(rows) {
       }
       const escaped = val.replace(/</g,'&lt;').replace(/>/g,'&gt;');
       return `<td title="${escaped}">${escaped || '—'}</td>`;
-    }).join('') + '</tr>';
+    }).join('');
+    const chk = `<td style="text-align:center;"><input type="checkbox" title="Exclude from leaderboard" ${excl ? 'checked' : ''} onchange="toggleExclude(${idx})" style="cursor:pointer;accent-color:#f87171;width:15px;height:15px;"></td>`;
+    return `<tr style="${rowStyle}">${chk}${cells}</tr>`;
   }).join('');
 }
 
