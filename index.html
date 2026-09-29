@@ -1133,9 +1133,27 @@
           </div>
         </div>
 
+        <!-- Industry -->
+        <div class="lf-group">
+          <label class="lf-label">Industry</label>
+          <select id="lf-industry" class="lf-input">
+            <option value="">— Select industry —</option>
+            <option>Manufacturing</option>
+            <option>Retail / FMCG</option>
+            <option>Logistics / 3PL</option>
+            <option>Construction / Real Estate</option>
+            <option>Banking / Finance</option>
+            <option>Healthcare / Pharma</option>
+            <option>Telecom</option>
+            <option>Government / Public Sector</option>
+            <option>Education</option>
+            <option>Other</option>
+          </select>
+        </div>
+
         <!-- Outcome -->
         <div class="lf-group">
-          <label class="lf-label">Call Outcome <span class="lf-req">*</span></label>
+          <label class="lf-label">Solution needed</label>
           <select id="lf-outcome" class="lf-input">
             <option value="">— Select outcome —</option>
             <option>Meeting Scheduled</option>
@@ -1146,10 +1164,26 @@
           </select>
         </div>
 
+        <!-- Agreed Next Step -->
+        <div class="lf-group">
+          <label class="lf-label">Agreed Next Step</label>
+          <input id="lf-nextstep" type="text" class="lf-input" placeholder="e.g. Send proposal by Thursday">
+        </div>
+
+        <!-- AI Units -->
+        <div class="lf-group">
+          <label class="lf-label">AI units to be included in the opp?</label>
+          <select id="lf-ai" class="lf-input">
+            <option value="">— Select —</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+
         <!-- Notes -->
         <div class="lf-group">
-          <label class="lf-label">Notes</label>
-          <textarea id="lf-notes" class="lf-input" rows="3" placeholder="Key pain points, next steps, context…"></textarea>
+          <label class="lf-label">Call Summary</label>
+          <textarea id="lf-notes" class="lf-input" rows="3" placeholder="Key pain points, context…"></textarea>
         </div>
 
         <!-- Submit -->
@@ -1667,17 +1701,20 @@ function lfEmailBlur() {
 }
 
 function lfSubmit() {
-  const partner = document.getElementById('lf-partner').value.trim();
-  const rep     = document.getElementById('lf-rep').value.trim();
-  const account = document.getElementById('lf-account').value.trim();
-  const contact = document.getElementById('lf-contact').value.trim();
-  const title   = document.getElementById('lf-title').value.trim();
-  const phone   = document.getElementById('lf-phone').value.trim();
-  const email   = document.getElementById('lf-email').value.trim();
-  const outcome = document.getElementById('lf-outcome').value.trim();
-  const notes   = document.getElementById('lf-notes').value.trim();
-  const status  = document.getElementById('lf-status');
-  const btn     = document.getElementById('lf-btn');
+  const partner  = document.getElementById('lf-partner').value.trim();
+  const rep      = document.getElementById('lf-rep').value.trim();
+  const account  = document.getElementById('lf-account').value.trim();
+  const contact  = document.getElementById('lf-contact').value.trim();
+  const title    = document.getElementById('lf-title').value.trim();
+  const phone    = document.getElementById('lf-phone').value.trim();
+  const email    = document.getElementById('lf-email').value.trim();
+  const industry = document.getElementById('lf-industry').value.trim();
+  const outcome  = document.getElementById('lf-outcome').value.trim();
+  const nextstep = document.getElementById('lf-nextstep').value.trim();
+  const ai       = document.getElementById('lf-ai').value.trim();
+  const notes    = document.getElementById('lf-notes').value.trim();
+  const status   = document.getElementById('lf-status');
+  const btn      = document.getElementById('lf-btn');
 
   if (!partner || !rep || !account || !contact || !outcome) {
     status.innerHTML = '<span style="color:#ff6b6b;">Please fill in all required fields.</span>';
@@ -1706,7 +1743,7 @@ function lfSubmit() {
 
   const params = new URLSearchParams({
     action: 'submitLead',
-    partner, rep, account, contact, title, phone, email, outcome, notes,
+    partner, rep, account, contact, title, phone, email, industry, outcome, nextstep, ai, notes,
     onMaster: onMaster ? 'YES' : 'NO — not on master list'
   });
 
@@ -1715,9 +1752,11 @@ function lfSubmit() {
     .then(d => {
       if (d.status === 'ok' || d.result === 'success') {
         status.innerHTML = '<span style="color:#00C8D4;font-weight:700;">✓ Lead submitted successfully!</span>';
-        ['lf-rep','lf-account','lf-contact','lf-title','lf-phone','lf-email','lf-notes'].forEach(id =>
+        ['lf-rep','lf-account','lf-contact','lf-title','lf-phone','lf-email','lf-nextstep','lf-notes'].forEach(id =>
           document.getElementById(id).value = '');
         document.getElementById('lf-outcome').value = '';
+        document.getElementById('lf-industry').value = '';
+        document.getElementById('lf-ai').value = '';
         document.getElementById('lf-account-warn').style.display = 'none';
         document.getElementById('lf-account-ok').style.display   = 'none';
         document.getElementById('lf-email-warn').style.display = 'none';
