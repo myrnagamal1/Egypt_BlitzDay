@@ -526,6 +526,91 @@
   }
   .partner-card .p-icon { font-size: 24px; margin-bottom: 8px; }
 
+  /* ── ROOM ASSIGNMENTS ────────────────────────────────── */
+  .rooms-section { background: var(--night); }
+
+  .rooms-day-toggle {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .rooms-day-btn {
+    padding: 10px 28px;
+    border-radius: 40px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.04);
+    color: var(--muted);
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .rooms-day-btn.active {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+  }
+  .rooms-day-btn:hover:not(.active) {
+    border-color: rgba(255,255,255,0.28);
+    color: var(--white);
+  }
+
+  .rooms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .room-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 20px 20px 18px;
+    transition: all 0.22s;
+  }
+  .room-card:hover {
+    background: rgba(0,158,167,0.09);
+    border-color: rgba(0,200,212,0.3);
+    transform: translateY(-2px);
+  }
+  .room-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .room-icon {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    background: rgba(0,158,167,0.18);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .room-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--teal2);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .room-note {
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+  .room-partner {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .room-partner-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
   /* ── FOOTER ───────────────────────────────────────────── */
   footer {
     background: var(--deep);
@@ -606,6 +691,7 @@
     <li><a href="#agenda">Agenda</a></li>
     <li><a href="#submit">Submit Lead</a></li>
     <li><a href="#leaderboard">Leaderboard</a></li>
+    <li><a href="#rooms">Rooms</a></li>
     <li><a href="#partners">Partners</a></li>
     <li><a href="#dashboard" style="color:var(--gold);">Dashboard</a></li>
   </ul>
@@ -967,6 +1053,147 @@
 </section>
 
 <!-- ══ PARTNERS ═══════════════════════════════════════════ -->
+<!-- ══ ROOM ASSIGNMENTS ════════════════════════════════ -->
+<section class="rooms-section" id="rooms">
+  <div class="section-inner">
+    <div class="section-tag">Logistics</div>
+    <h2 class="section-title">Room <span class="gold">Assignments</span></h2>
+    <p class="section-desc">Partner-to-room allocation for each Blitz day at SAP Egypt Office.</p>
+
+    <div class="rooms-day-toggle">
+      <button class="rooms-day-btn active" onclick="switchDay('oct5')">Day 1 · Oct 5</button>
+      <button class="rooms-day-btn" onclick="switchDay('oct6')">Day 2 · Oct 6</button>
+    </div>
+
+    <!-- Day 1: Oct 5 -->
+    <div id="rooms-oct5" class="rooms-grid">
+      <div class="room-card">
+        <div class="room-card-header">
+          <div class="room-icon">🤝</div>
+          <div><div class="room-name">Trust</div></div>
+        </div>
+        <div class="room-partner">B-Connect</div>
+        <div class="room-partner-sub">All day</div>
+      </div>
+      <div class="room-card">
+        <div class="room-card-header">
+          <div class="room-icon">🖥️</div>
+          <div><div class="room-name">DemoSpace 1</div></div>
+        </div>
+        <div class="room-partner">ITE</div>
+        <div class="room-partner-sub">All day</div>
+      </div>
+      <div class="room-card">
+        <div class="room-card-header">
+          <div class="room-icon">🖥️</div>
+          <div><div class="room-name">DemoSpace 2</div></div>
+        </div>
+        <div class="room-partner">Spirit</div>
+        <div class="room-partner-sub">All day</div>
+      </div>
+      <div class="room-card">
+        <div class="room-card-header">
+          <div class="room-icon">🌐</div>
+          <div><div class="room-name">Cooperation</div></div>
+        </div>
+        <div class="room-partner">Phoenix</div>
+        <div class="room-partner-sub">All day</div>
+      </div>
+      <div class="room-card">
+        <div class="room-card-header">
+          <div class="room-icon">♾️</div>
+          <div><div class="room-name">Inclusion</div></div>
+        </div>
+        <div class="room-partner">Jupiter</div>
+        <div class="room-partner-sub">All day</div>
+      </div>
+      <div class="room-card">
+        <div class="room-card-header">
+          <div class="room-icon">💡</div>
+          <div><div class="room-name">Design Thinking Space</div></div>
+        </div>
+        <div class="room-partner">DBS</div>
+        <div class="room-partner-sub">All day</div>
+      </div>
+      <div class="room-card">
+        <div class="room-card-header">
+          <div class="room-icon">🚀</div>
+          <div><div class="room-name">Innovation</div></div>
+        </div>
+        <div class="room-partner">AppsTech</div>
+        <div class="room-partner-sub">All day</div>
+      </div>
+    </div>
+
+    <!-- Day 2: Oct 6 -->
+    <div id="rooms-oct6" class="rooms-grid" style="display:none;">
+      <div class="room-card">
+        <div class="room-card-header">
+          <div class="room-icon">🌍</div>
+          <div><div class="room-name">Diversity</div></div>
+        </div>
+        <div class="room-partner">B-Connect</div>
+        <div class="room-partner-sub">All day</div>
+      </div>
+      <div class="room-card">
+        <div class="room-card-header">
+          <div class="room-icon">🖥️</div>
+          <div>
+            <div class="room-name">DemoSpace 1</div>
+            <div class="room-note">Appreciation Room · 9:00–12:00</div>
+          </div>
+        </div>
+        <div class="room-partner">ITE</div>
+        <div class="room-partner-sub">Appreciation Room until 12:00 → DemoSpace 1</div>
+      </div>
+      <div class="room-card">
+        <div class="room-card-header">
+          <div class="room-icon">🖥️</div>
+          <div>
+            <div class="room-name">DemoSpace 2</div>
+            <div class="room-note">Cubicles Room · 9:00–12:00</div>
+          </div>
+        </div>
+        <div class="room-partner">Spirit</div>
+        <div class="room-partner-sub">Cubicles Room until 12:00 → DemoSpace 2</div>
+      </div>
+      <div class="room-card">
+        <div class="room-card-header">
+          <div class="room-icon">🌐</div>
+          <div><div class="room-name">Cooperation</div></div>
+        </div>
+        <div class="room-partner">Phoenix</div>
+        <div class="room-partner-sub">All day</div>
+      </div>
+      <div class="room-card">
+        <div class="room-card-header">
+          <div class="room-icon">💡</div>
+          <div><div class="room-name">Design Thinking Space</div></div>
+        </div>
+        <div class="room-partner">Jupiter</div>
+        <div class="room-partner-sub">All day</div>
+      </div>
+      <div class="room-card">
+        <div class="room-card-header">
+          <div class="room-icon">🤝</div>
+          <div><div class="room-name">Trust</div></div>
+        </div>
+        <div class="room-partner">DBS</div>
+        <div class="room-partner-sub">All day</div>
+      </div>
+      <div class="room-card">
+        <div class="room-card-header">
+          <div class="room-icon">♾️</div>
+          <div><div class="room-name">Inclusion</div></div>
+        </div>
+        <div class="room-partner">AppsTech</div>
+        <div class="room-partner-sub">All day</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PARTNERS ═══════════════════════════════════════════ -->
 <section class="partners-section" id="partners">
   <div class="section-inner">
     <h2 class="section-title">Our <span class="gold">Partners</span></h2>
@@ -1187,6 +1414,14 @@ const DASH_PASS = 'SAP26';
 const DASH_URL = 'https://script.google.com/macros/s/AKfycbx44YGVf2h5sbELdZnvtA5APoc3zu9Scom7W7-f6MrGCNsH4b9RI5zSbrOnPfU-DPbEYw/exec';
 let dashAllRows = [];
 let dashInterval = null;
+
+function switchDay(day) {
+  document.getElementById('rooms-oct5').style.display = (day === 'oct5') ? 'grid' : 'none';
+  document.getElementById('rooms-oct6').style.display = (day === 'oct6') ? 'grid' : 'none';
+  document.querySelectorAll('.rooms-day-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', (day === 'oct5' && i === 0) || (day === 'oct6' && i === 1));
+  });
+}
 
 function dashLogin() {
   const val = document.getElementById('dash-pw-input').value;
