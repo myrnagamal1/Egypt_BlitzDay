@@ -1090,10 +1090,9 @@
         </div>
 
         <!-- Account Name -->
-        <div class="lf-group" style="position:relative;">
+        <div class="lf-group">
           <label class="lf-label">Account Name <span class="lf-req">*</span></label>
-          <input id="lf-account" type="text" class="lf-input" placeholder="Start typing company name…" autocomplete="off" oninput="lfAccountInput()" onblur="setTimeout(lfHideSug,180)">
-          <div id="lf-suggestions" class="lf-suggestions" style="display:none;"></div>
+          <input id="lf-account" type="text" class="lf-input" placeholder="Enter company name" autocomplete="off" oninput="lfAccountInput()">
           <div id="lf-account-warn" class="lf-warn" style="display:none;">
             ⚠️ This account is not on your master list — you can still submit, but please double-check the name.
           </div>
@@ -1578,40 +1577,17 @@ function lfPartnerChange() {
 function lfAccountInput() {
   const val  = document.getElementById('lf-account').value.trim();
   const warn = document.getElementById('lf-account-warn');
-  const sug  = document.getElementById('lf-suggestions');
-
-  if (!val) { lfHideSug(); warn.style.display = 'none'; return; }
-
-  const matches = lfCurrentAccounts.filter(a =>
-    a.toLowerCase().includes(val.toLowerCase())
-  ).slice(0, 8);
-
-  if (matches.length > 0) {
-    sug.innerHTML = matches.map(m =>
-      `<div class="lf-sug-item" onmousedown="lfPickSug('${m.replace(/'/g,"\\'")}')">` +
-      m.replace(new RegExp(val.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi'),
-        s => `<strong>${s}</strong>`) + `</div>`
-    ).join('');
-    sug.style.display = 'block';
-  } else {
-    lfHideSug();
-  }
-
-  if (lfCurrentAccounts.length > 0 || document.getElementById('lf-partner').value) {
-    const exact = lfCurrentAccounts.some(a => a.toLowerCase() === val.toLowerCase());
-    warn.style.display = exact ? 'none' : 'flex';
-  }
+  if (!val || !lfCurrentAccounts.length) { warn.style.display = 'none'; return; }
+  const exact = lfCurrentAccounts.some(a => a.toLowerCase() === val.toLowerCase());
+  warn.style.display = exact ? 'none' : 'flex';
 }
 
 function lfPickSug(name) {
   document.getElementById('lf-account').value = name;
   document.getElementById('lf-account-warn').style.display = 'none';
-  lfHideSug();
 }
 
-function lfHideSug() {
-  document.getElementById('lf-suggestions').style.display = 'none';
-}
+function lfHideSug() {}
 
 function lfPhoneInput() {
   // Strip everything except digits and leading +
