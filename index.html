@@ -1093,6 +1093,9 @@
         <div class="lf-group">
           <label class="lf-label">Account Name <span class="lf-req">*</span></label>
           <input id="lf-account" type="text" class="lf-input" placeholder="Enter company name" autocomplete="off" oninput="lfAccountInput()">
+          <div id="lf-account-ok" style="display:none;align-items:center;gap:6px;margin-top:6px;font-size:13px;font-weight:600;color:#22c55e;">
+            ✓ Account found in master file
+          </div>
           <div id="lf-account-warn" class="lf-warn" style="display:none;">
             ⚠️ This account is not on your master list — you can still submit, but please double-check the name.
           </div>
@@ -1577,9 +1580,15 @@ function lfPartnerChange() {
 function lfAccountInput() {
   const val  = document.getElementById('lf-account').value.trim();
   const warn = document.getElementById('lf-account-warn');
-  if (!val || !lfCurrentAccounts.length) { warn.style.display = 'none'; return; }
+  const ok   = document.getElementById('lf-account-ok');
+  if (!val || !lfCurrentAccounts.length) {
+    warn.style.display = 'none';
+    ok.style.display   = 'none';
+    return;
+  }
   const exact = lfCurrentAccounts.some(a => a.toLowerCase() === val.toLowerCase());
   warn.style.display = exact ? 'none' : 'flex';
+  ok.style.display   = exact ? 'flex' : 'none';
 }
 
 function lfPickSug(name) {
@@ -1668,7 +1677,7 @@ function lfSubmit() {
           document.getElementById(id).value = '');
         document.getElementById('lf-outcome').value = '';
         document.getElementById('lf-account-warn').style.display = 'none';
-        document.getElementById('lf-phone-warn').style.display = 'none';
+        document.getElementById('lf-account-ok').style.display   = 'none';
         document.getElementById('lf-email-warn').style.display = 'none';
         lfCurrentAccounts = [];
       } else {
