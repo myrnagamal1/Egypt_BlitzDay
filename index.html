@@ -1113,8 +1113,22 @@
 
         <!-- Phone -->
         <div class="lf-group">
-          <label class="lf-label">Contact Phone / Email</label>
-          <input id="lf-phone" type="text" class="lf-input" placeholder="+20 …">
+          <label class="lf-label">Contact Phone</label>
+          <input id="lf-phone" type="tel" class="lf-input" placeholder="01X XXXX XXXX" maxlength="11"
+            oninput="lfPhoneInput()" onblur="lfPhoneBlur()">
+          <div id="lf-phone-warn" class="lf-warn" style="display:none;">
+            ⚠️ Enter a valid Egyptian mobile number (e.g. 01012345678 or +201012345678)
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="lf-group">
+          <label class="lf-label">Contact Email</label>
+          <input id="lf-email" type="email" class="lf-input" placeholder="name@company.com"
+            oninput="lfEmailInput()" onblur="lfEmailBlur()">
+          <div id="lf-email-warn" class="lf-warn" style="display:none;">
+            ⚠️ Please enter a valid email address.
+          </div>
         </div>
 
         <!-- Outcome -->
@@ -1599,6 +1613,32 @@ function lfHideSug() {
   document.getElementById('lf-suggestions').style.display = 'none';
 }
 
+function lfPhoneInput() {
+  // Strip everything except digits and leading +
+  const input = document.getElementById('lf-phone');
+  input.value = input.value.replace(/[^\d+]/g, '');
+  document.getElementById('lf-phone-warn').style.display = 'none';
+}
+
+function lfPhoneBlur() {
+  const val = document.getElementById('lf-phone').value.trim();
+  if (!val) return;
+  // Accept: 01XXXXXXXXX (11 digits) or +201XXXXXXXXX (13 chars)
+  const valid = /^(01[0-9]{9}|\+201[0-9]{9})$/.test(val);
+  document.getElementById('lf-phone-warn').style.display = valid ? 'none' : 'flex';
+}
+
+function lfEmailInput() {
+  document.getElementById('lf-email-warn').style.display = 'none';
+}
+
+function lfEmailBlur() {
+  const val = document.getElementById('lf-email').value.trim();
+  if (!val) return;
+  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+  document.getElementById('lf-email-warn').style.display = valid ? 'none' : 'flex';
+}
+
 function lfSubmit() {
   const partner = document.getElementById('lf-partner').value.trim();
   const rep     = document.getElementById('lf-rep').value.trim();
@@ -1606,6 +1646,7 @@ function lfSubmit() {
   const contact = document.getElementById('lf-contact').value.trim();
   const title   = document.getElementById('lf-title').value.trim();
   const phone   = document.getElementById('lf-phone').value.trim();
+  const email   = document.getElementById('lf-email').value.trim();
   const outcome = document.getElementById('lf-outcome').value.trim();
   const notes   = document.getElementById('lf-notes').value.trim();
   const status  = document.getElementById('lf-status');
@@ -1613,6 +1654,20 @@ function lfSubmit() {
 
   if (!partner || !rep || !account || !contact || !outcome) {
     status.innerHTML = '<span style="color:#ff6b6b;">Please fill in all required fields.</span>';
+    return;
+  }
+
+  // Validate phone if provided
+  if (phone && !/^(01[0-9]{9}|\+201[0-9]{9})$/.test(phone)) {
+    document.getElementById('lf-phone-warn').style.display = 'flex';
+    status.innerHTML = '<span style="color:#ff6b6b;">Please fix the phone number before submitting.</span>';
+    return;
+  }
+
+  // Validate email if provided
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById('lf-email-warn').style.display = 'flex';
+    status.innerHTML = '<span style="color:#ff6b6b;">Please fix the email address before submitting.</span>';
     return;
   }
 
@@ -1624,7 +1679,7 @@ function lfSubmit() {
 
   const params = new URLSearchParams({
     action: 'submitLead',
-    partner, rep, account, contact, title, phone, outcome, notes,
+    partner, rep, account, contact, title, phone, email, outcome, notes,
     onMaster: onMaster ? 'YES' : 'NO — not on master list'
   });
 
@@ -1633,10 +1688,12 @@ function lfSubmit() {
     .then(d => {
       if (d.status === 'ok' || d.result === 'success') {
         status.innerHTML = '<span style="color:#00C8D4;font-weight:700;">✓ Lead submitted successfully!</span>';
-        ['lf-rep','lf-account','lf-contact','lf-title','lf-phone','lf-notes'].forEach(id =>
+        ['lf-rep','lf-account','lf-contact','lf-title','lf-phone','lf-email','lf-notes'].forEach(id =>
           document.getElementById(id).value = '');
         document.getElementById('lf-outcome').value = '';
         document.getElementById('lf-account-warn').style.display = 'none';
+        document.getElementById('lf-phone-warn').style.display = 'none';
+        document.getElementById('lf-email-warn').style.display = 'none';
         lfCurrentAccounts = [];
       } else {
         status.innerHTML = '<span style="color:#ff6b6b;">Submission failed — please try again.</span>';
