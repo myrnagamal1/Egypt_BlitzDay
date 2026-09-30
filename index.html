@@ -1217,6 +1217,18 @@
 
     <div class="lb-updated" id="lb-updated">Loading…</div>
 
+    <!-- Target of the Day -->
+    <div id="lb-target" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:18px 24px;margin-bottom:28px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="font-size:0.85rem;font-weight:700;letter-spacing:0.08em;color:var(--teal);text-transform:uppercase;">🎯 Target of the Day</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);">Goal: <strong style="color:var(--gold)" id="lb-target-count">0</strong> / 65 leads</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);border-radius:99px;height:14px;overflow:hidden;">
+        <div id="lb-target-bar" style="height:100%;border-radius:99px;background:linear-gradient(90deg,var(--teal),var(--gold));transition:width 0.8s ease;width:0%;"></div>
+      </div>
+      <div id="lb-target-msg" style="margin-top:8px;font-size:0.82rem;color:rgba(255,255,255,0.45);text-align:right;"></div>
+    </div>
+
     <table class="lb-table">
       <thead>
         <tr>
@@ -1430,6 +1442,17 @@ function renderLeaderboard(data) {
 
   // Update stat
   document.getElementById('total-leads-stat').textContent = totalLeads;
+
+  // Update target of the day
+  const TARGET = 65;
+  const pctTarget = Math.min(Math.round((totalLeads / TARGET) * 100), 100);
+  document.getElementById('lb-target-count').textContent = totalLeads;
+  document.getElementById('lb-target-bar').style.width = pctTarget + '%';
+  const remaining = TARGET - totalLeads;
+  document.getElementById('lb-target-msg').textContent =
+    totalLeads >= TARGET
+      ? '🎉 Target reached!'
+      : remaining + ' lead' + (remaining === 1 ? '' : 's') + ' to go';
 
   if (totalLeads === 0) {
     tbody.innerHTML = `<tr><td colspan="4">
