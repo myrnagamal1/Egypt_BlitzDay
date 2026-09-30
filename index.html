@@ -501,6 +501,37 @@
   /* ── PARTNERS ─────────────────────────────────────────── */
   .partners-section { background: var(--night2); }
 
+  /* ── Resources ── */
+  .resources-section { background: var(--night); }
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 36px;
+  }
+  .resource-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 14px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color .2s, background .2s;
+  }
+  .resource-card:hover { background: rgba(255,255,255,0.07); border-color: var(--teal); }
+  .resource-icon { font-size: 2rem; line-height: 1; }
+  .resource-title { font-weight: 700; font-size: 1rem; color: var(--white); }
+  .resource-desc { font-size: 0.85rem; color: rgba(255,255,255,0.5); flex: 1; }
+  .resource-dl {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--teal); color: var(--night);
+    font-weight: 700; font-size: 0.82rem; letter-spacing: 0.04em;
+    padding: 9px 18px; border-radius: 99px; text-decoration: none;
+    align-self: flex-start; transition: opacity .2s;
+  }
+  .resource-dl:hover { opacity: 0.85; }
+
   .partners-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -754,6 +785,7 @@
     <li><a href="#leaderboard">Leaderboard</a></li>
     <li><a href="#rooms">Rooms</a></li>
     <li><a href="#partners">Partners</a></li>
+    <li><a href="#resources">Resources</a></li>
     <li><a href="#dashboard" style="color:var(--gold);">Dashboard</a></li>
   </ul>
 </nav>
@@ -1399,6 +1431,27 @@
       <div class="partner-card"><div class="p-icon">🔴</div>Jupiter</div>
       <div class="partner-card"><div class="p-icon">🟣</div>DBS</div>
       <div class="partner-card"><div class="p-icon">🟡</div>AppsTech</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RESOURCES ══════════════════════════════════════════════ -->
+<section class="resources-section" id="resources">
+  <div class="section-inner">
+    <div class="section-tag">Blitz Day Kit</div>
+    <h2 class="section-title">📁 <span class="gold">Resources</span></h2>
+    <p class="section-desc">Battle cards and materials to help you close deals today.</p>
+    <div class="resources-grid">
+
+      <div class="resource-card">
+        <div class="resource-icon">⚔️</div>
+        <div class="resource-title">Oracle Fusion ERP vs S/4HANA Cloud — Battle Card</div>
+        <div class="resource-desc">Competitive positioning guide: key differentiators, displacement angles, and talking points for Oracle accounts.</div>
+        <a class="resource-dl" href="https://raw.githubusercontent.com/myrnagamal1/Egypt_BlitzDay/main/resources/Oracle_vs_S4HANA_Battlecard_2025.pdf" target="_blank" download>
+          ↓ Download PDF
+        </a>
+      </div>
+
     </div>
   </div>
 </section>
