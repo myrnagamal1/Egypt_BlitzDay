@@ -1947,6 +1947,16 @@ function loadDashboard(manual = false) {
       const rows = data.rows || [];
       // Hydrate _excluded from server data
       rows.forEach(r => { r._excluded = (r['Excluded'] || '').toString().trim().toUpperCase() === 'YES'; });
+      // Auto-fill AE from master lookup if blank in sheet
+      rows.forEach((r, idx) => {
+        if (!(r['AE'] || '').toString().trim()) {
+          const ae = lookupAE(r['Account Name']);
+          if (ae && ae !== '—') {
+            r['AE'] = ae;
+            fetch(`${DASH_URL}?action=setAE&rowIndex=${idx + 1}&ae=${encodeURIComponent(ae)}`);
+          }
+        }
+      });
       dashAllRows = rows;
 
       // Stats + partner bars (respects excluded rows)
