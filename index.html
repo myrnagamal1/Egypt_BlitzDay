@@ -1497,6 +1497,21 @@ const REFRESH_INTERVAL = 60000; // 60 seconds
 
 let lbAllRows = []; // cache rows so exclude toggle can re-render leaderboard
 
+// ── NOTIFICATIONS ──────────────────────────────────────
+function requestNotifPermission() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+function showLeadNotification(partnerName, accountName) {
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  const title = '🎯 New Lead Submitted!';
+  const body = `${partnerName} — ${accountName}`;
+  new Notification(title, { body, icon: 'https://myrnagamal1.github.io/Egypt_BlitzDay/favicon.ico' });
+}
+// Request permission as soon as page loads
+requestNotifPermission();
+
 function loadLeaderboard(manual = false) {
   const btn = document.querySelector('.refresh-btn');
   if (btn) btn.classList.add('loading');
@@ -1908,6 +1923,7 @@ function lfSubmit() {
     .then(d => {
       if (d.status === 'ok' || d.result === 'success') {
         status.innerHTML = '<span style="color:#00C8D4;font-weight:700;">✓ Lead submitted successfully!</span>';
+        showLeadNotification(partner, account);
         ['lf-rep','lf-account','lf-contact','lf-title','lf-phone','lf-email','lf-nextstep','lf-notes'].forEach(id =>
           document.getElementById(id).value = '');
         document.getElementById('lf-outcome').value = '';
