@@ -2011,10 +2011,10 @@ function renderLeadsTable(rows) {
     const cells = COLS.map(c => {
       let val;
       if (c.key === '_ae') {
-        val = lookupAE(row['Account Name']);
-      } else {
-        val = row[c.key];
+        const aeVal = (row['AE'] || lookupAE(row['Account Name']) || '').replace(/"/g, '&quot;');
+        return `<td><input type="text" value="${aeVal}" placeholder="—" onchange="saveAE(${idx}, this.value)" style="background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.2);color:inherit;font:inherit;width:120px;padding:2px 4px;outline:none;" onfocus="this.style.borderBottomColor='var(--teal)'" onblur="this.style.borderBottomColor='rgba(255,255,255,0.2)'"></td>`;
       }
+      val = row[c.key];
       if (val === null || val === undefined) val = '';
       if (c.key === 'Timestamp') {
         try {
@@ -2030,6 +2030,11 @@ function renderLeadsTable(rows) {
     const chk = `<td style="text-align:center;"><input type="checkbox" title="Exclude from leaderboard" ${excl ? 'checked' : ''} onchange="toggleExclude(${idx}, this)" style="cursor:pointer;accent-color:#f87171;width:15px;height:15px;"></td>`;
     return `<tr style="${rowStyle}">${chk}${cells}</tr>`;
   }).join('');
+}
+
+function saveAE(idx, value) {
+  dashAllRows[idx]['AE'] = value;
+  fetch(`${DASH_URL}?action=setAE&rowIndex=${idx + 1}&ae=${encodeURIComponent(value)}`);
 }
 
 function filterLeadsTable() {
