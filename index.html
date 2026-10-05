@@ -1493,9 +1493,10 @@
 <!-- ══ LEADERBOARD JS ══════════════════════════════════════ -->
 <script>
 const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzS2WjZ-RCYGKLU8KcNgscDiHzTo7ZU0cGGNv4L-6NQDxZeZS3je6zLxC0rBkHxqb3YDw/exec';
-const REFRESH_INTERVAL = 60000; // 60 seconds
+const REFRESH_INTERVAL = 15000; // 15 seconds
 
 let lbAllRows = []; // cache rows so exclude toggle can re-render leaderboard
+let _lastRowCount = -1; // -1 = first load, don't notify yet
 
 // ── NOTIFICATIONS ──────────────────────────────────────
 function requestNotifPermission() {
@@ -1521,6 +1522,21 @@ function loadLeaderboard(manual = false) {
     .then(data => {
       lbAllRows = data.rows || [];
       lbAllRows.forEach(r => { r._excluded = (r['Excluded'] || '').toString().trim().toUpperCase() === 'YES'; });
+
+      // Notify if new rows appeared since last poll
+      const newCount = lbAllRows.length;
+      if (_lastRowCount !== -1 && newCount > _lastRowCount) {
+        const diff = newCount - _lastRowCount;
+        // Find the newest rows to get partner name
+        const newest = lbAllRows.slice(-diff);
+        newest.forEach(r => {
+          let p = (r['Partner Name'] || '').toString().trim();
+          if (p === 'Appstech') p = 'Apps-TCH';
+          showLeadNotification(p);
+        });
+      }
+      _lastRowCount = newCount;
+
       renderLeaderboard(lbAllRows);
       const d = new Date(data.updated);
       document.getElementById('lb-updated').textContent =
