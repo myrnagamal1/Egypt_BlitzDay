@@ -1520,10 +1520,10 @@ function loadLeaderboard(manual = false) {
 }
 
 function renderLeaderboard(rows) {
-  // Recompute counts from rows, excluding dashExcluded indices
+  // Recompute counts from rows, excluding rows marked excluded
   const counts = {};
-  rows.forEach((row, i) => {
-    if (dashExcluded.has(i)) return;
+  rows.forEach((row) => {
+    if (row._excluded) return;
     const p = (row['Partner Name'] || '').toString().trim();
     if (p) counts[p] = (counts[p] || 0) + 1;
   });
@@ -1712,19 +1712,27 @@ setInterval(loadLeaderboard, REFRESH_INTERVAL);
 const DASH_PASS = 'SAP26';
 const DASH_URL = 'https://script.google.com/macros/s/AKfycbwcfCmdOOZPsll5a5AhKilt2jKNNLAZ69jr2YAiThrGuTkkTCrcs68vB_QtiN4lgf_-RA/exec';
 let dashAllRows = [];
-let dashExcluded = new Set(JSON.parse(sessionStorage.getItem('dashExcluded') || '[]'));
 
-function toggleExclude(idx) {
-  if (dashExcluded.has(idx)) dashExcluded.delete(idx);
-  else dashExcluded.add(idx);
-  sessionStorage.setItem('dashExcluded', JSON.stringify([...dashExcluded]));
+function toggleExclude(idx, checkbox) {
+  const excluded = checkbox.checked;
+  // Optimistically update local state so UI feels instant
+  dashAllRows[idx]._excluded = excluded;
   renderDashStats(dashAllRows);
-  renderLeaderboard(lbAllRows); // keep leaderboard in sync
-  renderLeadsTable(dashAllRows);
+  renderLeaderboard(lbAllRows);
+
+  // Persist to sheet
+  fetch(`${DASH_URL}?action=setExcluded&rowIndex=${idx + 1}&excluded=${excluded}`)
+    .catch(() => {
+      // Revert on failure
+      dashAllRows[idx]._excluded = !excluded;
+      checkbox.checked = !excluded;
+      renderDashStats(dashAllRows);
+      renderLeaderboard(lbAllRows);
+    });
 }
 
 function renderDashStats(rows) {
-  const included = rows.filter((_, i) => !dashExcluded.has(i));
+  const included = rows.filter(r => !r._excluded);
   const counts = {};
   included.forEach(r => {
     const p = (r['Partner Name'] || '').toString().trim();
@@ -1936,6 +1944,8 @@ function loadDashboard(manual = false) {
     .then(data => {
       const lb = data.leaderboard || [];
       const rows = data.rows || [];
+      // Hydrate _excluded from server data
+      rows.forEach(r => { r._excluded = (r['Excluded'] || '').toString().trim().toUpperCase() === 'YES'; });
       dashAllRows = rows;
 
       // Stats + partner bars (respects excluded rows)
@@ -1987,7 +1997,7 @@ function renderLeadsTable(rows) {
   thead.innerHTML = '<tr><th title="Exclude from leaderboard">Excl.</th>' + COLS.map(c => `<th>${c.label}</th>`).join('') + '</tr>';
 
   tbody.innerHTML = rows.map((row, idx) => {
-    const excl = dashExcluded.has(idx);
+    const excl = !!row._excluded;
     const rowStyle = excl ? 'opacity:0.35;text-decoration:line-through;' : '';
     const cells = COLS.map(c => {
       let val = row[c.key];
@@ -2003,7 +2013,7 @@ function renderLeadsTable(rows) {
       const escaped = val.replace(/</g,'&lt;').replace(/>/g,'&gt;');
       return `<td title="${escaped}">${escaped || '—'}</td>`;
     }).join('');
-    const chk = `<td style="text-align:center;"><input type="checkbox" title="Exclude from leaderboard" ${excl ? 'checked' : ''} onchange="toggleExclude(${idx})" style="cursor:pointer;accent-color:#f87171;width:15px;height:15px;"></td>`;
+    const chk = `<td style="text-align:center;"><input type="checkbox" title="Exclude from leaderboard" ${excl ? 'checked' : ''} onchange="toggleExclude(${idx}, this)" style="cursor:pointer;accent-color:#f87171;width:15px;height:15px;"></td>`;
     return `<tr style="${rowStyle}">${chk}${cells}</tr>`;
   }).join('');
 }
