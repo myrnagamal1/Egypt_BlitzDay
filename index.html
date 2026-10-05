@@ -1485,6 +1485,8 @@
 const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwcfCmdOOZPsll5a5AhKilt2jKNNLAZ69jr2YAiThrGuTkkTCrcs68vB_QtiN4lgf_-RA/exec';
 const REFRESH_INTERVAL = 60000; // 60 seconds
 
+let lbAllRows = []; // cache rows so exclude toggle can re-render leaderboard
+
 function loadLeaderboard(manual = false) {
   const btn = document.querySelector('.refresh-btn');
   if (btn) btn.classList.add('loading');
@@ -1492,7 +1494,8 @@ function loadLeaderboard(manual = false) {
   fetch(WEB_APP_URL)
     .then(r => r.json())
     .then(data => {
-      renderLeaderboard(data.leaderboard);
+      lbAllRows = data.rows || [];
+      renderLeaderboard(lbAllRows);
       const d = new Date(data.updated);
       document.getElementById('lb-updated').textContent =
         'Last updated: ' + d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) +
@@ -1506,7 +1509,18 @@ function loadLeaderboard(manual = false) {
     });
 }
 
-function renderLeaderboard(data) {
+function renderLeaderboard(rows) {
+  // Recompute counts from rows, excluding dashExcluded indices
+  const counts = {};
+  rows.forEach((row, i) => {
+    if (dashExcluded.has(i)) return;
+    const p = (row['Partner Name'] || '').toString().trim();
+    if (p) counts[p] = (counts[p] || 0) + 1;
+  });
+  const data = Object.keys(counts)
+    .map(p => ({ partner: p, leads: counts[p] }))
+    .sort((a, b) => b.leads - a.leads);
+
   const tbody = document.getElementById('lb-body');
   const maxLeads = data.length > 0 ? Math.max(...data.map(d => d.leads), 1) : 1;
   const totalLeads = data.reduce((s, d) => s + d.leads, 0);
@@ -1695,6 +1709,7 @@ function toggleExclude(idx) {
   else dashExcluded.add(idx);
   sessionStorage.setItem('dashExcluded', JSON.stringify([...dashExcluded]));
   renderDashStats(dashAllRows);
+  renderLeaderboard(lbAllRows); // keep leaderboard in sync
   renderLeadsTable(dashAllRows);
 }
 
