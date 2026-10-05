@@ -1704,9 +1704,12 @@ setInterval(loadLeaderboard, REFRESH_INTERVAL);
 #dash-table tr:hover td { background:rgba(255,255,255,0.04); }
 .dash-partner-row { display:flex;align-items:center;gap:14px;margin-bottom:14px; }
 .dash-partner-label { color:#fff;font-size:0.88rem;font-weight:600;width:110px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
-.dash-partner-track { flex:1;height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden; }
-.dash-partner-fill { height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:4px;transition:width 0.6s ease; }
-.dash-partner-count { color:var(--gold);font-weight:700;font-size:0.88rem;width:30px;text-align:right;flex-shrink:0; }
+.dash-partner-track { flex:1;height:10px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden; }
+.dash-partner-fill { height:100%;border-radius:99px;transition:width 0.6s ease; }
+.dash-partner-fill.green  { background:linear-gradient(90deg,#16a34a,#22c55e); }
+.dash-partner-fill.gold   { background:linear-gradient(90deg,#d97706,var(--gold)); }
+.dash-partner-fill.teal   { background:linear-gradient(90deg,var(--teal),var(--teal2)); }
+.dash-partner-count { color:var(--gold);font-weight:700;font-size:0.88rem;width:80px;text-align:right;flex-shrink:0; }
 </style>
 
 <script>
@@ -1763,20 +1766,16 @@ function renderDashStats(rows) {
 
   document.getElementById('dash-partner-bars').innerHTML = allPartners.map(item => {
     const pct = Math.min(Math.round((item.leads / item.target) * 100), 100);
-    const color = pct >= 100 ? '#22c55e' : pct >= 60 ? 'var(--gold)' : 'var(--teal)';
+    const colorClass = pct >= 100 ? 'green' : pct >= 60 ? 'gold' : 'teal';
+    const colorHex = pct >= 100 ? '#22c55e' : pct >= 60 ? 'var(--gold)' : 'var(--teal)';
     const statusIcon = pct >= 100 ? '✅' : pct >= 60 ? '🔥' : '⏳';
     return `
-      <div class="dash-partner-row" style="margin-bottom:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
-          <div class="dash-partner-label" title="${item.partner}" style="font-weight:600;">${statusIcon} ${item.partner}</div>
-          <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);">
-            <span style="color:${color};font-weight:700;">${item.leads}</span> / ${item.target}
-            <span style="margin-left:6px;color:rgba(255,255,255,0.4);">(${pct}%)</span>
-          </div>
+      <div class="dash-partner-row">
+        <div class="dash-partner-label" title="${item.partner}">${statusIcon} ${item.partner}</div>
+        <div class="dash-partner-track">
+          <div class="dash-partner-fill ${colorClass}" style="width:${pct}%;"></div>
         </div>
-        <div style="background:rgba(255,255,255,0.08);border-radius:99px;height:8px;">
-          <div style="width:${pct}%;background:${color};border-radius:99px;height:8px;transition:width 0.4s ease;"></div>
-        </div>
+        <div class="dash-partner-count" style="color:${colorHex};">${item.leads}/${item.target}</div>
       </div>`;
   }).join('');
 }
