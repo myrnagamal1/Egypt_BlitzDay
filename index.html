@@ -1733,6 +1733,11 @@ function toggleExclude(idx, checkbox) {
 }
 
 function renderDashStats(rows) {
+  const TARGETS = {
+    'B-Connect': 10, 'ITE': 10, 'Spirit': 5,
+    'Solex': 10, 'Jupiter': 5, 'DBS': 10, 'Appstech': 15
+  };
+
   const included = rows.filter(r => !r._excluded);
   const counts = {};
   included.forEach(r => {
@@ -1752,17 +1757,28 @@ function renderDashStats(rows) {
   }).length;
   document.getElementById('dash-ai-count').textContent = aiCount;
 
-  const maxLeads = lb.length > 0 ? Math.max(...lb.map(d => d.leads), 1) : 1;
-  document.getElementById('dash-partner-bars').innerHTML = lb.length === 0
-    ? '<p style="color:rgba(255,255,255,0.35);font-size:0.85rem;margin:0;">No leads yet.</p>'
-    : lb.map(item => `
-      <div class="dash-partner-row">
-        <div class="dash-partner-label" title="${item.partner}">${item.partner}</div>
-        <div class="dash-partner-track">
-          <div class="dash-partner-fill" style="width:${Math.round((item.leads/maxLeads)*100)}%"></div>
+  // Partner progress vs targets
+  const allPartners = Object.keys(TARGETS).map(p => ({ partner: p, leads: counts[p] || 0, target: TARGETS[p] }))
+    .sort((a, b) => b.leads - a.leads);
+
+  document.getElementById('dash-partner-bars').innerHTML = allPartners.map(item => {
+    const pct = Math.min(Math.round((item.leads / item.target) * 100), 100);
+    const color = pct >= 100 ? '#22c55e' : pct >= 60 ? 'var(--gold)' : 'var(--teal)';
+    const statusIcon = pct >= 100 ? '✅' : pct >= 60 ? '🔥' : '⏳';
+    return `
+      <div class="dash-partner-row" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+          <div class="dash-partner-label" title="${item.partner}" style="font-weight:600;">${statusIcon} ${item.partner}</div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);">
+            <span style="color:${color};font-weight:700;">${item.leads}</span> / ${item.target}
+            <span style="margin-left:6px;color:rgba(255,255,255,0.4);">(${pct}%)</span>
+          </div>
         </div>
-        <div class="dash-partner-count">${item.leads}</div>
-      </div>`).join('');
+        <div style="background:rgba(255,255,255,0.08);border-radius:99px;height:8px;">
+          <div style="width:${pct}%;background:${color};border-radius:99px;height:8px;transition:width 0.4s ease;"></div>
+        </div>
+      </div>`;
+  }).join('');
 }
 let dashInterval = null;
 
