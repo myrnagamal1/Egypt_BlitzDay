@@ -1503,10 +1503,10 @@ function requestNotifPermission() {
     Notification.requestPermission();
   }
 }
-function showLeadNotification(partnerName, accountName) {
+function showLeadNotification(partnerName) {
   if (!('Notification' in window) || Notification.permission !== 'granted') return;
   const title = '🎯 New Lead Submitted!';
-  const body = `${partnerName} — ${accountName}`;
+  const body = `New lead submitted by ${partnerName}`;
   new Notification(title, { body, icon: 'https://myrnagamal1.github.io/Egypt_BlitzDay/favicon.ico' });
 }
 // Request permission as soon as page loads
@@ -1923,7 +1923,7 @@ function lfSubmit() {
     .then(d => {
       if (d.status === 'ok' || d.result === 'success') {
         status.innerHTML = '<span style="color:#00C8D4;font-weight:700;">✓ Lead submitted successfully!</span>';
-        showLeadNotification(partner, account);
+        showLeadNotification(partner);
         ['lf-rep','lf-account','lf-contact','lf-title','lf-phone','lf-email','lf-nextstep','lf-notes'].forEach(id =>
           document.getElementById(id).value = '');
         document.getElementById('lf-outcome').value = '';
