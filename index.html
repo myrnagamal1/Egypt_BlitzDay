@@ -1120,7 +1120,7 @@
             <option>ITE</option>
             <option>Jupiter</option>
             <option>Spirit</option>
-            <option>Appstech</option>
+            <option>Apps-TCH</option>
             <option>B-Connect</option>
           </select>
         </div>
@@ -1525,7 +1525,8 @@ function renderLeaderboard(rows) {
   const counts = {};
   rows.forEach((row) => {
     if (row._excluded) return;
-    const p = (row['Partner Name'] || '').toString().trim();
+    let p = (row['Partner Name'] || '').toString().trim();
+    if (p === 'Appstech') p = 'Apps-TCH';
     if (p) counts[p] = (counts[p] || 0) + 1;
   });
   const data = Object.keys(counts)
@@ -1738,13 +1739,14 @@ function toggleExclude(idx, checkbox) {
 function renderDashStats(rows) {
   const TARGETS = {
     'B-Connect': 10, 'ITE': 10, 'Spirit': 5,
-    'Solex': 10, 'Jupiter': 5, 'DBS': 10, 'Appstech': 15
+    'Solex': 10, 'Jupiter': 5, 'DBS': 10, 'Apps-TCH': 15
   };
 
   const included = rows.filter(r => !r._excluded);
   const counts = {};
   included.forEach(r => {
-    const p = (r['Partner Name'] || '').toString().trim();
+    let p = (r['Partner Name'] || '').toString().trim();
+    if (p === 'Appstech') p = 'Apps-TCH'; // normalize legacy name
     if (p) counts[p] = (counts[p] || 0) + 1;
   });
   const lb = Object.keys(counts).map(p => ({ partner: p, leads: counts[p] }))
