@@ -772,6 +772,16 @@
 </head>
 <body>
 
+<!-- ══ ANNOUNCEMENT BANNER ══════════════════════════════════ -->
+<!-- To show: set display to "flex" below. To hide: set to "none". Edit the message text freely. -->
+<div id="announcement-banner" style="display:none;align-items:center;justify-content:space-between;gap:12px;background:var(--teal);color:var(--night);padding:12px 24px;font-size:0.9rem;font-weight:600;position:sticky;top:0;z-index:999;">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span style="font-size:1.1rem;">📢</span>
+    <span id="announcement-text">We are starting in 10 minutes — please make your way to the main room!</span>
+  </div>
+  <button onclick="document.getElementById('announcement-banner').style.display='none'" style="background:rgba(0,0,0,0.15);border:none;color:var(--night);font-weight:700;font-size:1rem;cursor:pointer;border-radius:99px;width:28px;height:28px;line-height:1;flex-shrink:0;">✕</button>
+</div>
+
 <!-- NAV -->
 <nav>
   <div class="nav-logo">
