@@ -1786,33 +1786,46 @@ setInterval(loadLeaderboard, REFRESH_INTERVAL);
 }
 #dash-table tr:hover td { background:rgba(255,255,255,0.04); }
 
-/* Sticky frozen columns: Excl(1), Partner(3), Account(4) */
+/* Sticky frozen columns: Excl(1), Time(2), Partner(3), Account(4) */
 #dash-table th:nth-child(1),
 #dash-table td:nth-child(1) {
   position: sticky;
   left: 0;
   z-index: 2;
   background: #0f1628;
+  min-width: 46px;
+}
+#dash-table th:nth-child(2),
+#dash-table td:nth-child(2) {
+  position: sticky;
+  left: 46px;
+  z-index: 2;
+  background: #0f1628;
+  min-width: 120px;
 }
 #dash-table th:nth-child(3),
 #dash-table td:nth-child(3) {
   position: sticky;
-  left: 54px;
+  left: 166px;
   z-index: 2;
   background: #0f1628;
+  min-width: 120px;
 }
 #dash-table th:nth-child(4),
 #dash-table td:nth-child(4) {
   position: sticky;
-  left: 204px;
+  left: 286px;
   z-index: 2;
   background: #0f1628;
-  border-right: 1px solid rgba(255,255,255,0.1);
+  min-width: 150px;
+  border-right: 1px solid rgba(255,255,255,0.12);
 }
 #dash-table tr:hover td:nth-child(1),
+#dash-table tr:hover td:nth-child(2),
 #dash-table tr:hover td:nth-child(3),
 #dash-table tr:hover td:nth-child(4) { background: #1a2240; }
 #dash-table th:nth-child(1),
+#dash-table th:nth-child(2),
 #dash-table th:nth-child(3),
 #dash-table th:nth-child(4) { background: #0d1830; z-index: 3; }
 .dash-partner-row { display:flex;align-items:center;gap:14px;margin-bottom:14px; }
