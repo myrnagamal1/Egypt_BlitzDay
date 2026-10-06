@@ -1741,11 +1741,26 @@ setInterval(loadLeaderboard, REFRESH_INTERVAL);
 
   <!-- Full leads table -->
   <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;overflow:hidden;">
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
       <h3 style="color:#fff;font-size:1.1rem;font-weight:700;margin:0;">Submitted Leads</h3>
       <input id="dash-search" type="text" placeholder="Search leads…"
         oninput="filterLeadsTable()"
         style="padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.07);color:#fff;font-size:0.85rem;width:220px;outline:none;">
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
+      <select id="filter-partner" onchange="filterLeadsTable()" style="padding:7px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:#0f1628;color:#fff;font-size:0.82rem;outline:none;cursor:pointer;">
+        <option value="">All Partners</option>
+      </select>
+      <select id="filter-industry" onchange="filterLeadsTable()" style="padding:7px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:#0f1628;color:#fff;font-size:0.82rem;outline:none;cursor:pointer;">
+        <option value="">All Industries</option>
+      </select>
+      <select id="filter-excluded" onchange="filterLeadsTable()" style="padding:7px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:#0f1628;color:#fff;font-size:0.82rem;outline:none;cursor:pointer;">
+        <option value="">All Leads</option>
+        <option value="active">Active only</option>
+        <option value="excluded">Excluded only</option>
+      </select>
+      <button onclick="clearLeadsFilters()" style="padding:7px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:rgba(255,255,255,0.5);font-size:0.82rem;cursor:pointer;">Clear</button>
+      <span id="filter-count" style="color:rgba(255,255,255,0.4);font-size:0.8rem;margin-left:4px;"></span>
     </div>
     <div style="overflow-x:auto;">
       <table id="dash-table" style="width:100%;border-collapse:collapse;font-size:0.82rem;">
@@ -2128,7 +2143,8 @@ function loadDashboard(manual = false) {
         (manual ? ' (manual refresh)' : ' · auto-refresh every 60s');
 
       // Leads table
-      renderLeadsTable(rows);
+      populateFilterDropdowns();
+      filterLeadsTable();
     })
     .catch(() => {
       document.getElementById('dash-updated').textContent = 'Could not load data — retrying…';
@@ -2216,13 +2232,49 @@ function saveNotes(idx, value) {
   fetch(`${DASH_URL}?action=setNotes&rowIndex=${idx + 1}&notes=${encodeURIComponent(value)}`);
 }
 
+function populateFilterDropdowns() {
+  const partners  = [...new Set(dashAllRows.map(r => (r['Partner Name'] || '').trim()).filter(Boolean))].sort();
+  const industries = [...new Set(dashAllRows.map(r => (r['Industry'] || '').trim()).filter(Boolean))].sort();
+
+  const pSel = document.getElementById('filter-partner');
+  const iSel = document.getElementById('filter-industry');
+  const pVal = pSel.value;
+  const iVal = iSel.value;
+
+  pSel.innerHTML = '<option value="">All Partners</option>' +
+    partners.map(p => `<option value="${p}"${p === pVal ? ' selected' : ''}>${p}</option>`).join('');
+  iSel.innerHTML = '<option value="">All Industries</option>' +
+    industries.map(i => `<option value="${i}"${i === iVal ? ' selected' : ''}>${i}</option>`).join('');
+}
+
 function filterLeadsTable() {
-  const q = document.getElementById('dash-search').value.toLowerCase();
-  if (!q) { renderLeadsTable(dashAllRows); return; }
-  const filtered = dashAllRows.filter(row =>
-    Object.values(row).some(v => String(v).toLowerCase().includes(q))
-  );
+  const q       = document.getElementById('dash-search').value.toLowerCase();
+  const partner = document.getElementById('filter-partner').value;
+  const industry = document.getElementById('filter-industry').value;
+  const excl    = document.getElementById('filter-excluded').value;
+
+  const filtered = dashAllRows.filter(row => {
+    if (q && !Object.values(row).some(v => String(v).toLowerCase().includes(q))) return false;
+    if (partner  && (row['Partner Name'] || '').trim() !== partner)  return false;
+    if (industry && (row['Industry']     || '').trim() !== industry) return false;
+    if (excl === 'active'   &&  row._excluded) return false;
+    if (excl === 'excluded' && !row._excluded) return false;
+    return true;
+  });
+
+  const count = document.getElementById('filter-count');
+  if (count) count.textContent = filtered.length < dashAllRows.length ? `${filtered.length} of ${dashAllRows.length}` : '';
+
   renderLeadsTable(filtered);
+}
+
+function clearLeadsFilters() {
+  document.getElementById('dash-search').value = '';
+  document.getElementById('filter-partner').value = '';
+  document.getElementById('filter-industry').value = '';
+  document.getElementById('filter-excluded').value = '';
+  document.getElementById('filter-count').textContent = '';
+  renderLeadsTable(dashAllRows);
 }
 </script>
 
