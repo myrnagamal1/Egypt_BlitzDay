@@ -1785,6 +1785,36 @@ setInterval(loadLeaderboard, REFRESH_INTERVAL);
   white-space:nowrap;
 }
 #dash-table tr:hover td { background:rgba(255,255,255,0.04); }
+
+/* Sticky frozen columns: Excl(1), Partner(3), Account(4) */
+#dash-table th:nth-child(1),
+#dash-table td:nth-child(1) {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: #0f1628;
+}
+#dash-table th:nth-child(3),
+#dash-table td:nth-child(3) {
+  position: sticky;
+  left: 54px;
+  z-index: 2;
+  background: #0f1628;
+}
+#dash-table th:nth-child(4),
+#dash-table td:nth-child(4) {
+  position: sticky;
+  left: 204px;
+  z-index: 2;
+  background: #0f1628;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+#dash-table tr:hover td:nth-child(1),
+#dash-table tr:hover td:nth-child(3),
+#dash-table tr:hover td:nth-child(4) { background: #1a2240; }
+#dash-table th:nth-child(1),
+#dash-table th:nth-child(3),
+#dash-table th:nth-child(4) { background: #0d1830; z-index: 3; }
 .dash-partner-row { display:flex;align-items:center;gap:14px;margin-bottom:14px; }
 .dash-partner-label { color:#fff;font-size:0.88rem;font-weight:600;width:110px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
 .dash-partner-track { flex:1;height:10px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden; }
@@ -2119,6 +2149,7 @@ function renderLeadsTable(rows) {
     { key: 'Call Summary',                        label: 'Summary' },
     { key: 'In Master List',                      label: 'Master?' },
     { key: '_ae',                                 label: 'AE' },
+    { key: '_notes',                              label: 'Notes' },
   ];
 
   if (rows.length === 0) {
@@ -2139,6 +2170,10 @@ function renderLeadsTable(rows) {
       if (c.key === '_ae') {
         const aeVal = (row['AE'] || lookupAE(row['Account Name']) || '').replace(/"/g, '&quot;');
         return `<td><input type="text" value="${aeVal}" placeholder="—" onchange="saveAE(${idx}, this.value)" style="background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.2);color:inherit;font:inherit;width:120px;padding:2px 4px;outline:none;" onfocus="this.style.borderBottomColor='var(--teal)'" onblur="this.style.borderBottomColor='rgba(255,255,255,0.2)'"></td>`;
+      }
+      if (c.key === '_notes') {
+        const notesVal = (row['_notes'] || '').replace(/"/g, '&quot;');
+        return `<td style="max-width:200px;"><input type="text" value="${notesVal}" placeholder="Add note…" onchange="saveNotes(${idx}, this.value)" style="background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.2);color:inherit;font:inherit;width:160px;padding:2px 4px;outline:none;" onfocus="this.style.borderBottomColor='var(--gold)'" onblur="this.style.borderBottomColor='rgba(255,255,255,0.2)'"></td>`;
       }
       val = row[c.key];
       if (val === null || val === undefined) val = '';
@@ -2161,6 +2196,10 @@ function renderLeadsTable(rows) {
 function saveAE(idx, value) {
   dashAllRows[idx]['AE'] = value;
   fetch(`${DASH_URL}?action=setAE&rowIndex=${idx + 1}&ae=${encodeURIComponent(value)}`);
+}
+
+function saveNotes(idx, value) {
+  dashAllRows[idx]['_notes'] = value;
 }
 
 function filterLeadsTable() {
