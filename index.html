@@ -2162,7 +2162,7 @@ function renderLeadsTable(rows) {
     { key: 'Call Summary',                        label: 'Summary' },
     { key: 'In Master List',                      label: 'Master?' },
     { key: '_ae',                                 label: 'AE' },
-    { key: '_notes',                              label: 'Notes' },
+    { key: 'Notes',                               label: 'Notes' },
   ];
 
   if (rows.length === 0) {
@@ -2184,8 +2184,8 @@ function renderLeadsTable(rows) {
         const aeVal = (row['AE'] || lookupAE(row['Account Name']) || '').replace(/"/g, '&quot;');
         return `<td><input type="text" value="${aeVal}" placeholder="—" onchange="saveAE(${idx}, this.value)" style="background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.2);color:inherit;font:inherit;width:120px;padding:2px 4px;outline:none;" onfocus="this.style.borderBottomColor='var(--teal)'" onblur="this.style.borderBottomColor='rgba(255,255,255,0.2)'"></td>`;
       }
-      if (c.key === '_notes') {
-        const notesVal = (row['_notes'] || '').replace(/"/g, '&quot;');
+      if (c.key === 'Notes') {
+        const notesVal = (row['Notes'] || row['_notes'] || '').replace(/"/g, '&quot;');
         return `<td style="max-width:200px;"><input type="text" value="${notesVal}" placeholder="Add note…" onchange="saveNotes(${idx}, this.value)" style="background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.2);color:inherit;font:inherit;width:160px;padding:2px 4px;outline:none;" onfocus="this.style.borderBottomColor='var(--gold)'" onblur="this.style.borderBottomColor='rgba(255,255,255,0.2)'"></td>`;
       }
       val = row[c.key];
@@ -2213,6 +2213,7 @@ function saveAE(idx, value) {
 
 function saveNotes(idx, value) {
   dashAllRows[idx]['_notes'] = value;
+  fetch(`${DASH_URL}?action=setNotes&rowIndex=${idx + 1}&notes=${encodeURIComponent(value)}`);
 }
 
 function filterLeadsTable() {
