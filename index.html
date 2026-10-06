@@ -1754,6 +1754,9 @@ setInterval(loadLeaderboard, REFRESH_INTERVAL);
       <select id="filter-industry" onchange="filterLeadsTable()" style="padding:7px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:#0f1628;color:#fff;font-size:0.82rem;outline:none;cursor:pointer;">
         <option value="">All Industries</option>
       </select>
+      <select id="filter-ae" onchange="filterLeadsTable()" style="padding:7px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:#0f1628;color:#fff;font-size:0.82rem;outline:none;cursor:pointer;">
+        <option value="">All AEs</option>
+      </select>
       <select id="filter-excluded" onchange="filterLeadsTable()" style="padding:7px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:#0f1628;color:#fff;font-size:0.82rem;outline:none;cursor:pointer;">
         <option value="">All Leads</option>
         <option value="active">Active only</option>
@@ -2233,30 +2236,34 @@ function saveNotes(idx, value) {
 }
 
 function populateFilterDropdowns() {
-  const partners  = [...new Set(dashAllRows.map(r => (r['Partner Name'] || '').trim()).filter(Boolean))].sort();
+  const partners   = [...new Set(dashAllRows.map(r => (r['Partner Name'] || '').trim()).filter(Boolean))].sort();
   const industries = [...new Set(dashAllRows.map(r => (r['Industry'] || '').trim()).filter(Boolean))].sort();
+  const aes        = [...new Set(dashAllRows.map(r => (r['AE'] || lookupAE(r['Account Name']) || '').trim()).filter(v => v && v !== '—'))].sort();
 
-  const pSel = document.getElementById('filter-partner');
-  const iSel = document.getElementById('filter-industry');
-  const pVal = pSel.value;
-  const iVal = iSel.value;
+  const pSel  = document.getElementById('filter-partner');
+  const iSel  = document.getElementById('filter-industry');
+  const aeSel = document.getElementById('filter-ae');
+  const pVal  = pSel.value;
+  const iVal  = iSel.value;
+  const aeVal = aeSel.value;
 
-  pSel.innerHTML = '<option value="">All Partners</option>' +
-    partners.map(p => `<option value="${p}"${p === pVal ? ' selected' : ''}>${p}</option>`).join('');
-  iSel.innerHTML = '<option value="">All Industries</option>' +
-    industries.map(i => `<option value="${i}"${i === iVal ? ' selected' : ''}>${i}</option>`).join('');
+  pSel.innerHTML  = '<option value="">All Partners</option>'  + partners.map(p  => `<option value="${p}"${p  === pVal  ? ' selected' : ''}>${p}</option>`).join('');
+  iSel.innerHTML  = '<option value="">All Industries</option>' + industries.map(i => `<option value="${i}"${i  === iVal  ? ' selected' : ''}>${i}</option>`).join('');
+  aeSel.innerHTML = '<option value="">All AEs</option>'       + aes.map(a       => `<option value="${a}"${a  === aeVal ? ' selected' : ''}>${a}</option>`).join('');
 }
 
 function filterLeadsTable() {
-  const q       = document.getElementById('dash-search').value.toLowerCase();
-  const partner = document.getElementById('filter-partner').value;
+  const q        = document.getElementById('dash-search').value.toLowerCase();
+  const partner  = document.getElementById('filter-partner').value;
   const industry = document.getElementById('filter-industry').value;
-  const excl    = document.getElementById('filter-excluded').value;
+  const excl     = document.getElementById('filter-excluded').value;
+  const ae       = document.getElementById('filter-ae').value;
 
   const filtered = dashAllRows.filter(row => {
     if (q && !Object.values(row).some(v => String(v).toLowerCase().includes(q))) return false;
     if (partner  && (row['Partner Name'] || '').trim() !== partner)  return false;
     if (industry && (row['Industry']     || '').trim() !== industry) return false;
+    if (ae && (row['AE'] || lookupAE(row['Account Name']) || '').trim() !== ae) return false;
     if (excl === 'active'   &&  row._excluded) return false;
     if (excl === 'excluded' && !row._excluded) return false;
     return true;
@@ -2272,6 +2279,7 @@ function clearLeadsFilters() {
   document.getElementById('dash-search').value = '';
   document.getElementById('filter-partner').value = '';
   document.getElementById('filter-industry').value = '';
+  document.getElementById('filter-ae').value = '';
   document.getElementById('filter-excluded').value = '';
   document.getElementById('filter-count').textContent = '';
   renderLeadsTable(dashAllRows);
